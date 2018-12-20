@@ -188,9 +188,13 @@ Get Remaining Time To Execute Next Step
   ${t_text}=  Get Text  ${TIMER_DIV}
   Set Global Variable  ${g_TIMER}  ${t_text}
 
-Visit And Click "${e_BUTTON_NAME}" Button On Proposal View Page
+Go To Newly Created Proposal View Page
+  Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
   Element Should Contain  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}
   Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
+
+Visit And Click "${e_BUTTON_NAME}" Button On Proposal View Page
+  Go To Newly Created Proposal View Page
   Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}
 
 Upload "${e_USER}" Salt File
