@@ -1,0 +1,3 @@
+*** Variables ***
+${GOVERNANCE_URL_EXT}  /#
+${GOVERNANCE_LOGIN_URL_EXT}  ${GOVERNANCE_URL_EXT}/login

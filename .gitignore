@@ -1,0 +1,8 @@
+log.html
+output.xml
+report.html
+venv/
+selenium-screenshot-*
+src/resource/custom/__pycache__/*
+src/resource/custom/*.pyc
+test/*
