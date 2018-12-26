@@ -20,8 +20,7 @@ User Submits Locked DGD
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_${e_WALLET_TYPE}_BTN}
   Wait Until Element Should Be Visible  ${GOVERNANCE_MODAL} ${IMPORT_KEYSTORE_ICON}
-  ${t_path}=  Normalize Path  ${CURDIR}/${KEYSTORE_PATH}/${e_USER_TYPE}.json
-  Choose File  css=${IMPORT_KEYSTORE_UPLOAD_BTN}  ${t_path}
+  Upload Json Wallet Based On Environment  ${e_USER_TYPE}
   User Submits Keystore Password
   Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
   User Submits Keystore Password  #sign message modal
@@ -215,3 +214,8 @@ Remove "${e_USER}" Salt File
   When "${e_USER}" Submits "json" Wallet To Locked DGD
   Then User Should Be Able To Get Started On Governance
   Wait And Click Element  ${GET_STARTED_BTN}
+
+Upload Json Wallet Based On Environment
+  [Arguments]  ${p_filename}  ${p_environment}=${ENVIRONMENT}
+  ${t_path}=  Normalize Path  ${CURDIR}/${KEYSTORE_PATH}/${p_environment}/${p_filename}.json
+  Choose File  css=${IMPORT_KEYSTORE_UPLOAD_BTN}  ${t_path}
