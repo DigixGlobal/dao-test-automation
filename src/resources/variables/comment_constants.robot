@@ -1,10 +1,12 @@
 *** Variables ***
 ${NUMBER_OF_THREADS}  11
 ${NUMBER_OF_CHILD}  7
+${NUMBER_OF_NESTED}  7
 ${ROUND_BTN}  button[class*="RoundBtn"]
+${POST_COMMENT_BTN}  button[class*="PostCommentButton"]
 ${THREAD_SECTION}  jquery=div[class*="ThreadedComments"]
 ${THREAD_FIELD}  ${THREAD_SECTION} > div > div > textarea
-${THREAD_BUTTON}  ${THREAD_SECTION} > div >  ${ROUND_BTN}
+${THREAD_BUTTON}  ${THREAD_SECTION} ${POST_COMMENT_BTN}
 ${COMMMENT_DIV}  jquery=div[class*="ParentCommentItem"]
 ${COMMENT_POST}  div[class*="CommentPost"]
 ${REPLY_ICON}  div[kind="reply"]

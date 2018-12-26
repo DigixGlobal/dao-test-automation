@@ -2,7 +2,7 @@
 Documentation    This suite will test end to end process of
 ...  creation of order up to minting
 Force Tags    smoke    regression  disabled
-Default Tags    DigixGovernanceETest
+Default Tags    DigixGovernanceETest  wallet
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
 Resource  ../../resources/keywords/governance_page.robot

@@ -123,7 +123,7 @@ User Submits Locked DGD
   Element Should Contain  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}
   Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
   Wait Until Element Should Be Visible  ${PROJECT_SUMMARY}
-  Click Element  ${PROJECT_SUMMARY} button[class*="RoundBtn"]:eq(1)  #claimFunding button
+  Click Element  ${PROJECT_SUMMARY} button[class*="RoundBtn"]:last
   User Submits Keystore Password
 
 "${e_USER}" Sets Proposal To Commplete
