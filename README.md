@@ -35,5 +35,5 @@ HTTP_ENDPOINT=http://localhost:9001/ipfs
 
 |       Test Suite     |                                              Coverage                                              |
 | -------------------- | -------------------------------------------------------------------------------------------------- |
-| DigixGovernanceETest | This suite will test end to end process of creating proposals until marking proposal to complete   |
+| DAOGovernanceETest   | This suite will test end to end process of creating proposals until marking proposal to complete   |
 | DaoCommentModuleTest | This suite will test end to end process of posting comments on newly created proposal              |

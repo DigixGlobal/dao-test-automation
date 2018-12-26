@@ -2,7 +2,7 @@
 Documentation  This suite will test end to end process of
 ...  creating proposals until marking proposal to complete
 Force Tags    smoke    regression  disabled
-Default Tags    DigixGovernanceETest  wallet
+Default Tags    DAOGovernanceETest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
 Resource  ../../resources/keywords/governance_page.robot
