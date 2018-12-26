@@ -22,29 +22,43 @@ Proposer Has Successfully Posted Multiple Threads
   When "proposer" Posts Multiple Thread On Created Proposal
   Then All Thread Comments Should Be Visible
 
-Proposer Has Successfully Posted Multiple Comments
-  Given User Is In "PROPOSAL_VIEW" Page
-  WHEN "proposer" Posts Multiple "REPLIES" To Thread "10"
-  Then All Comments Should Be Visible
+# Proposer Has Successfully Sorted Main Thread From Oldest
+#   Given User Is In "PROPOSAL_VIEW" Page
+#   When "proposer" Sorts Main Thread From "Oldest"
+#   And "proposer" Sorts Main Thread From "Latest"
+#   Then Main Thread Should Be Sorted
 
-Proposer Has Successfully Posted Multiple Nested Comments
-  Given User Is In "PROPOSAL_VIEW" Page
-  WHEN "proposer" Posts Multiple "NESTED_REPLIES" To Thread "9"
-  Then All Comments Should Be Visible
+# Proposer Has Successfully Posted Multiple Comments
+#   Given User Is In "PROPOSAL_VIEW" Page
+#   WHEN "proposer" Posts Multiple "REPLIES" To Thread "1"
+#   Then All Comments Should Be Visible
+
+# Proposer Has Successfully Posted Multiple Nested Comments
+#   Given User Is In "PROPOSAL_VIEW" Page
+#   WHEN "proposer" Posts Multiple "NESTED_REPLIES" To Thread "2"
+#   Then All Comments Should Be Visible
 
 # Participant Has Successfully Showed All Comments
-#   [Setup]  Run Keywords  User Goes Back To Goverance Dashboard
-#   ...  AND  Go To Newly Created Proposal View Page
+#   [Setup]  User Revisits Newly Created Proposal
 #   Given User Is In "PROPOSAL_VIEW" Page
-#   When User Shows All Main Thread Comments
-#   Then All Main Thread Comments Should Be Visible
-#   When User Shows All Reply Comments
-#   Then All Replies Comments Should Be Visible
-#   When User Shows All Nested Comments
-#   Then All Nested Comments Should Be Visible
+#   When "proposer" Sorts Main Thread From "Oldest"
+#   And User Shows All Main Thread Comments
+#   Then All Thread Comments Should Be Visible
+#   When "proposer" Sorts Main Thread From "Latest"
+#   And User Shows All "REPLIES" Comments
+#   Then All Comments Should Be Visible
+#   When User Shows All "NESTED_REPLIES" Comments
+#   Then All Comments Should Be Visible
 
-# Participant Has Successfully Deleted A Comment
+Participant Has Successfully Deleted A Comment
+  Given User Is In "PROPOSAL_VIEW" Page
+  When "proposer" Deletes Main Thread "0"
+  Then Main Thread "0" Messages Should Be Empty
 
-# Participant Has Successfully Liked A Comment
-
-# Participant Has Successfully Sorted Thread
+Participant Has Successfully Liked A Comment
+  Given User Is In "PROPOSAL_VIEW" Page
+  When "proposer" Likes Main Thread "1"
+  Then Main Thread "1" Should Have Like
+  When User Revisits Newly Created Proposal
+  And "proposer" Sorts Main Thread From "Latest"
+  Then Main Thread "1" Should Have Like

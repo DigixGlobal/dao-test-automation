@@ -1,8 +1,10 @@
 *** Variables ***
 ${NUMBER_OF_THREADS}  11
-${NUMBER_OF_CHILD}  7
-${NUMBER_OF_NESTED}  7
+${NUMBER_OF_REPLIES}  7
+${NUMBER_OF_NESTED_REPLIES}  4
+${REMOVE_MESSAGE}  This message has been removed by the user.
 ${ROUND_BTN}  button[class*="RoundBtn"]
+${SORTING_DD}  css=#comment-filter
 ${POST_COMMENT_BTN}  button[class*="PostCommentButton"]
 ${THREAD_SECTION}  jquery=div[class*="ThreadedComments"]
 ${THREAD_FIELD}  ${THREAD_SECTION} > div > div > textarea

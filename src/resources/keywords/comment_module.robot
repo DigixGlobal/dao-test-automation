@@ -31,7 +31,7 @@ Resource    ../variables/comment_constants.robot
   Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
   ${t_list}=  Create List
   Set Selenium Speed  ${REMOTE_SPEED}
-  :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_NESTED}
+  :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_${e_COMMENT_TYPE}}
   \  ${t_time}=  Get Time  epoch
   \  ${t_value}=  Convert To String  ${t_time} - ${index} - ${e_COMMENT_TYPE}
   \  ${t_thread_div}=  Set Variable  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
@@ -50,14 +50,34 @@ Resource    ../variables/comment_constants.robot
   Set Suite Variable  ${s_TYPE}  ${e_COMMENT_TYPE}
   Set Selenium Speed  0
 
+"${e_USER}" Sorts Main Thread From "${e_SORTING}"
+  Wait Until Element Should Be Visible  ${SORTING_DD}
+  Set Focus To Element  ${SORTING_DD}
+  ${t_text}=  Get Text  ${COMMMENT_DIV}:eq(0)
+  Set Suite Variable  ${s_THREAD_ONE_VALUE}  ${t_text}
+  Select From List By Label  ${SORTING_DD}  ${e_SORTING}
+
 User Shows All Main Thread Comments
-  Wait And Click Element  ${THREAD_SECTION} button
+  Wait Until ELement Should Be Visible  ${THREAD_SECTION} > button
+  Set Focus To Element  ${THREAD_SECTION} > button
+  Click Element  ${THREAD_SECTION} > button
 
 User Shows All "${e_COMMENT_TYPE}" Comments
-  Set Focus To Element  ${COMMMENT_DIV}:eq(${s_${e_COMMENT_TYPE}_NUMBER})
-# User Shows All Reply Comments
+  ${t_BUTTON}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${e_COMMENT_TYPE}_NUMBER}) button[class*="TextBtn"]:last
+  Wait Until ELement Should Be Visible  ${t_BUTTON}
+  Set Focus To Element  ${t_BUTTON}
+  Click Element  ${t_BUTTON}
+  Set Suite Variable  ${s_TYPE}  ${e_COMMENT_TYPE}
 
-# User Shows All Nested Comments
+"${e_USER}" Deletes Main Thread "${e_THREAD_NUMBER}"
+  Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
+  Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
+  Click Element  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [kind="trash"]
+
+"${e_USER}" Likes Main Thread "${e_THREAD_NUMBER}"
+  Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
+  Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
+  Click Element  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [kind="like"]
 
 #========#
 #  THEN  #
@@ -68,6 +88,10 @@ All Thread Comments Should Be Visible
   \  Wait Until Element Should Be Visible  ${t_div}
   \  Element Should Contain  ${t_div}  ${value}
 
+Main Thread Should Be Sorted
+  Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(0)
+  Element Should Not Contain  ${COMMMENT_DIV}:eq(0)  ${s_THREAD_ONE_VALUE}
+
 All Comments Should Be Visible
   ${t_thread_div}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${s_TYPE}_NUMBER})
   :FOR  ${index}  ${value}  IN ENUMERATE  @{s_${s_TYPE}_VALUES}
@@ -75,9 +99,34 @@ All Comments Should Be Visible
   \  Wait Until Element Should Be Visible  ${t_div}
   \  Element Should Contain  ${t_div}  ${value}
 
+Main Thread "${e_THREAD_NUMBER}" Messages Should Be Empty
+  Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
+  Element Should Contain  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})  ${REMOVE_MESSAGE}
+  Element Should Not Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [kind="trash"]
+
+Main Thread "${e_THREAD_NUMBER}" Should Have Like
+  Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
+  Set Focus To Element  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
+  Element Should Contain  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [class*="ActionCommentButton"]:eq(1)  UNLIKE
+
+#====================#
+#  INTERNAL KEYWORD  #
+#====================#
+# Set Message "${e_TYPE}" Values
+#   ${t_time}=  Get Time  epoch
+#   ${t_dict}=  Create Dictionary
+#   :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_${e_TYPE}}
+#   \  ${t_value}=  Convert To String  ${t_time} - ${index} - ${e_TYPE}
+#   \  Set To Dictionary  ${t_dict}  ${index}  ${t_value}
+#   Set Suite Variable  ${s_${e_TYPE}_INPUT_VALUES}  ${t_dict}
+
+#   :FOR  ${index}  IN   @{s_${e_TYPE}_INPUT_VALUES}
+#   \  ${t_pair}=  Get From Dictionary  ${s_${e_TYPE}_INPUT_VALUES}  ${index}
+#   \  Log  ${t_pair}
+
 #====================#
 #  SETUP / TEARDOWN  #
 #====================#
-User Goes Back To Goverance Dashboard
-  Wait And Click Element  ${MENU_HOME_ICON}
+User Revisits Newly Created Proposal
+  Wait And Click Element  ${HOME_SIDE_MENU_ICON}
   Go To Newly Created Proposal View Page
