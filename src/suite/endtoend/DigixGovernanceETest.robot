@@ -1,6 +1,6 @@
 *** Settings ***
-Documentation    This suite will test end to end process of
-...  creation of order up to minting
+Documentation  This suite will test end to end process of
+...  creating proposals until marking proposal to complete
 Force Tags    smoke    regression  disabled
 Default Tags    DigixGovernanceETest  wallet
 Suite Teardown    Close All Browsers

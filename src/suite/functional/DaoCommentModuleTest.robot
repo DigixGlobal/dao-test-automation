@@ -1,6 +1,6 @@
 *** Settings ***
-Documentation    This suite will test end to end process of
-...  creation of order up to minting
+Documentation  This suite will test end to end process of
+...  posting comments on newly created proposal
 Force Tags    smoke    regression  disabled
 Default Tags    DaoCommentModuleTest
 Suite Teardown    Close All Browsers
