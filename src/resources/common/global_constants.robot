@@ -1,14 +1,13 @@
 *** Variables ***
 ${PASSWORD}    digixtest
 ${WALLET_PASSWORD}  ${PASSWORD}
-${DAO_WALLET_PW}  digixdao
-${TIMEOUT}    5x
-${INTERVAL}    5s
+${LOCAL_DAO_WALLET_PW}  digixdao
+${KOVAN_DAO_WALLET_PW}  digixdao-kovan
+${SHORT_TIMEOUT}    5x
+${SHORT_INTERVAL}    5s
 ${LONG_TIMEOUT}  6x
 ${LONG_INTERVAL}  10s
-${EMAIL_PREFIX}  digixTemail
-${EMAIL_PROVIDER}  gmail.com
-${TIMEOUT_SEC}  20s
+${TIMEOUT_SEC}  20 seconds
 
 #test values
 ${KEYSTORE_PATH}  ../testdata/keystores

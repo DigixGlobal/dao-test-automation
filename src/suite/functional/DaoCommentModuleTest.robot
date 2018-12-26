@@ -10,26 +10,26 @@ Resource  ../../resources/keywords/comment_module.robot
 
 *** Test Cases ***
 Proposer Has Successfully Created A Proposal
-  [Setup]  "participant" Account Has Successfully Locked DGD
+  [Setup]  "proposer" Account Has Successfully Locked DGD
   Given User Is In "GOVERNANCE" Page
-  When "participant" Creates A Governance Propsosal
+  When "proposer" Creates A Governance Propsosal
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
 
-Participant Has Successfully Posted Multiple Threads
+Proposer Has Successfully Posted Multiple Threads
   Given User Is In "GOVERNANCE" Page
-  When "participant" Posts Multiple Thread On Created Proposal
+  When "proposer" Posts Multiple Thread On Created Proposal
   Then All Thread Comments Should Be Visible
 
-Participant Has Successfully Posted Multiple Comments
+Proposer Has Successfully Posted Multiple Comments
   Given User Is In "PROPOSAL_VIEW" Page
-  WHEN "participant" Posts Multiple "REPLIES" To Thread "10"
+  WHEN "proposer" Posts Multiple "REPLIES" To Thread "10"
   Then All Comments Should Be Visible
 
-Participant Has Successfully Posted Multiple Nested Comments
+Proposer Has Successfully Posted Multiple Nested Comments
   Given User Is In "PROPOSAL_VIEW" Page
-  WHEN "participant" Posts Multiple "NESTED_REPLIES" To Thread "9"
+  WHEN "proposer" Posts Multiple "NESTED_REPLIES" To Thread "9"
   Then All Comments Should Be Visible
 
 # Participant Has Successfully Showed All Comments

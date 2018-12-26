@@ -9,7 +9,7 @@ Resource    ../variables/comment_constants.robot
   Switch Browser  ${e_USER}
   Go To Newly Created Proposal View Page
   Wait Until Element Should Be Visible  ${THREAD_SECTION}
-  Set Selenium Speed  0.3 s
+  Set Selenium Speed  ${REMOTE_SPEED}
   ${t_list}=  Create List
   :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_THREADS}
   \  ${t_time}=  Get Time  epoch
@@ -30,7 +30,7 @@ Resource    ../variables/comment_constants.robot
   Wait Until Element Should Be Visible  ${THREAD_SECTION}
   Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
   ${t_list}=  Create List
-  Set Selenium Speed  0.3 s
+  Set Selenium Speed  ${REMOTE_SPEED}
   :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_NESTED}
   \  ${t_time}=  Get Time  epoch
   \  ${t_value}=  Convert To String  ${t_time} - ${index} - ${e_COMMENT_TYPE}
@@ -45,11 +45,9 @@ Resource    ../variables/comment_constants.robot
   \  Append To List  ${t_list}  ${t_value}
   Set Test Variable  ${tc_${e_COMMENT_TYPE}_VALUES}  ${t_list}
   Set Test Variable  ${tc_THREAD_DIV}  ${e_THREAD_NUMBER}
-
   Set Suite Variable  ${s_${e_COMMENT_TYPE}_VALUES}  ${t_list}
   Set Suite Variable  ${s_${e_COMMENT_TYPE}_NUMBER}  ${e_THREAD_NUMBER}
   Set Suite Variable  ${s_TYPE}  ${e_COMMENT_TYPE}
-
   Set Selenium Speed  0
 
 User Shows All Main Thread Comments

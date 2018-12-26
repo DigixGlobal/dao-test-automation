@@ -12,6 +12,7 @@ User Submits Locked DGD
   Wait And Click Element  ${LOCK_DGD_BTN}
   Wait Until Element Should Be Visible  ${LOCK_WITH_AMOUNT_BTN}
   Input Text  ${LOCK_DGD_AMOUNT_FIELD}  ${p_amount}
+  Wait Until Element Should Be Visible  ${LOCK_DGD_STATUS}
   Wait And Click Element  ${LOCK_WITH_AMOUNT_BTN}
 
 "${e_USER_TYPE}" Submits "${e_WALLET_TYPE}" Wallet To Locked DGD
@@ -19,7 +20,7 @@ User Submits Locked DGD
   Wait And Click Element  ${LOAD_WALLET_BTN}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_${e_WALLET_TYPE}_BTN}
-  Wait Until Element Should Be Visible  ${GOVERNANCE_MODAL} ${IMPORT_KEYSTORE_ICON}
+  Wait Until Element Should Be Visible  ${IMPORT_KEYSTORE_ICON} svg
   Upload Json Wallet Based On Environment  ${e_USER_TYPE}
   User Submits Keystore Password
   Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
@@ -130,7 +131,7 @@ Vote Count Should Increase
 #====================#
 User Submits Keystore Password
   Wait Until Element Should Be Visible  ${IMPORT_PASSWORD_FIELD}
-  Input Text  ${IMPORT_PASSWORD_FIELD}  ${DAO_WALLET_PW}
+  Input Text  ${IMPORT_PASSWORD_FIELD}  ${${ENVIRONMENT}_DAO__WALLET_PW}
   Wait And Click Element  ${UNLOCK_WALLET_BTN}
 
 Update Cards On "${e_TAB}" Tab
@@ -142,7 +143,7 @@ Update Cards On "${e_TAB}" Tab
 Replace Salt File According To User Role
   [Arguments]  ${p_filename}  ${p_role}
   ${t_path}=  Normalize Path  ~/Downloads/
-  Wait Until Created  ${t_path}/${p_filename}  timeout= 30 seconds
+  Wait Until Created  ${t_path}/${p_filename}  timeout=${TIMEOUT_SEC}
   Move File  ${t_path}/${p_filename}  ${t_path}/${p_role}_salt.json
 
 Hide SnackBar
@@ -176,8 +177,9 @@ Visit Newly Created Proposal And Click Next Action
 #  SETUP / TEARDOWN  #
 #====================#
 "${e_USER}" Account Has Successfully Locked DGD
-  Launch Digix Website  ${GOVERNANCE_LOGIN_URL_EXT}  ${ENVIRONMENT}  ${e_USER}
-  Given User Is In "GOVERNANCE_LOGIN" Page
+  ${t_entry}=  Set Variable If  "${ENVIRONMENT}"=="KOVAN"
+  ...  ${KOVAN_GOVERNANCE_URL_EXT}  ${GOVERNANCE_LOGIN_URL_EXT}
+  Launch Digix Website  ${t_entry}  ${ENVIRONMENT}  ${e_USER}
   When "${e_USER}" Submits "json" Wallet To Locked DGD
   Then User Should Be Able To Get Started On Governance
   Wait And Click Element  ${GET_STARTED_BTN}
@@ -185,4 +187,4 @@ Visit Newly Created Proposal And Click Next Action
 Upload Json Wallet Based On Environment
   [Arguments]  ${p_filename}  ${p_environment}=${ENVIRONMENT}
   ${t_path}=  Normalize Path  ${CURDIR}/${KEYSTORE_PATH}/${p_environment}/${p_filename}.json
-  Choose File  css=${IMPORT_KEYSTORE_UPLOAD_BTN}  ${t_path}
+  Choose File  ${IMPORT_KEYSTORE_UPLOAD_BTN}  ${t_path}

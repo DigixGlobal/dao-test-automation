@@ -14,7 +14,7 @@ ${HELP_LAUNCHER}  css=#launcher
 
 *** Keywords ***
 User Is In "${e_URL_EXT}" Page
-    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    Wait Until Keyword Succeeds    ${g_TIMEOUT}    ${g_INTERVAL}
     ...    Location Should Contain    ${${e_URL_EXT}_url_ext}
 
 User Should Be Redirected To "${e_URL_EXT}" Page
@@ -33,12 +33,12 @@ Upload TestData Image
 #====================#
 Wait Until Element Should Be Visible
     [Arguments]    ${p_locator}
-    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    Wait Until Keyword Succeeds    ${g_TIMEOUT}    ${g_INTERVAL}
     ...    Element Should Be Visible    ${p_locator}
 
 Wait Until Element Should Not Be Visible
     [Arguments]    ${p_locator}
-    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    Wait Until Keyword Succeeds    ${g_TIMEOUT}    ${g_INTERVAL}
     ...    Element Should Not Be Visible    ${p_locator}
 
 Wait And Click Element
