@@ -61,35 +61,19 @@ User Submits Locked DGD
   User Submits Keystore Password  #transaction modal
   Set Global Variable  ${g_GENERIC_VALUE}  ${t_strValue}
 
-"${e_USER}" Endorses Newly Created Proposal
-  Newly Created Proposal Should Be Visible On "Idea" Tab
-  Visit And Click "Endorse" Button On Proposal View Page
-  User Submits Keystore Password
-
-#duplicate (parent: Endorses Newly Created Proposal)
-"${e_USER}" Finalizes Created Proposal
-  Newly Created Proposal Should Be Visible On "All" Tab
-  Visit And Click "Finalize" Button On Proposal View Page
-  User Submits Keystore Password
-
 "${e_USER}" Approves Newly Drafted Proposal
   Proposal Status Should Be "DRAFT"
-  Visit And Click "Approve" Button On Proposal View Page
+  Visit Newly Created Proposal And Click Next Action
   Get Remaining Time To Execute Next Step
   Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(0)
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(2)
   User Submits Keystore Password
 
-"${e_USER}" Claims Approved Proposal
-  Newly Created Proposal Should Be Visible On "All" Tab
-  Visit And Click "Claim" Button On Proposal View Page
-  User Submits Keystore Password
-
 "${e_USER}" Votes "${e_RESPONSE}" On Proposal
   Newly Created Proposal Should Be Visible On "All" Tab
   Force Element Via jQuery  ${HELP_LAUNCHER}  hide
-  Visit And Click "Vote" Button On Proposal View Page
+  Visit Newly Created Proposal And Click Next Action
   Get Remaining Time To Execute Next Step
   Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
   Run Keyword If  "${e_RESPONSE}"=="Yes"
@@ -104,33 +88,17 @@ User Submits Locked DGD
 
 "${e_USER}" Reveals Vote Via Salt File
   Newly Created Proposal Should Be Visible On "Proposal" Tab
-  Visit And Click "Reveal" Button On Proposal View Page
+  Visit Newly Created Proposal And Click Next Action
   Get Remaining Time To Execute Next Step
-  Upload "${e_USER}" Salt File
+  "Upload" "${e_USER}" Salt File
   Wait Until Element Should Be Visible  ${NOTE_CONTAINER}
   Wait And Click Element  css=div[class*="IntroContainer"] button[class*="RoundBtn"]
-  Remove "${e_USER}" Salt File
+  "Remove" "${e_USER}" Salt File
   User Submits Keystore Password
 
-"${e_USER}" Claims Voting Result
+"${e_USER}" "${e_ACTION}" On Newly Created Proposal
   Newly Created Proposal Should Be Visible On "All" Tab
-  Visit And Click "Reveal" Button On Proposal View Page
-  User Submits Keystore Password
-
-"${e_USER}" Claims Proposal Funding
-  Newly Created Proposal Should Be Visible On "All" Tab
-  Element Should Contain  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}
-  Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
-  Wait Until Element Should Be Visible  ${PROJECT_SUMMARY}
-  Click Element  ${PROJECT_SUMMARY} button[class*="RoundBtn"]:last
-  User Submits Keystore Password
-
-"${e_USER}" Sets Proposal To Commplete
-  Newly Created Proposal Should Be Visible On "All" Tab
-  Element Should Contain  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}
-  Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
-  Wait Until Element Should Be Visible  ${PROJECT_SUMMARY}
-  Click Element  ${PROJECT_SUMMARY} button[class*="RoundBtn"]:last
+  Visit Newly Created Proposal And Click Next Action
   User Submits Keystore Password
 
 #========#
@@ -190,20 +158,19 @@ Get Remaining Time To Execute Next Step
 Go To Newly Created Proposal View Page
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
   Element Should Contain  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}
+  Hide SnackBar
   Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
 
-Visit And Click "${e_BUTTON_NAME}" Button On Proposal View Page
+Visit Newly Created Proposal And Click Next Action
   Go To Newly Created Proposal View Page
   Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}
 
-Upload "${e_USER}" Salt File
-  Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
+"${e_ACTION}" "${e_USER}" Salt File
   ${t_file}=  Normalize Path  ~/Downloads/${e_USER}_salt.json
-  Choose File  ${SALT_JSON_UPLOAD_BTN}  ${t_file}
-
-Remove "${e_USER}" Salt File
-  ${t_file}=  Normalize Path  ~/Downloads/${e_USER}_salt.json
-  Remove File  ${t_file}
+  Run Keyword If  "${e_ACTION}"=="Upload"  Run Keywords
+  ...  Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
+  ...  AND  Choose File  ${SALT_JSON_UPLOAD_BTN}  ${t_file}
+  ...  ELSE  Remove File  ${t_file}
 
 #====================#
 #  SETUP / TEARDOWN  #
