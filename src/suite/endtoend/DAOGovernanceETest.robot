@@ -23,6 +23,10 @@ Moderator Has Successfully Endorsed Newly Created Proposal
   Then User Should Be Able To Participate On Proposal
   And Proposal Status Should Be "DRAFT"
 
+Participant Has Successfully Locked DGD
+  [Setup]  "participant" Account Has Successfully Locked DGD
+  Then User Should Be Redirected To "Governance" Page
+
 Proposer Has Successfully Finalized Proposal
   [Setup]  Switch Browser  proposer
   Given User Is In "Governance" Page
@@ -42,13 +46,19 @@ Proposer Has Successfully Claimed Approved Proposal
   When "porposer" "Claims Approved Proposal" On Newly Created Proposal
   Then Proposal Status Should Be "PROPOSAL"
 
-Moderator Has Successfully Voted On Proposal
+Moderator Has Successfully Voted Yes On Proposal
   [Setup]  Switch Browser  moderator
   Given User Is In "Governance" Page
   When "moderator" Votes "Yes" On Proposal
   Then Vote Count Should Increase
 
-Proposer Has Successfully Voted On Proposal
+Participant Has Successfully Voted No On Proposal
+  [Setup]  Switch Browser  participant
+  Given User Is In "Governance" Page
+  When "participant" Votes "No" On Proposal
+  Then Vote Count Should Increase
+
+Proposer Has Successfully Voted Yes On Proposal
   [Setup]  Switch Browser  proposer
   Given User Is In "Governance" Page
   When "proposer" Votes "Yes" On Proposal
@@ -59,6 +69,12 @@ Moderator Has Successfully Revealed Vote To Proposal
   ...  AND  Switch Browser  moderator
   Given User Is In "Governance" Page
   When "moderator" Reveals Vote Via Salt File
+  Then Vote Count Should Increase
+
+Participant Has Successfully Revealed Vote To Proposal
+  [Setup]  Switch Browser  participant
+  Given User Is In "Governance" Page
+  When "participant" Reveals Vote Via Salt File
   Then Vote Count Should Increase
 
 Proposer Has Successfully Revealed Vote To Proposal
