@@ -3,6 +3,7 @@ Library     Collections
 Library     OperatingSystem
 Library     String
 Library     SeleniumLibrary
+Library     ../custom/internal_json.py
 Resource    launcher.robot
 Resource    global_constants.robot
 Resource    ../variables/url_extension.robot

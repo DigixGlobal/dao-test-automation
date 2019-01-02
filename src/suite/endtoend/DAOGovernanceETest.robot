@@ -71,8 +71,15 @@ Moderator Has Successfully Revealed Vote To Proposal
   When "moderator" Reveals Vote Via Salt File
   Then Vote Count Should Increase
 
-Participant Has Successfully Revealed Vote To Proposal
+Participant Has Not Successfully Voted Using Modified Salt File
   [Setup]  Switch Browser  participant
+  Given User Is In "Governance" Page
+  When "participant" Uploads Modified Salt File
+  Then Snackbox Should Contain "VM Exception"
+
+Participant Has Successfully Revealed Vote To Proposal
+  [Setup]  Run Keywords  Go Back To Dashboard Page
+  ...  AND  Switch Browser  participant
   Given User Is In "Governance" Page
   When "participant" Reveals Vote Via Salt File
   Then Vote Count Should Increase

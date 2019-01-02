@@ -93,9 +93,21 @@ User Submits Locked DGD
   Get Remaining Time To Execute Next Step
   "Upload" "${e_USER}" Salt File
   Wait Until Element Should Be Visible  ${NOTE_CONTAINER}
-  Wait And Click Element  css=div[class*="IntroContainer"] button[class*="RoundBtn"]
+  Wait And Click Element  css=div[class*="IntroContainer"] ${ROUND_BTN}
   "Remove" "${e_USER}" Salt File
   User Submits Keystore Password
+
+"${e_USER}" Uploads Modified Salt File
+  ${t_path}=  Normalize Path  ~/Downloads/
+  ${t_content}=  Load Json From File  ${t_path}/${e_USER}${SALT_FILE_EXT}
+  ${t_vote}=  Get Value From Json  ${t_content}  vote
+  ${t_invert}=  Set Variable If  "${t_vote}"=="${true}"
+  ...  false  true
+  ${t_new}=  Update Value To Json  ${t_content}  vote  ${t_invert}
+  ${t_write}=  Convert JSON To String  ${t_new}
+  Append To File  ${t_path}/${e_USER}_modified${SALT_FILE_EXT}  ${t_write}  encoding=UTF-8
+  ${t_user}=  Set Variable  ${e_USER}_modified
+  "${t_user}" Reveals Vote Via Salt File
 
 "${e_USER}" "${e_ACTION}" On Newly Created Proposal
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -126,6 +138,10 @@ Vote Count Should Increase
   Newly Created Proposal Should Be Visible On "All" Tab
   # Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
 
+Snackbox Should Contain "${e_MESSAGE}"
+  # Wait Until Element Is Visible  ${SNACK_BAR_DIV}  timeout=${TIMEOUT_SEC}
+  Wait Until Element Contains  ${SNACK_BAR_DIV}  ${e_MESSAGE}  timeout=${TIMEOUT_SEC}
+
 #====================#
 #  INTERNAL KEYWORD  #
 #====================#
@@ -144,7 +160,7 @@ Replace Salt File According To User Role
   [Arguments]  ${p_filename}  ${p_role}
   ${t_path}=  Normalize Path  ~/Downloads/
   Wait Until Created  ${t_path}/${p_filename}  timeout=${TIMEOUT_SEC}
-  Move File  ${t_path}/${p_filename}  ${t_path}/${p_role}_salt.json
+  Move File  ${t_path}/${p_filename}  ${t_path}/${p_role}${SALT_FILE_EXT}
 
 Hide SnackBar
   ${t_bar}=  Get Matching Locator Count  ${SNACK_BAR_DIV}
@@ -167,7 +183,7 @@ Visit Newly Created Proposal And Click Next Action
   Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}
 
 "${e_ACTION}" "${e_USER}" Salt File
-  ${t_file}=  Normalize Path  ~/Downloads/${e_USER}_salt.json
+  ${t_file}=  Normalize Path  ~/Downloads/${e_USER}${SALT_FILE_EXT}
   Run Keyword If  "${e_ACTION}"=="Upload"  Run Keywords
   ...  Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
   ...  AND  Choose File  ${SALT_JSON_UPLOAD_BTN}  ${t_file}
@@ -188,3 +204,7 @@ Upload Json Wallet Based On Environment
   [Arguments]  ${p_filename}  ${p_environment}=${ENVIRONMENT}
   ${t_path}=  Normalize Path  ${CURDIR}/${KEYSTORE_PATH}/${p_environment}/${p_filename}.json
   Choose File  ${IMPORT_KEYSTORE_UPLOAD_BTN}  ${t_path}
+
+Go Back To Dashboard Page
+  Wait And Click Element  ${HOME_SIDE_MENU_ICON}
+  Wait Until Element Should Be Visible  ${GOVERNANCE_FILTER_SECTION}

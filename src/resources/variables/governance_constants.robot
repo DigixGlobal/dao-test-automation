@@ -1,4 +1,6 @@
 *** Variables ***
+#constants
+${SALT_FILE_EXT}  _salt.json
 #side-menu
 ${SIDE_MENU_DIV}  css=ul[class*="MenuList"]
 ${HOME_SIDE_MENU_ICON}  css=div[kind="home"]
@@ -8,7 +10,7 @@ ${ACTIVITY_SIDE_MENU_ICON}  css=div[kind="activity"]
 # ${HISTORY_SIDE_MENU_ICON}
 # ${HELP_SIDE_MENU_ICON}
 #generic
-${SNACK_BAR_DIV}  css=div[class*="SnackbarContainer"]
+${SNACK_BAR_DIV}  jquery=div[class*="SnackbarContainer"]
 ${ROUND_BTN}  button[class*="RoundBtn"]
 ${TIMER_DIV}  css=div[class*="QuorumInfoCol"]
 ${GOVERNANCE_MENU}  css=section[class*="HeaderWrapper"]
@@ -43,7 +45,6 @@ ${WALLET_JSON_BTN}  div[kind="json"]
 # import wallet modal
 # ${IMPORT_KEYSTORE_ICON}  svg[class*="ImportKeystore-walletIcon"]
 ${IMPORT_KEYSTORE_ICON}  css=#alert-dialog-title
-# ${IMPORT_KEYSTORE_FORM}  div[class*="ImportKeystoreForm"]
 ${IMPORT_KEYSTORE_UPLOAD_BTN}  ${IMPORT_KEYSTORE_ICON} + div input[type="file"]
 ${IMPORT_PASSWORD_FIELD}  css=input[id="name-simple"][type="password"]
 ${UNLOCK_WALLET_BTN}  ${MODAL_ACTIONS} button:eq(1)
