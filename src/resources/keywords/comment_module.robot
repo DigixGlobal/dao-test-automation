@@ -107,7 +107,7 @@ Main Thread "${e_THREAD_NUMBER}" Messages Should Be Empty
 Main Thread "${e_THREAD_NUMBER}" Should Have Like
   Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
   Set Focus To Element  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
-  Element Should Contain  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [class*="ActionCommentButton"]:eq(1)  UNLIKE
+  Element Should Contain  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [class*="ActionCommentButton"]:eq(1)  1
 
 #====================#
 #  INTERNAL KEYWORD  #

@@ -78,17 +78,17 @@ User Submits Locked DGD
   Get Remaining Time To Execute Next Step
   Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
   Run Keyword If  "${e_RESPONSE}"=="Yes"
-  ...  Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(0)
+  ...  Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(0)  #Yes vote button
   ...  ELSE IF  "${e_RESPONSE}"=="No"
-  ...  Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(1)
+  ...  Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(1)  #No vote button
   ${t_salt}=  Get Element Attribute  ${GOVERNANCE_SIDE_PANEL} a:eq(0)  download
-  Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} a:eq(0)
-  Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(3)
+  Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} a:eq(0)  #Download Json File button
+  Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(2)  #confirm commit button
   Replace Salt File According To User Role  ${t_salt}  ${e_USER}
   User Submits Keystore Password
 
 "${e_USER}" Reveals Vote Via Salt File
-  Newly Created Proposal Should Be Visible On "Proposal" Tab
+  Newly Created Proposal Should Be Visible On "All" Tab
   Visit Newly Created Proposal And Click Next Action
   Get Remaining Time To Execute Next Step
   "Upload" "${e_USER}" Salt File
