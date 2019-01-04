@@ -58,9 +58,12 @@ Resource    ../variables/comment_constants.robot
   Select From List By Label  ${SORTING_DD}  ${e_SORTING}
 
 User Shows All Main Thread Comments
+  ${t_default}=  Get Selenium Speed
+  Set Selenium Speed  0.2 s
   Wait Until ELement Should Be Visible  ${THREAD_SECTION} > button
   Set Focus To Element  ${THREAD_SECTION} > button
   Click Element  ${THREAD_SECTION} > button
+  Set Selenium Speed  ${t_default}
 
 User Shows All "${e_COMMENT_TYPE}" Comments
   ${t_BUTTON}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${e_COMMENT_TYPE}_NUMBER}) button[class*="TextBtn"]:last
@@ -86,43 +89,28 @@ All Thread Comments Should Be Visible
   :FOR  ${index}  ${value}  IN ENUMERATE  @{g_THREAD_VALUES}
   \  ${t_div}=  Set Variable  ${COMMMENT_DIV}:eq(${index}) ${COMMENT_POST}
   \  Wait Until Element Should Be Visible  ${t_div}
-  \  Element Should Contain  ${t_div}  ${value}
+  \  Wait Until ELement Should Contain  ${t_div}  ${value}
 
 Main Thread Should Be Sorted
   Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(0)
-  Element Should Not Contain  ${COMMMENT_DIV}:eq(0)  ${s_THREAD_ONE_VALUE}
+  Wait Until ELement Should Contain  ${COMMMENT_DIV}:eq(0)  ${s_THREAD_ONE_VALUE}
 
 All Comments Should Be Visible
   ${t_thread_div}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${s_TYPE}_NUMBER})
   :FOR  ${index}  ${value}  IN ENUMERATE  @{s_${s_TYPE}_VALUES}
   \  ${t_div}=  Set Variable  ${t_thread_div} ${COMMENT_REPLY} ${COMMENT_POST}:eq(${index})
   \  Wait Until Element Should Be Visible  ${t_div}
-  \  Element Should Contain  ${t_div}  ${value}
+  \  Wait Until ELement Should Contain  ${t_div}  ${value}
 
 Main Thread "${e_THREAD_NUMBER}" Messages Should Be Empty
   Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
-  Element Should Contain  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})  ${REMOVE_MESSAGE}
+  Wait Until ELement Should Contain  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})  ${REMOVE_MESSAGE}
   Element Should Not Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [kind="trash"]
 
 Main Thread "${e_THREAD_NUMBER}" Should Have Like
   Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
   Set Focus To Element  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
-  Element Should Contain  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [class*="ActionCommentButton"]:eq(1)  1
-
-#====================#
-#  INTERNAL KEYWORD  #
-#====================#
-# Set Message "${e_TYPE}" Values
-#   ${t_time}=  Get Time  epoch
-#   ${t_dict}=  Create Dictionary
-#   :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_${e_TYPE}}
-#   \  ${t_value}=  Convert To String  ${t_time} - ${index} - ${e_TYPE}
-#   \  Set To Dictionary  ${t_dict}  ${index}  ${t_value}
-#   Set Suite Variable  ${s_${e_TYPE}_INPUT_VALUES}  ${t_dict}
-
-#   :FOR  ${index}  IN   @{s_${e_TYPE}_INPUT_VALUES}
-#   \  ${t_pair}=  Get From Dictionary  ${s_${e_TYPE}_INPUT_VALUES}  ${index}
-#   \  Log  ${t_pair}
+  Wait Until ELement Should Contain  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [class*="ActionCommentButton"]:eq(1)  1
 
 #====================#
 #  SETUP / TEARDOWN  #

@@ -5,8 +5,6 @@ Resource    ../variables/governance_constants.robot
 #========#
 #  WHEN  #
 #========#
-
-
 User Submits Locked DGD
   [Arguments]  ${p_amount}=${LOCKED_DGD_AMOUNT}
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
@@ -69,7 +67,7 @@ User Submits Locked DGD
   Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(0)
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(2)
-  User Submits Keystore Password
+  User Submits Keystore Password  #transaction modal
 
 "${e_USER}" Votes "${e_RESPONSE}" On Proposal
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -93,16 +91,15 @@ User Submits Locked DGD
   Get Remaining Time To Execute Next Step
   "Upload" "${e_USER}" Salt File
   Wait Until Element Should Be Visible  ${NOTE_CONTAINER}
-  Wait And Click Element  css=div[class*="IntroContainer"] ${ROUND_BTN}
+  Wait And Click Element  ${GOVERNANCE_SIDENAR_DIV} ${ROUND_BTN}
   "Remove" "${e_USER}" Salt File
-  User Submits Keystore Password
+  User Submits Keystore Password  #transaction modal
 
 "${e_USER}" Uploads Modified Salt File
   ${t_path}=  Normalize Path  ~/Downloads/
   ${t_content}=  Load Json From File  ${t_path}/${e_USER}${SALT_FILE_EXT}
   ${t_vote}=  Get Value From Json  ${t_content}  vote
-  ${t_invert}=  Set Variable If  "${t_vote}"=="${true}"
-  ...  false  true
+  ${t_invert}=  Set Variable If  "${t_vote}"=="${true}"  false  true
   ${t_new}=  Update Value To Json  ${t_content}  vote  ${t_invert}
   ${t_write}=  Convert JSON To String  ${t_new}
   Append To File  ${t_path}/${e_USER}_modified${SALT_FILE_EXT}  ${t_write}  encoding=UTF-8
@@ -112,7 +109,7 @@ User Submits Locked DGD
 "${e_USER}" "${e_ACTION}" On Newly Created Proposal
   Newly Created Proposal Should Be Visible On "All" Tab
   Visit Newly Created Proposal And Click Next Action
-  User Submits Keystore Password
+  User Submits Keystore Password  #transaction modal
 
 #========#
 #  THEN  #
@@ -131,7 +128,7 @@ Newly Created Proposal Should Be Visible On "${e_TAB}" Tab
 
 Repeat Until Newly Created Project Is On "${e_TAB}" Tab
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
-  :FOR  ${index}  IN RANGE  0  10
+  :FOR  ${index}  IN RANGE  0  5
   \  ${t_status}=  Run Keyword And Return Status
   ...  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}  timeout= 5 seconds
   \  Run Keyword If  ${t_status}
@@ -145,7 +142,7 @@ User Should Be Able To Participate On Proposal
 Proposal Status Should Be "${e_STATUS}"
   Newly Created Proposal Should Be Visible On "All" Tab
   Run Keyword If  '${ENVIRONMENT}'!='KOVAN'  #temporary
-  ...  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_STATUS_BTN}  ${e_STATUS}  timeout=${g_TIMEOUT_SEC}
+  ...  Wait Until ELement Should Contain  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_STATUS_BTN}  ${e_STATUS}
 
 Vote Count Should Increase
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -153,13 +150,13 @@ Vote Count Should Increase
 
 Snackbox Should Contain "${e_MESSAGE}"
   # Wait Until Element Is Visible  ${SNACK_BAR_DIV}  timeout=${TIMEOUT_SEC}
-  Wait Until Element Contains  ${SNACK_BAR_DIV}  ${e_MESSAGE}  timeout=${g_TIMEOUT_SEC}
+  Wait Until ELement Should Contain  ${SNACK_BAR_DIV}  ${e_MESSAGE}
 
 #====================#
 #  INTERNAL KEYWORD  #
 #====================#
 User Submits Keystore Password
-  Wait Until Element Is Visible  ${IMPORT_PASSWORD_FIELD}  timeout=${g_TIMEOUT_SEC}
+  Wait Until Element Should Be Visible  ${IMPORT_PASSWORD_FIELD}
   Input Text  ${IMPORT_PASSWORD_FIELD}  ${${ENVIRONMENT}_DAO__WALLET_PW}
   Wait And Click Element  ${UNLOCK_WALLET_BTN}
 
@@ -187,7 +184,7 @@ Get Remaining Time To Execute Next Step
 
 Go To Newly Created Proposal View Page
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
-  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}  timeout=${g_TIMEOUT_SEC}
+  Wait Until ELement Should Contain  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}
   Hide SnackBar
   Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
 
@@ -207,7 +204,7 @@ Visit Newly Created Proposal And Click Next Action
   Wait And Click Element  ${LOAD_WALLET_BTN}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_${e_WALLET_TYPE}_BTN}
-  Wait Until Element Is Visible  ${IMPORT_KEYSTORE_ICON} svg  timeout=${g_TIMEOUT_SEC}
+  Wait Until Element Should Be Visible  ${IMPORT_KEYSTORE_ICON} svg
   Run Keyword If  "${e_WALLET_TYPE}"=="json"
   ...  Upload Json Wallet Based On Environment  ${e_USER}
 #====================#
@@ -227,12 +224,12 @@ Visit Newly Created Proposal And Click Next Action
   Launch Digix Website  ${t_entry}  ${ENVIRONMENT}  ${e_USER}
   "${e_USER}" Uploads "${e_WALLET_TYPE}" Wallet
   User Submits Keystore Password
-  Wait Until Element Is Visible  ${MESSAGE_SIGNER_FORM}  timeout=${g_TIMEOUT_SEC}
+  Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
   User Submits Keystore Password  #sign message modal
-  Wait Until Element Is Not Visible  ${GOVERNANCE_MODAL}  timeout=${g_TIMEOUT_SEC}
-  Wait Until Element Is Visible  ${ADDRESS_INFO_SIDEBAR}  timeout=${g_TIMEOUT_SEC}
+  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
+  Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
   Click Element  ${CLOSE_ICON}
-  Wait Until Element Is Not Visible  ${GOVERNANCE_MODAL}  timeout=${g_TIMEOUT_SEC}
+  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
 
 Upload Json Wallet Based On Environment
   [Arguments]  ${p_filename}  ${p_environment}=${ENVIRONMENT}

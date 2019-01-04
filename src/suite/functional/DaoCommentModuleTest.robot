@@ -10,7 +10,7 @@ Resource  ../../resources/keywords/comment_module.robot
 
 *** Test Cases ***
 Proposer Has Successfully Created A Proposal
-  [Setup]  "proposer" Account Has Successfully Locked DGD
+  [Setup]  "proposer" Account Has Successfully Logged In To DigixDao Using "json"
   Given User Is In "GOVERNANCE" Page
   When "proposer" Creates A Governance Propsosal
   Then User Should Be Redirected To "GOVERNANCE" Page
@@ -38,27 +38,27 @@ Proposer Has Successfully Posted Multiple Nested Comments
   WHEN "proposer" Posts Multiple "NESTED_REPLIES" To Thread "2"
   Then All Comments Should Be Visible
 
-Proposer Has Successfully Showed All Comments
-  [Setup]  User Revisits Newly Created Proposal
-  Given User Is In "PROPOSAL_VIEW" Page
-  When "proposer" Sorts Main Thread From "Oldest"
-  And User Shows All Main Thread Comments
-  Then All Thread Comments Should Be Visible
-  When "proposer" Sorts Main Thread From "Latest"
-  And User Shows All "REPLIES" Comments
-  Then All Comments Should Be Visible
-  When User Shows All "NESTED_REPLIES" Comments
-  Then All Comments Should Be Visible
+# Proposer Has Successfully Showed All Comments
+#   [Setup]  User Revisits Newly Created Proposal
+#   Given User Is In "PROPOSAL_VIEW" Page
+#   When "proposer" Sorts Main Thread From "Oldest"
+#   And User Shows All Main Thread Comments
+#   Then All Thread Comments Should Be Visible
+#   When "proposer" Sorts Main Thread From "Latest"
+#   And User Shows All "REPLIES" Comments
+#   Then All Comments Should Be Visible
+#   When User Shows All "NESTED_REPLIES" Comments
+#   Then All Comments Should Be Visible
 
 Proposer Has Successfully Deleted A Comment
   Given User Is In "PROPOSAL_VIEW" Page
   When "proposer" Deletes Main Thread "0"
   Then Main Thread "0" Messages Should Be Empty
 
-Proposer Has Successfully Liked A Comment
-  Given User Is In "PROPOSAL_VIEW" Page
-  When "proposer" Likes Main Thread "1"
-  Then Main Thread "1" Should Have Like
-  When User Revisits Newly Created Proposal
-  And "proposer" Sorts Main Thread From "Latest"
-  Then Main Thread "1" Should Have Like
+# Proposer Has Successfully Liked A Comment
+#   Given User Is In "PROPOSAL_VIEW" Page
+#   When "proposer" Likes Main Thread "1"
+#   Then Main Thread "1" Should Have Like
+#   When User Revisits Newly Created Proposal
+#   And "proposer" Sorts Main Thread From "Latest"
+#   Then Main Thread "1" Should Have Like

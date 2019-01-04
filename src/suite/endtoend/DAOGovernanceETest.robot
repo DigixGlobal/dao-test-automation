@@ -3,7 +3,7 @@ Documentation  This suite will test end to end process of
 ...  creating proposals until marking proposal to complete
 Force Tags    smoke    regression  disabled
 Default Tags    DAOGovernanceETest
-# Suite Teardown    Close All Browsers
+Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
 Resource  ../../resources/keywords/governance_page.robot
 
@@ -20,7 +20,7 @@ Moderator Has Successfully Endorsed Newly Created Proposal
   [Setup]  "moderator" Account Has Successfully Logged In To DigixDao Using "json"
   Given User Is In "GOVERNANCE" Page
   When "moderator" "Endorses Proposal" On Newly Created Proposal
-  # Then User Should Be Able To Participate On Proposal
+  Then User Should Be Able To Participate On Proposal
   And Proposal Status Should Be "DRAFT"
 
 Participant Has Successfully Locked DGD
