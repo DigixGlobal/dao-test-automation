@@ -61,6 +61,9 @@ User Submits Locked DGD
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
   User Submits Keystore Password  #transaction modal
   Set Global Variable  ${g_GENERIC_VALUE}  ${t_strValue}
+  Run Keyword If  '${ENVIRONMENT}'=='KOVAN'  Run Keywords
+  ...  Log To Console  sleep the test due to it runs on ${ENVIRONMENT} for  60 seconds
+  ...  AND  Sleep  60 seconds
 
 "${e_USER}" Approves Newly Drafted Proposal
   Proposal Status Should Be "DRAFT"
@@ -123,12 +126,24 @@ User Should Be Able To Get Started On Governance
 
 Newly Created Proposal Should Be Visible On "${e_TAB}" Tab
   Update Cards On "${e_TAB}" Tab
+  ${t_speed}=  Get Selenium Speed
+  Run Keyword If  "${ENVIRONMENT}"=="KOVAN"
+  ...  Set Selenium Speed  0.5 s
+  Repeat Until Newly Created Project Is On "${e_TAB}" Tab
+  Set Selenium Speed  ${t_speed}
+
+Repeat Until Newly Created Project Is On "${e_TAB}" Tab
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
-  Element Should Contain  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}
+  :FOR  ${index}  IN RANGE  0  10
+  \  ${t_status}=  Run Keyword And Return Status
+  ...  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}  timeout= 5 seconds
+  \  Run Keyword If  ${t_status}
+  ...  Exit For Loop
+  ...  ELSE  Update Cards On "${e_TAB}" Tab
 
 User Should Be Able To Participate On Proposal
   Newly Created Proposal Should Be Visible On "All" Tab
-  Wait Until Element Is Enabled  ${PROPOSAL_CARD}:eq(0) ${PARTICIPATE_BTN}
+  # Wait Until Element Is Enabled  ${PROPOSAL_CARD}:eq(0) ${PARTICIPATE_BTN}
 
 Proposal Status Should Be "${e_STATUS}"
   Newly Created Proposal Should Be Visible On "All" Tab

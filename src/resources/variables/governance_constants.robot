@@ -16,7 +16,7 @@ ${TIMER_DIV}  css=div[class*="QuorumInfoCol"]
 ${GOVERNANCE_MENU}  css=section[class*="HeaderWrapper"]
 ${GOVERNANCE_SIDENAR_DIV}  jquery=div[class*="IntroContainer"]
 ${GOVERNANCE_BTN}  button[class*="RoundBtn"]
-${GOVERNANCE_SIDE_PANEL}  jquery=div[class*="PanelContainer"]
+${GOVERNANCE_SIDE_PANEL}  ${GOVERNANCE_SIDENAR_DIV}
 #header
 ${ADDRESS_LABEL}  ${GOVERNANCE_MENU} div[class*="AddressLabel"]
 #modal
