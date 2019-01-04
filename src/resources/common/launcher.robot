@@ -28,5 +28,8 @@ Set Timeout Dependent On Environment
   ...  ${SHORT_TIMEOUT}  ${LONG_TIMEOUT}
   ${t_interval}=  Set Variable If  "${ENVIRONMENT}"=="${LOCAL_LABEL}"
   ...  ${SHORT_INTERVAL}  ${LONG_INTERVAL}
+  ${t_timeout_sec}=  Set Variable If  "${ENVIRONMENT}"=="${LOCAL_LABEL}"
+  ...  ${TIMEOUT_SEC}  ${LONG_TIMEOUT_SEC}
   Set Global Variable  ${g_TIMEOUT}  ${t_timeout}
   Set Global Variable  ${g_INTERVAL}  ${t_interval}
+  Set Global Variable  ${g_TIMEOUT_SEC}  ${t_timeout_sec}

@@ -34,17 +34,15 @@ Upload TestData Image
 #====================#
 Wait Until Element Should Be Visible
     [Arguments]    ${p_locator}
-    Wait Until Keyword Succeeds    ${g_TIMEOUT}    ${g_INTERVAL}
-    ...    Element Should Be Visible    ${p_locator}
+    Wait Until Element Is Visible  ${p_locator}  timeout=${g_TIMEOUT_SEC}
 
 Wait Until Element Should Not Be Visible
     [Arguments]    ${p_locator}
-    Wait Until Keyword Succeeds    ${g_TIMEOUT}    ${g_INTERVAL}
-    ...    Element Should Not Be Visible    ${p_locator}
+    Wait Until Element Is Not Visible  ${p_locator}  timeout=${g_TIMEOUT_SEC}
 
 Wait And Click Element
     [Arguments]  ${p_locator}
-    Wait Until Element Should Be Visible  ${p_locator}
+    Wait Until Element Is Visible  ${p_locator}  timeout=${g_TIMEOUT_SEC}
     Set Focus To Element  ${p_locator}
     Click Element  ${p_locator}
 

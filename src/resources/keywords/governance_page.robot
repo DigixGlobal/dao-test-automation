@@ -5,6 +5,8 @@ Resource    ../variables/governance_constants.robot
 #========#
 #  WHEN  #
 #========#
+
+
 User Submits Locked DGD
   [Arguments]  ${p_amount}=${LOCKED_DGD_AMOUNT}
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
@@ -16,12 +18,7 @@ User Submits Locked DGD
   Wait And Click Element  ${LOCK_WITH_AMOUNT_BTN}
 
 "${e_USER_TYPE}" Submits "${e_WALLET_TYPE}" Wallet To Locked DGD
-  Load JQuery Tool
-  Wait And Click Element  ${LOAD_WALLET_BTN}
-  Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
-  Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_${e_WALLET_TYPE}_BTN}
-  Wait Until Element Should Be Visible  ${IMPORT_KEYSTORE_ICON} svg
-  Upload Json Wallet Based On Environment  ${e_USER_TYPE}
+  "${e_USER_TYPE}" Uploads "${e_WALLET_TYPE}" Wallet
   User Submits Keystore Password
   Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
   User Submits Keystore Password  #sign message modal
@@ -147,7 +144,8 @@ User Should Be Able To Participate On Proposal
 
 Proposal Status Should Be "${e_STATUS}"
   Newly Created Proposal Should Be Visible On "All" Tab
-  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_STATUS_BTN}  ${e_STATUS}  timeout=${TIMEOUT_SEC}
+  Run Keyword If  '${ENVIRONMENT}'!='KOVAN'  #temporary
+  ...  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_STATUS_BTN}  ${e_STATUS}  timeout=${g_TIMEOUT_SEC}
 
 Vote Count Should Increase
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -155,13 +153,13 @@ Vote Count Should Increase
 
 Snackbox Should Contain "${e_MESSAGE}"
   # Wait Until Element Is Visible  ${SNACK_BAR_DIV}  timeout=${TIMEOUT_SEC}
-  Wait Until Element Contains  ${SNACK_BAR_DIV}  ${e_MESSAGE}  timeout=${TIMEOUT_SEC}
+  Wait Until Element Contains  ${SNACK_BAR_DIV}  ${e_MESSAGE}  timeout=${g_TIMEOUT_SEC}
 
 #====================#
 #  INTERNAL KEYWORD  #
 #====================#
 User Submits Keystore Password
-  Wait Until Element Should Be Visible  ${IMPORT_PASSWORD_FIELD}
+  Wait Until Element Is Visible  ${IMPORT_PASSWORD_FIELD}  timeout=${g_TIMEOUT_SEC}
   Input Text  ${IMPORT_PASSWORD_FIELD}  ${${ENVIRONMENT}_DAO__WALLET_PW}
   Wait And Click Element  ${UNLOCK_WALLET_BTN}
 
@@ -174,7 +172,7 @@ Update Cards On "${e_TAB}" Tab
 Replace Salt File According To User Role
   [Arguments]  ${p_filename}  ${p_role}
   ${t_path}=  Normalize Path  ~/Downloads/
-  Wait Until Created  ${t_path}/${p_filename}  timeout=${TIMEOUT_SEC}
+  Wait Until Created  ${t_path}/${p_filename}  timeout=${g_TIMEOUT_SEC}
   Move File  ${t_path}/${p_filename}  ${t_path}/${p_role}${SALT_FILE_EXT}
 
 Hide SnackBar
@@ -189,7 +187,7 @@ Get Remaining Time To Execute Next Step
 
 Go To Newly Created Proposal View Page
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
-  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}  timeout=${TIMEOUT_SEC}
+  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}  timeout=${g_TIMEOUT_SEC}
   Hide SnackBar
   Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
 
@@ -204,6 +202,14 @@ Visit Newly Created Proposal And Click Next Action
   ...  AND  Choose File  ${SALT_JSON_UPLOAD_BTN}  ${t_file}
   ...  ELSE  Remove File  ${t_file}
 
+"${e_USER}" Uploads "${e_WALLET_TYPE}" Wallet
+  Load JQuery Tool
+  Wait And Click Element  ${LOAD_WALLET_BTN}
+  Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
+  Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_${e_WALLET_TYPE}_BTN}
+  Wait Until Element Is Visible  ${IMPORT_KEYSTORE_ICON} svg  timeout=${g_TIMEOUT_SEC}
+  Run Keyword If  "${e_WALLET_TYPE}"=="json"
+  ...  Upload Json Wallet Based On Environment  ${e_USER}
 #====================#
 #  SETUP / TEARDOWN  #
 #====================#
@@ -211,9 +217,22 @@ Visit Newly Created Proposal And Click Next Action
   ${t_entry}=  Set Variable If  "${ENVIRONMENT}"=="KOVAN"
   ...  ${KOVAN_GOVERNANCE_URL_EXT}  ${GOVERNANCE_LOGIN_URL_EXT}
   Launch Digix Website  ${t_entry}  ${ENVIRONMENT}  ${e_USER}
-  When "${e_USER}" Submits "json" Wallet To Locked DGD
+  "${e_USER}" Submits "json" Wallet To Locked DGD
   Then User Should Be Able To Get Started On Governance
   Wait And Click Element  ${GET_STARTED_BTN}
+
+"${e_USER}" Account Has Successfully Logged In To DigixDao Using "${e_WALLET_TYPE}"
+   ${t_entry}=  Set Variable If  "${ENVIRONMENT}"=="KOVAN"
+  ...  ${KOVAN_GOVERNANCE_URL_EXT}  ${GOVERNANCE_LOGIN_URL_EXT}
+  Launch Digix Website  ${t_entry}  ${ENVIRONMENT}  ${e_USER}
+  "${e_USER}" Uploads "${e_WALLET_TYPE}" Wallet
+  User Submits Keystore Password
+  Wait Until Element Is Visible  ${MESSAGE_SIGNER_FORM}  timeout=${g_TIMEOUT_SEC}
+  User Submits Keystore Password  #sign message modal
+  Wait Until Element Is Not Visible  ${GOVERNANCE_MODAL}  timeout=${g_TIMEOUT_SEC}
+  Wait Until Element Is Visible  ${ADDRESS_INFO_SIDEBAR}  timeout=${g_TIMEOUT_SEC}
+  Click Element  ${CLOSE_ICON}
+  Wait Until Element Is Not Visible  ${GOVERNANCE_MODAL}  timeout=${g_TIMEOUT_SEC}
 
 Upload Json Wallet Based On Environment
   [Arguments]  ${p_filename}  ${p_environment}=${ENVIRONMENT}

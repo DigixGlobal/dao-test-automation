@@ -25,6 +25,7 @@ ${GOVERNANCE_MODAL}  jquery=div[role="document"]
 ${MODAL_ACTIONS}  ${GOVERNANCE_MODAL} > div:last
 
 # sidebar
+${CLOSE_ICON}  jquery=[class*="CloseButton"] svg
 ${LOAD_WALLET_BTN}  ${GOVERNANCE_MENU} ${GOVERNANCE_BTN}
 ${LOAD_WALLET_SIDEBAR_BUTTON}  ${GOVERNANCE_SIDENAR_DIV} ${GOVERNANCE_BTN}
 ${ADDRESS_INFO_SIDEBAR}  css=[class*="AddressInfo"]
