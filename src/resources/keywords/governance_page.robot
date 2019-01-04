@@ -62,7 +62,7 @@ User Submits Locked DGD
   User Submits Keystore Password  #transaction modal
   Set Global Variable  ${g_GENERIC_VALUE}  ${t_strValue}
   Run Keyword If  '${ENVIRONMENT}'=='KOVAN'  Run Keywords
-  ...  Log To Console  sleep the test due to it runs on ${ENVIRONMENT} for  60 seconds
+  ...  Log To Console  sleep the test due to it runs on ${ENVIRONMENT} for 60 seconds
   ...  AND  Sleep  60 seconds
 
 "${e_USER}" Approves Newly Drafted Proposal
@@ -147,7 +147,7 @@ User Should Be Able To Participate On Proposal
 
 Proposal Status Should Be "${e_STATUS}"
   Newly Created Proposal Should Be Visible On "All" Tab
-  Element Should Contain  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_STATUS_BTN}  ${e_STATUS}
+  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_STATUS_BTN}  ${e_STATUS}  timeout=${TIMEOUT_SEC}
 
 Vote Count Should Increase
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -189,7 +189,7 @@ Get Remaining Time To Execute Next Step
 
 Go To Newly Created Proposal View Page
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
-  Element Should Contain  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}
+  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}  timeout=${TIMEOUT_SEC}
   Hide SnackBar
   Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
 
