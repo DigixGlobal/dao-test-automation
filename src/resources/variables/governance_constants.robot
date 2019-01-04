@@ -14,7 +14,7 @@ ${SNACK_BAR_DIV}  jquery=div[class*="SnackbarContainer"]
 ${ROUND_BTN}  button[class*="RoundBtn"]
 ${TIMER_DIV}  css=div[class*="QuorumInfoCol"]
 ${GOVERNANCE_MENU}  css=section[class*="HeaderWrapper"]
-${GOVERNANCE_SIDENAR_DIV}  jquery=div[class*="WalletContainer"]
+${GOVERNANCE_SIDENAR_DIV}  jquery=div[class*="IntroContainer"]
 ${GOVERNANCE_BTN}  button[class*="RoundBtn"]
 ${GOVERNANCE_SIDE_PANEL}  jquery=div[class*="PanelContainer"]
 #header
@@ -27,8 +27,8 @@ ${MODAL_ACTIONS}  ${GOVERNANCE_MODAL} > div:last
 # sidebar
 ${LOAD_WALLET_BTN}  ${GOVERNANCE_MENU} ${GOVERNANCE_BTN}
 ${LOAD_WALLET_SIDEBAR_BUTTON}  ${GOVERNANCE_SIDENAR_DIV} ${GOVERNANCE_BTN}
-${ADDRESS_INFO_SIDEBAR}  css=h5[class*="AddressInfo"]
-${LOCK_DGD_BTN}  ${LOAD_WALLET_SIDEBAR_BUTTON}:eq(1)
+${ADDRESS_INFO_SIDEBAR}  css=[class*="AddressInfo"]
+${LOCK_DGD_BTN}  jquery=[class*="style__InnerContainer"] button:eq(1)
 ${LOCK_DGD_AMOUNT_FIELD}  css=div[class*="InputDgxBox"] input[type="number"]
 ${LOCK_DGD_STATUS}  css=p[class*="StakeCaption"]
 ${LOCK_WITH_AMOUNT_BTN}  css=div[class*="InputDgxBox"] ~ button
