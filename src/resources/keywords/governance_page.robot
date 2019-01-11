@@ -62,7 +62,7 @@ User Submits Locked DGD
 
 "${e_USER}" Approves Newly Drafted Proposal
   Proposal Status Should Be "DRAFT"
-  Visit Newly Created Proposal And Click Next Action
+  Visit Newly Created Proposal And Click "Approve" Action
   Get Remaining Time To Execute Next Step
   Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(0)
@@ -72,7 +72,7 @@ User Submits Locked DGD
 "${e_USER}" Votes "${e_RESPONSE}" On Proposal
   Newly Created Proposal Should Be Visible On "All" Tab
   Force Element Via jQuery  ${HELP_LAUNCHER}  hide
-  Visit Newly Created Proposal And Click Next Action
+  Visit Newly Created Proposal And Click "Vote" Action
   Get Remaining Time To Execute Next Step
   Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
   Run Keyword If  "${e_RESPONSE}"=="Yes"
@@ -87,7 +87,7 @@ User Submits Locked DGD
 
 "${e_USER}" Reveals Vote Via Salt File
   Newly Created Proposal Should Be Visible On "All" Tab
-  Visit Newly Created Proposal And Click Next Action
+  Visit Newly Created Proposal And Click "Reveal" Action
   Get Remaining Time To Execute Next Step
   "Upload" "${e_USER}" Salt File
   Wait Until Element Should Be Visible  ${NOTE_CONTAINER}
@@ -108,8 +108,9 @@ User Submits Locked DGD
 
 "${e_USER}" "${e_ACTION}" On Newly Created Proposal
   Newly Created Proposal Should Be Visible On "All" Tab
-  Visit Newly Created Proposal And Click Next Action
+  Visit Newly Created Proposal And Click "${e_ACTION}" Action
   User Submits Keystore Password  #transaction modal
+
 
 #========#
 #  THEN  #
@@ -155,6 +156,21 @@ Snackbox Should Contain "${e_MESSAGE}"
 #====================#
 #  INTERNAL KEYWORD  #
 #====================#
+Return Action Button Names On Proposal
+  [Arguments]  ${p_action}
+  ${t_dict}=  Create Dictionary
+  ...  Endorses Proposal=ENDORSE
+  ...  Finalizes Proposal=FINALIZE
+  ...  Approve=APPROVE
+  ...  Claims Approved Proposal=
+  ..   Vote=VOTE
+  ...  Reveal=REVEAL
+  ...  Claims Voting Result=
+  ...  Claims Proposal Funding=
+  ..,  Sets Proposal To Complete=
+  ${t_value}=  Get From Dictionary  ${t_dict}  ${p_action}
+  [Return]  css=#${t_value}
+
 User Submits Keystore Password
   Wait Until Element Should Be Visible  ${IMPORT_PASSWORD_FIELD}
   Input Text  ${IMPORT_PASSWORD_FIELD}  ${${ENVIRONMENT}_DAO__WALLET_PW}
@@ -188,9 +204,16 @@ Go To Newly Created Proposal View Page
   Hide SnackBar
   Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
 
-Visit Newly Created Proposal And Click Next Action
+Visit Newly Created Proposal And Click "${e_ACTION}" Action
   Go To Newly Created Proposal View Page
-  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}
+  Wait Until Element Should Be Visible  ${PROJECT_SUMMARY}
+  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+  # ${t_buttons}=  Get WebElements  ${PROJECT_SUMMARY} ${ROUND_BTN}
+  # :FOR  ${locator}  IN  @{t_buttons}
+  # \  ${t_text}=  Get Text  ${locator}
+  # \  Assign Id To Element  ${locator}  ${t_text}
+  # ${t_button}=  Return Action Button Names On Proposal  ${e_ACTION}
+  # Click Element  ${t_button}
 
 "${e_ACTION}" "${e_USER}" Salt File
   ${t_file}=  Normalize Path  ~/Downloads/${e_USER}${SALT_FILE_EXT}
