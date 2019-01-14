@@ -19,7 +19,7 @@ Proposer Has Successfully Created A Proposal
 
 Proposer Has Successfully Posted Multiple Threads
   Given User Is In "GOVERNANCE" Page
-  When "proposer" Posts Multiple Thread On Created Proposal
+  When "proposer" Posts "11" Thread On Created Proposal
   Then All Thread Comments Should Be Visible
 
 Proposer Has Successfully Sorted Main Thread From Oldest
@@ -54,11 +54,3 @@ Proposer Has Successfully Deleted A Comment
   Given User Is In "PROPOSAL_VIEW" Page
   When "proposer" Deletes Main Thread "0"
   Then Main Thread "0" Messages Should Be Empty
-
-# Proposer Has Successfully Liked A Comment
-#   Given User Is In "PROPOSAL_VIEW" Page
-#   When "proposer" Likes Main Thread "1"
-#   Then Main Thread "1" Should Have Like
-#   When User Revisits Newly Created Proposal
-#   And "proposer" Sorts Main Thread From "Latest"
-#   Then Main Thread "1" Should Have Like

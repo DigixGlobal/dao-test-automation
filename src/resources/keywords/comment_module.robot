@@ -5,13 +5,13 @@ Resource    ../variables/comment_constants.robot
 #========#
 #  WHEN  #
 #========#
-"${e_USER}" Posts Multiple Thread On Created Proposal
+"${e_USER}" Posts "${e_COUNT}" Thread On Created Proposal
   Switch Browser  ${e_USER}
   Go To Newly Created Proposal View Page
   Wait Until Element Should Be Visible  ${THREAD_SECTION}
   Set Selenium Speed  ${REMOTE_SPEED}
   ${t_list}=  Create List
-  :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_THREADS}
+  :FOR  ${index}  IN RANGE  0  ${e_COUNT}
   \  ${t_time}=  Get Time  epoch
   \  ${t_value}=  Convert To String  ${t_time} - ${index} - thread
   \  Input Text  ${THREAD_FIELD}  ${t_value}
@@ -53,7 +53,7 @@ Resource    ../variables/comment_constants.robot
 "${e_USER}" Sorts Main Thread From "${e_SORTING}"
   Wait Until Element Should Be Visible  ${SORTING_DD}
   Set Focus To Element  ${SORTING_DD}
-  ${t_text}=  Get Text  ${COMMMENT_DIV}:eq(0)
+  ${t_text}=  Get Text  ${COMMMENT_DIV}:eq(0) ${COMMENT_POST}
   Set Suite Variable  ${s_THREAD_ONE_VALUE}  ${t_text}
   Select From List By Label  ${SORTING_DD}  ${e_SORTING}
 
@@ -88,11 +88,9 @@ User Shows All "${e_COMMENT_TYPE}" Comments
 All Thread Comments Should Be Visible
   :FOR  ${index}  ${value}  IN ENUMERATE  @{g_THREAD_VALUES}
   \  ${t_div}=  Set Variable  ${COMMMENT_DIV}:eq(${index}) ${COMMENT_POST}
-  \  Wait Until Element Should Be Visible  ${t_div}
   \  Wait Until ELement Should Contain  ${t_div}  ${value}
 
 Main Thread Should Be Sorted
-  Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(0)
   Wait Until ELement Should Contain  ${COMMMENT_DIV}:eq(0)  ${s_THREAD_ONE_VALUE}
 
 All Comments Should Be Visible

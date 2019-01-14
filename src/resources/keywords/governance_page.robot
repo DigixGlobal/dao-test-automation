@@ -202,6 +202,7 @@ Go To Newly Created Proposal View Page
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
   Wait Until ELement Should Contain  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}
   Hide SnackBar
+  Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
   Wait And Click Element  ${PROPOSAL_CARD}:eq(0) ${VIEW_PROJECT_LINK}
 
 Visit Newly Created Proposal And Click "${e_ACTION}" Action

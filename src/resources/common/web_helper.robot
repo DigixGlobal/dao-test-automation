@@ -101,6 +101,12 @@ Add Console Logs To Suite Documentation
 #==========#
 Load JQuery Tool
   Execute Javascript  (document.onload=function() {var script = document.createElement('script'); script.setAttribute("type", "text/javascript"); script.setAttribute("src", "https://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"); document.getElementsByTagName("head")[0].appendChild(script);})();
+  :FOR  ${index}  IN RANGE  0  10
+  \  ${t_val}=  Run Keyword And Return Status
+  ...  Execute Javascript  return jQuery.active
+  \  Run Keyword If  ${t_val}
+  ...  Exit For Loop
+  ...  ELSE  Sleep  1 s
 
 Force Element Via jQuery
   [Arguments]  ${p_element}  ${p_action}

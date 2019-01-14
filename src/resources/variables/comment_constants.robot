@@ -11,6 +11,8 @@ ${THREAD_FIELD}  ${THREAD_SECTION} > div > div > textarea
 ${THREAD_BUTTON}  ${THREAD_SECTION} ${POST_COMMENT_BTN}
 ${COMMMENT_DIV}  jquery=div[class*="ParentCommentItem"]
 ${COMMENT_POST}  div[class*="CommentPost"]
+${COMMENT_ACTION_CONTAINER}  [class*="ActionCommentButton"]
+${LIKE_ICON}  div[kind="like"]
 ${REPLY_ICON}  div[kind="reply"]
 ${COMMENT_REPLY}  section.comment-reply
 ${COMMENT_REPLY_POST}  div
