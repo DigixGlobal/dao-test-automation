@@ -1,5 +1,6 @@
 import os.path
 import json, jsonpointer
+import requests
 
 def update_value_to_json(json_object, json_path, new_value):
     dump = json.dumps(json_object)
@@ -19,3 +20,11 @@ def get_value_from_json(json_object, json_path):
 
 def convert_json_to_string(json_object):
     return json.dumps(json_object)
+
+def find_value_on_json_url(url, lookup):
+    r = requests.get(url)
+    content = r.json()
+    dump = json.dumps(content)
+    data = json.loads(dump)
+    value = jsonpointer.resolve_pointer(data,lookup)
+    return value
