@@ -27,38 +27,11 @@ User Submits Locked DGD
 "${e_USER}" Creates A Governance Propsosal
   Wait Until Element Should Be Visible  ${ADDRESS_LABEL}
   Wait And Click Element  ${GOVERNANCE_CREATE_BTN}
-  ${t_time}=  Get Time  epoch
-  ${t_strValue}=  Convert To String  ${t_time}
-  Log To Console  ProjectName:${t_strValue}
-  # overview
-  Wait Until Element Should Be Visible  ${PROJECT_TITLE_FIELD}
-  Input Text  ${PROJECT_TITLE_FIELD}  ${t_strValue}
-  Input Text  ${PROJECT_DESC_FIELD}  ${t_strValue}
-  Click Element  ${PROPOSAL_MENU_NEXT_BTN}
-  #project detail
-  Wait Until Element Should Be Visible  ${PROJECT_INFO_FIELD}
-  Press Key  ${PROJECT_INFO_FIELD}  ${t_strValue}
-  Click Element  ${PROPOSAL_MENU_NEXT_BTN}
-  #multimedia
-  Wait Until Element Should Be Visible  ${UPLOAD_IMAGE_BTN}
-  Modify Element Attribute Via jQuery  ${IMAGE_UPLOAD_BTN}  display  block
-  Upload TestData Image  image
-  Click Element  ${PROPOSAL_MENU_NEXT_BTN}
-  #milestone
-  Wait Until Element Should Be Visible  ${MILESTONE_FORM}
-  Input Text  ${REWARD_FIELD}  ${MILESTONE_REWARD_AMOUNT}
-  Select From List By Label  ${NUM_OF_MILESTONE_FIELD}  ${NUMBER_OF_MILESTONE}
-  Input Text  ${MILESTONE_FIELD}:eq(0)  ${MILESTONE_AMOUNT}
-  Input Text  ${MILESTONE_DESC_FIELD}:eq(0)  ${t_strValue}
-  Click Element  ${CREATE_NOW_BTN}
-  #prevew
-  Wait And Click Element  ${PROPOSAL_SUBMIT_BTN}
-  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
-  User Submits Keystore Password  #transaction modal
-  Set Global Variable  ${g_GENERIC_VALUE}  ${t_strValue}
-  Run Keyword If  '${ENVIRONMENT}'=='KOVAN'  Run Keywords
-  ...  Log To Console  sleep the test due to it runs on ${ENVIRONMENT} for 60 seconds
-  ...  AND  Sleep  60 seconds
+  Submit Proposal Details
+
+"${e_USER}" Edits Newly Created Proposal Details
+  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+  Submit Proposal Details  3  4  edit
 
 "${e_USER}" Approves Newly Drafted Proposal
   Proposal Status Should Be "DRAFT"
@@ -111,10 +84,20 @@ User Submits Locked DGD
   Visit Newly Created Proposal And Click "${e_ACTION}" Action
   User Submits Keystore Password  #transaction modal
 
-
 #========#
 #  THEN  #
 #========#
+Proposal Details Should Be Correct On Proposal Details Page
+  Go To Newly Created Proposal View Page
+  Wait Until Element Contains  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
+  Wait And Click Element  ${PROPOSAL_MILESTONE_ARROW_ICON}
+  Wait Until Element Contains  ${PROPOSAL_SHORT_DESC_DIV}  ${g_GENERIC_VALUE}
+  Wait Until Element Contains  ${PROPOSAL_DESC_DIV}  ${g_GENERIC_VALUE}
+  Wait Until Element Contains  ${PROPOSAL_MS_DESC_DIV}  ${g_GENERIC_VALUE}
+  Wait Until Element Contains  ${PROPOSAL_MS_AMOUNT_DIV}  ${s_MILESTONE_AMOUNT}
+  Wait Until Element Contains  ${PROPOSAL_REWARD_DIV}  ${s_REWARD_AMOUNT}
+  Wait Until Element Contains  ${PROPOSAL_FUNDING_DIV}  ${s_TOTAL_FUNDING}
+
 User Should Be Able To Get Started On Governance
   Wait Until Element Should Be Visible  ${CONGRATULATION_BANNER}
   Wait Until Element Should Be Visible  ${GET_STARTED_BTN}
@@ -156,6 +139,47 @@ Snackbox Should Contain "${e_MESSAGE}"
 #====================#
 #  INTERNAL KEYWORD  #
 #====================#
+Submit Proposal Details
+  [Arguments]  ${p_reward}=${MILESTONE_REWARD_AMOUNT}  ${p_milestone}=${MILESTONE_AMOUNT}  ${p_type}=Create
+  ${t_time}=  Get Time  epoch
+  ${t_strValue}=  Convert To String  ${t_time}
+  ${t_value}=  Set Variable If  "${p_type}"=="Create"
+  ...  ${t_strValue}  ${t_strValue} - edit
+  Log To Console  ProjectName:${t_strValue}
+  # overview
+  Wait Until Element Should Be Visible  ${PROJECT_TITLE_FIELD}
+  Input Text  ${PROJECT_TITLE_FIELD}  ${t_value}
+  Input Text  ${PROJECT_DESC_FIELD}  ${t_value}
+  Click Element  ${PROPOSAL_MENU_NEXT_BTN}
+  #project detail
+  Wait Until Element Should Be Visible  ${PROJECT_INFO_FIELD}
+  Clear Element Text  ${PROJECT_INFO_FIELD}
+  Press Key  ${PROJECT_INFO_FIELD}  ${t_value}
+  Click Element  ${PROPOSAL_MENU_NEXT_BTN}
+  #multimedia
+  Wait Until Element Should Be Visible  ${UPLOAD_IMAGE_BTN}
+  Modify Element Attribute Via jQuery  ${IMAGE_UPLOAD_BTN}  display  block
+  Upload TestData Image  image
+  Click Element  ${PROPOSAL_MENU_NEXT_BTN}
+  #milestone
+  Wait Until Element Should Be Visible  ${MILESTONE_FORM}
+  Input Text  ${REWARD_FIELD}  ${p_reward}
+  Select From List By Label  ${NUM_OF_MILESTONE_FIELD}  ${NUMBER_OF_MILESTONE}
+  Input Text  ${MILESTONE_FIELD}:eq(0)  ${p_milestone}
+  Input Text  ${MILESTONE_DESC_FIELD}:eq(0)  ${t_value}
+  Set Suite Variable  ${s_REWARD_AMOUNT}  ${p_reward}
+  Set Suite Variable  ${s_MILESTONE_AMOUNT}  ${p_milestone}
+  Compute Suite Total Funding
+  Click Element  ${CREATE_NOW_BTN}
+  #prevew
+  Wait And Click Element  ${PROPOSAL_SUBMIT_BTN}
+  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
+  User Submits Keystore Password  #transaction modal
+  Set Global Variable  ${g_GENERIC_VALUE}  ${t_value}
+  Run Keyword If  '${ENVIRONMENT}'=='KOVAN'  Run Keywords
+  ...  Log To Console  sleep the test due to it runs on ${ENVIRONMENT} for 60 seconds
+  ...  AND  Sleep  60 seconds
+
 Return Action Button Names On Proposal
   [Arguments]  ${p_action}
   ${t_dict}=  Create Dictionary
@@ -231,6 +255,11 @@ Visit Newly Created Proposal And Click "${e_ACTION}" Action
   Wait Until Element Should Be Visible  ${IMPORT_KEYSTORE_ICON} svg
   Run Keyword If  "${e_WALLET_TYPE}"=="json"
   ...  Upload Json Wallet Based On Environment  ${e_USER}
+
+Compute Suite Total Funding
+  ${t_total}=  Evaluate  ${s_REWARD_AMOUNT} + ${s_MILESTONE_AMOUNT}
+  ${t_strFunding}=  Convert To String  ${t_total}
+  Set Suite Variable  ${s_TOTAL_FUNDING}  ${t_strFunding}
 #====================#
 #  SETUP / TEARDOWN  #
 #====================#
