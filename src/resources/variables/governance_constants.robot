@@ -14,6 +14,12 @@ ${DAO_TOUR_SIDE_MENU_ICON}  css=div[kind="product"]
 ...  ${WALLET_SIDE_MENU_ICON}  ${PROFILE_SIDE_MENU_ICON}
 ...  ${HISTORY_SIDE_MENU_ICON}  @{LOGGED_OUT_SIDENAV_LIST}
 
+# user profile stats
+${DASHBOARD_STATS_DIV}  jquery=[class*="timeline"] + [class*="Container"]
+${STAT_QUARTER_POINT}  ${DASHBOARD_STATS_DIV} [class*="Point"]:eq(0) span
+${STAT_REPUTATION_POINT}  ${DASHBOARD_STATS_DIV} [class*="Point"]:eq(1) span
+${STAT_MYSTAKE_POINT}  ${DASHBOARD_STATS_DIV} [class*="Point"]:eq(2) span
+
 #generic
 ${SNACK_BAR_DIV}  jquery=div[class*="SnackbarContainer"]
 ${ROUND_BTN}  button[class*="RoundBtn"]

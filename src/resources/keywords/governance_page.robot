@@ -2,9 +2,25 @@
 Resource    ../variables/governance_constants.robot
 
 *** Keywords ***
+#=========#
+#  GIVEN  #
+#=========#
+Pull Profile Stats Data
+  Wait Until Element Should Be Visible  ${DASHBOARD_STATS_DIV}
+  ${t_qp}=  Get Text  ${STAT_QUARTER_POINT}
+  ${t_rp}=  Get Text  ${STAT_REPUTATION_POINT}
+  ${t_sp}=  Get Text  ${STAT_MYSTAKE_POINT}
+  Set Suite Variable  ${s_QUARTER_PTS}  ${t_qp}
+  Set Suite Variable  ${s_REPUTATION_PTS}  ${t_rp}
+  Set Suite Variable  ${s_STAKE_PTS}  ${t_sp}
+
 #========#
 #  WHEN  #
 #========#
+User Goes To "${e_SIDEMENU}" View Page
+  Wait Until Element Should Be Visible  ${SIDE_MENU_DIV}
+  Wait And Click Element  ${${e_SIDEMENU}_SIDE_MENU_ICON}
+
 User Submits Locked DGD
   [Arguments]  ${p_amount}=${LOCKED_DGD_AMOUNT}
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
