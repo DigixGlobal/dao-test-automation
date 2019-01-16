@@ -4,11 +4,16 @@ ${SALT_FILE_EXT}  _salt.json
 #side-menu
 ${SIDE_MENU_DIV}  css=ul[class*="MenuList"]
 ${HOME_SIDE_MENU_ICON}  css=div[kind="home"]
-${ACTIVITY_SIDE_MENU_ICON}  css=div[kind="activity"]
-# ${WALLET_SIDE_MENU_ICON}
-# ${PROFILE_SIDE_MENU_ICON}
-# ${HISTORY_SIDE_MENU_ICON}
-# ${HELP_SIDE_MENU_ICON}
+${WALLET_SIDE_MENU_ICON}  css=div[kind="wallet"]
+${PROFILE_SIDE_MENU_ICON}  css=div[kind="profile"]
+${HISTORY_SIDE_MENU_ICON}  css=div[kind="history"]
+${DAO_TOUR_SIDE_MENU_ICON}  css=div[kind="product"]
+@{LOGGED_OUT_SIDENAV_LIST}
+...  ${HOME_SIDE_MENU_ICON}  ${DAO_TOUR_SIDE_MENU_ICON}
+@{LOGGED_IN_SIDENAV_LIST}
+...  ${WALLET_SIDE_MENU_ICON}  ${PROFILE_SIDE_MENU_ICON}
+...  ${HISTORY_SIDE_MENU_ICON}  @{LOGGED_OUT_SIDENAV_LIST}
+
 #generic
 ${SNACK_BAR_DIV}  jquery=div[class*="SnackbarContainer"]
 ${ROUND_BTN}  button[class*="RoundBtn"]
