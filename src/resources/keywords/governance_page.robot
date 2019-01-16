@@ -87,6 +87,10 @@ User Submits Locked DGD
 #========#
 #  THEN  #
 #========#
+"${e_STATE}" SideNav Menu Items Should Be Visible
+  :FOR  ${locator}  IN  @{${e_STATE}_SIDENAV_LIST}
+  \  Wait Until Element Should Be Visible  ${locator}
+
 Proposal Details Should Be Correct On Proposal Details Page
   Go To Newly Created Proposal View Page
   Wait Until Element Contains  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
@@ -260,6 +264,17 @@ Compute Suite Total Funding
   ${t_total}=  Evaluate  ${s_REWARD_AMOUNT} + ${s_MILESTONE_AMOUNT}
   ${t_strFunding}=  Convert To String  ${t_total}
   Set Suite Variable  ${s_TOTAL_FUNDING}  ${t_strFunding}
+
+"${e_USER}" Submits "${e_WALLET_TYPE}" Wallet
+  "${e_USER}" Uploads "${e_WALLET_TYPE}" Wallet
+  User Submits Keystore Password
+  Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
+  User Submits Keystore Password  #sign message modal
+  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
+  Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
+  Click Element  ${CLOSE_ICON}
+  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
+
 #====================#
 #  SETUP / TEARDOWN  #
 #====================#
@@ -272,17 +287,10 @@ Compute Suite Total Funding
   Wait And Click Element  ${GET_STARTED_BTN}
 
 "${e_USER}" Account Has Successfully Logged In To DigixDao Using "${e_WALLET_TYPE}"
-   ${t_entry}=  Set Variable If  "${ENVIRONMENT}"=="KOVAN"
+  ${t_entry}=  Set Variable If  "${ENVIRONMENT}"=="KOVAN"
   ...  ${KOVAN_GOVERNANCE_URL_EXT}  ${GOVERNANCE_LOGIN_URL_EXT}
   Launch Digix Website  ${t_entry}  ${ENVIRONMENT}  ${e_USER}
-  "${e_USER}" Uploads "${e_WALLET_TYPE}" Wallet
-  User Submits Keystore Password
-  Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
-  User Submits Keystore Password  #sign message modal
-  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
-  Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
-  Click Element  ${CLOSE_ICON}
-  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
+  "${e_USER}" Submits "${e_WALLET_TYPE}" Wallet
 
 Upload Json Wallet Based On Environment
   [Arguments]  ${p_filename}  ${p_environment}=${ENVIRONMENT}
@@ -292,3 +300,8 @@ Upload Json Wallet Based On Environment
 Go Back To Dashboard Page
   Wait And Click Element  ${HOME_SIDE_MENU_ICON}
   Wait Until Element Should Be Visible  ${GOVERNANCE_FILTER_SECTION}
+
+"${e_USER}" Launch Governance Page
+  ${t_entry}=  Set Variable If  "${ENVIRONMENT}"=="KOVAN"
+  ...  ${KOVAN_GOVERNANCE_URL_EXT}  ${GOVERNANCE_LOGIN_URL_EXT}
+  Launch Digix Website  ${t_entry}  ${ENVIRONMENT}  ${e_USER}
