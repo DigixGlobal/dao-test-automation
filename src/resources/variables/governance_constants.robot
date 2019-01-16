@@ -90,3 +90,13 @@ ${MILESTONE_FIELD}  ${MILESTONE_FORM} input
 ${MILESTONE_DESC_FIELD}  ${MILESTONE_FORM} textarea
 # proposal
 ${PROJECT_SUMMARY}  jquery=div[class*="ProjectSummary"]
+${PROPOSAL_TITLE_DIV}  ${PROJECT_SUMMARY} [class*="Title"]
+${PROPOSAL_FUNDING_DIV}  ${PROJECT_SUMMARY} [class*="FundingStatus"]
+${PROPOSAL_REWARD_DIV}  ${PROJECT_SUMMARY} [class*="Reward"] span
+${PROPOSAL_DETAILS_DIV}  jquery=[class*="DetailsContainer"]
+${PROPOSAL_SHORT_DESC_DIV}  ${PROPOSAL_DETAILS_DIV} [class*="ShortDescription"]
+${PROPOSAL_DESC_DIV}  ${PROPOSAL_DETAILS_DIV} [class*="Details"] span
+${PROPOSAL_MILESTONE_DIV}  jquery=[class*="MilestonesContainer"]
+${PROPOSAL_MILESTONE_ARROW_ICON}  ${PROPOSAL_MILESTONE_DIV} svg:last
+${PROPOSAL_MS_DESC_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Content"]
+${PROPOSAL_MS_AMOUNT_DIV}  ${PROPOSAL_MS_DESC_DIV} > p
