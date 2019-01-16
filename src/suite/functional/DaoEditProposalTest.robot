@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation  This suite will test editing of proposal
 ...  and validate the edited details on Proposal View Page
-Force Tags    smoke    regression  disabled
+Force Tags    sanity  regression
 Default Tags    DaoEditProposalTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot

@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation  This suite will test end to end process of
 ...  posting comments on newly created proposal
-Force Tags    smoke    regression  disabled
+Force Tags    smoke  regression
 Default Tags    DaoCommentModuleTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
