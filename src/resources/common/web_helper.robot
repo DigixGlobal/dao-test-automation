@@ -134,3 +134,11 @@ Sleep Until Timer Runs Out
   ...  ${t_div}  ${t_total}
   Log To Console  ${t_time} remaining seconds to start next step
   Sleep  ${t_time} seconds
+
+#=======#
+LookUp Value On Info Server
+  [Arguments]  ${p_address}  ${p_lookUp}
+  ${t_url}=  Set Variable  ${${ENVIRONMENT}_INFO_URL}/address/${p_address}
+  ${t_lookup}=  Set Variable  ${p_lookUp}
+  ${t_value}=  Find Value On Json URL  ${t_url}  ${p_lookUp}
+  [Return]  ${t_value}
