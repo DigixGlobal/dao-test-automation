@@ -50,6 +50,11 @@ Wait Until ELement Should Contain
     [Arguments]  ${p_locator}  ${p_text}
     Wait Until Element Contains  ${p_locator}  ${p_text}  timeout=${g_TIMEOUT_SEC}
 
+Wait Until Element Is Disabled
+    [Arguments]  ${p_locator}
+    Wait Until Keyword Succeeds    ${g_TIMEOUT}    ${g_INTERVAL}
+    ...  Element Should Be Disabled  ${p_locator}
+
 Get Matching Locator Count
     [Documentation]   This keyword will count all possible elements in the page using jQuery length.
     ...    Do not use ID since it will only return 1 result. Use class as argument.

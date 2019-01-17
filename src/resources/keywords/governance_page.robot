@@ -21,15 +21,20 @@ User Goes To "${e_SIDEMENU}" View Page
   Wait Until Element Should Be Visible  ${SIDE_MENU_DIV}
   Wait And Click Element  ${${e_SIDEMENU}_SIDE_MENU_ICON}
 
+User Submits Locked Stake
+  [Arguments]  ${p_amount}=${LOCKED_DGD_AMOUNT}
+  Wait Until Element Should Be Visible  ${LOCK_WITH_AMOUNT_BTN}
+  Input Text  ${LOCK_DGD_AMOUNT_FIELD}  ${p_amount}
+  Wait Until Element Should Be Visible  ${LOCK_DGD_STATUS}
+  Wait And Click Element  ${LOCK_WITH_AMOUNT_BTN}
+  User Submits Keystore Password
+
 User Submits Locked DGD
   [Arguments]  ${p_amount}=${LOCKED_DGD_AMOUNT}
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
   Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
   Wait And Click Element  ${LOCK_DGD_BTN}
-  Wait Until Element Should Be Visible  ${LOCK_WITH_AMOUNT_BTN}
-  Input Text  ${LOCK_DGD_AMOUNT_FIELD}  ${p_amount}
-  Wait Until Element Should Be Visible  ${LOCK_DGD_STATUS}
-  Wait And Click Element  ${LOCK_WITH_AMOUNT_BTN}
+  User Submits Locked Stake  ${p_amount}
 
 "${e_USER_TYPE}" Submits "${e_WALLET_TYPE}" Wallet To Locked DGD
   "${e_USER_TYPE}" Uploads "${e_WALLET_TYPE}" Wallet
@@ -37,8 +42,6 @@ User Submits Locked DGD
   Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
   User Submits Keystore Password  #sign message modal
   User Submits Locked DGD
-  Wait Until Element Should Be Visible  ${GOVERNANCE_MODAL}
-  User Submits Keystore Password  #transaction modal
 
 "${e_USER}" Creates A Governance Propsosal
   Wait Until Element Should Be Visible  ${ADDRESS_LABEL}
@@ -299,7 +302,7 @@ Compute Suite Total Funding
   ...  ${KOVAN_GOVERNANCE_URL_EXT}  ${GOVERNANCE_LOGIN_URL_EXT}
   Launch Digix Website  ${t_entry}  ${ENVIRONMENT}  ${e_USER}
   "${e_USER}" Submits "json" Wallet To Locked DGD
-  Then User Should Be Able To Get Started On Governance
+  User Should Be Able To Get Started On Governance
   Wait And Click Element  ${GET_STARTED_BTN}
 
 "${e_USER}" Account Has Successfully Logged In To DigixDao Using "${e_WALLET_TYPE}"

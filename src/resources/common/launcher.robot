@@ -4,6 +4,7 @@ ${ALIAS}  alias1
 ${PROD_BASE_URL}  https://digix.global
 ${KOVAN_BASE_URL}  https://www-kovan.digixdev.com
 ${LOCAL_BASE_URL}  https://localhost:3000
+${LOCAL_INFO_URL}  http://localhost:3001
 ${LOCAL_LABEL}  LOCAL
 ${ENVIRONMENT}  LOCAL
 ${LOCAL_SPEED}  0.1 s

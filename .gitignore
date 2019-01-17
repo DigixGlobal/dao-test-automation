@@ -3,6 +3,7 @@ output.xml
 report.html
 venv/
 selenium-screenshot-*
-src/resource/custom/__pycache__/*
-src/resource/custom/*.pyc
+src/resources/custom/*.pyc
 test/*
+src/resources/custom/__pycache__/
+Results/*
