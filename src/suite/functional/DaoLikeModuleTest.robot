@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation  This suite will test like/unlike module for proposal and
 ...  comments
-Force Tags    smoke    regression  disabled
+Force Tags  smoke  regression
 Default Tags    DaoLikeModuleTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot

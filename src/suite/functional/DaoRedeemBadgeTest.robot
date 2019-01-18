@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation  This suite will test redeeming badge on Profile View Page
-Force Tags  regression  NotForKOVAN
+Force Tags  regression  sanity  NotForKOVAN
 Default Tags    DaoRedeemBadgeTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
