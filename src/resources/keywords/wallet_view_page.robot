@@ -8,7 +8,7 @@ Resource  ../variables/wallet_view_contants.robot
   ${t_claimValue}=  LookUp Value On Info Server  ${t_address}  /result/claimableDgx
   ${t_zero}=  Evaluate  ${t_claimValue} == 0
   Run Keyword If  ${t_zero}  Run Keywords
-  ...  Log To Console  ${\n}Please run `npm run teleport:next_quarter` on `dao-contracts`
+  ...  Log To Console  ${\n}Please run `npm run teleport:main_phase` on `dao-contracts`
   ...  AND  Log To Console  ${\n}then Restart info-server
   ...  AND  Fail  msg=Please run command on dao-contracts and restart info-server
   ...  ELSE  Run Keywords

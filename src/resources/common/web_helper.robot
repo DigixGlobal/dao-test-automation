@@ -1,9 +1,9 @@
 *** Settings ***
-Library     Collections
-Library     OperatingSystem
-Library     String
-Library     SeleniumLibrary
 Library     ../custom/internal_json.py
+Library     OperatingSystem
+Library     SeleniumLibrary
+Library     Collections
+Library     String
 Resource    launcher.robot
 Resource    global_constants.robot
 Resource    ../variables/url_extension.robot
@@ -20,14 +20,6 @@ User Is In "${e_URL_EXT}" Page
 
 User Should Be Redirected To "${e_URL_EXT}" Page
     User Is In "${e_URL_EXT}" Page
-
-Upload TestData Image
-  [Arguments]  ${p_filename}
-  Load JQuery Tool
-  ${t_path}=  Normalize Path  ${CURDIR}/../testdata/images/${p_filename}.png
-  Modify Element Attribute Via jQuery  ${${p_filename}_UPLOAD_BTN}  visibility  visible
-  Wait Until Element Should Be Visible  ${${p_filename}_UPLOAD_BTN}
-  Choose File  ${${p_filename}_UPLOAD_BTN}  ${t_path}
 
 #====================#
 #  ELEMENT KEYWORDS  #
@@ -46,23 +38,18 @@ Wait And Click Element
     Set Focus To Element  ${p_locator}
     Click Element  ${p_locator}
 
-Wait Until ELement Should Contain
-    [Arguments]  ${p_locator}  ${p_text}
-    Wait Until Element Contains  ${p_locator}  ${p_text}  timeout=${g_TIMEOUT_SEC}
-
 Wait Until Element Is Disabled
     [Arguments]  ${p_locator}
     Wait Until Keyword Succeeds    ${g_TIMEOUT}    ${g_INTERVAL}
     ...  Element Should Be Disabled  ${p_locator}
 
-Get Matching Locator Count
-    [Documentation]   This keyword will count all possible elements in the page using jQuery length.
-    ...    Do not use ID since it will only return 1 result. Use class as argument.
-    [Arguments]    ${p_elementLocator}
-    ${t_extractLocator}=    Remove String Using Regexp    ${p_elementLocator}    ^.*?=
-    ${r_elementCount}=    Execute Javascript   return jQuery('${t_extractLocator}').length
-    Log   ${r_elementCount}
-    [Return]    ${r_elementCount}
+Wait Until ELement Should Contain
+    [Arguments]  ${p_locator}  ${p_text}
+    Wait Until Element Contains  ${p_locator}  ${p_text}  timeout=${g_TIMEOUT_SEC}
+
+Wait Until ELement Should Not Contain
+    [Arguments]  ${p_locator}  ${p_text}
+    Wait Until Element Does Not Contain  ${p_locator}  ${p_text}  timeout=${g_TIMEOUT_SEC}
 
 #===========================================#
 #               CONSOLE LOGGER              #
@@ -124,26 +111,47 @@ Modify Element Attribute Via jQuery
   ${r_elementCount}=    Execute Javascript
   ...   jQuery('${t_extractLocator}').css("${p_key}", "${p_value}")
 
-Sleep Until Timer Runs Out
-  [Arguments]  ${p_type}=DEFAULT
-  # sample data  0D:00H:01M:29S
-  Capture Page Screenshot
-  ${t_minutes}=  Get Regexp Matches  ${g_TIMER}  (?<=H:)(.*)(?=M)
-  ${t_seconds}=  Get Regexp Matches  ${g_TIMER}  (?<=M:)(.*)(?=S)
-  ${t_numMin}=  Convert To Number  ${t_minutes[0]}
-  ${t_nummSec}=  Convert To Number  ${t_seconds[0]}
-  ${t_min}=  Evaluate  ${t_numMin} * 60
-  ${t_total}=  Evaluate  ${t_min} + ${t_nummSec}
-  ${t_div}=  Evaluate  ${t_total} / 2
-  ${t_time}=  Set Variable If  "${p_type}"=="REVEAL"
-  ...  ${t_div}  ${t_total}
-  Log To Console  ${t_time} remaining seconds to start next step
-  Sleep  ${t_time} seconds
+Get Matching Locator Count
+    [Documentation]   This keyword will count all possible elements in the page using jQuery length.
+    ...    Do not use ID since it will only return 1 result. Use class as argument.
+    [Arguments]    ${p_elementLocator}
+    ${t_extractLocator}=    Remove String Using Regexp    ${p_elementLocator}    ^.*?=
+    ${r_elementCount}=    Execute Javascript   return jQuery('${t_extractLocator}').length
+    Log   ${r_elementCount}
+    [Return]    ${r_elementCount}
 
-#=======#
+#====================#
+#  GENERIC KEYWORDS  #
+#====================#
+Upload TestData Image
+  [Arguments]  ${p_filename}
+  Load JQuery Tool
+  ${t_path}=  Normalize Path  ${CURDIR}/../testdata/images/${p_filename}.png
+  Modify Element Attribute Via jQuery  ${${p_filename}_UPLOAD_BTN}  visibility  visible
+  Wait Until Element Should Be Visible  ${${p_filename}_UPLOAD_BTN}
+  Choose File  ${${p_filename}_UPLOAD_BTN}  ${t_path}
+
+User Submits Keystore Password
+  Wait Until Element Should Be Visible  ${IMPORT_PASSWORD_FIELD}
+  Input Text  ${IMPORT_PASSWORD_FIELD}  ${${ENVIRONMENT}_DAO__WALLET_PW}
+  Wait And Click Element  ${UNLOCK_WALLET_BTN}
+
 LookUp Value On Info Server
   [Arguments]  ${p_address}  ${p_lookUp}
   ${t_url}=  Set Variable  ${${ENVIRONMENT}_INFO_URL}/address/${p_address}
   ${t_lookup}=  Set Variable  ${p_lookUp}
   ${t_value}=  Find Value On Json URL  ${t_url}  ${p_lookUp}
   [Return]  ${t_value}
+
+Hide SnackBar
+  ${t_bar}=  Get Matching Locator Count  ${SNACK_BAR_DIV}
+  :For  ${index}  IN RANGE  0  ${t_bar}
+  \  Force Element Via jQuery  ${SNACK_BAR_DIV}:eq(${index})  hide
+
+Hide Governance Header Menu
+  Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
+
+Get SnackBar Text
+  Wait Until Element Should Be Visible  ${SNACK_BAR_DIV}:last
+  ${t_value}=  Get Text  ${SNACK_BAR_DIV}:last
+  Log To Console  ${t_value}

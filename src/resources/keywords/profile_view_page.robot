@@ -8,9 +8,7 @@ Resource    ../variables/profile_view_constants.robot
 Pull "${e_USER}" Data From Info Server
   Wait Until Element Should Be Visible  ${ADDRESS_LABEL}
   ${t_address}=  Get Text  ${ADDRESS_LABEL}
-  ${t_url}=  Set Variable  ${${ENVIRONMENT}_INFO_URL}/address/${t_address}
-  ${t_lookup}=  Set Variable  /result/redeemedBadge
-  ${t_redeemStatus}=  Find Value On Json URL  ${t_url}  ${t_lookup}
+  ${t_redeemStatus}=  LookUp Value On Info Server  ${t_address}  /result/redeemedBadge
   Set Suite Variable  ${s_ADDRESS}  ${t_address}
   Set Suite Variable  ${s_REDEEM_STATUS}  ${t_redeemStatus}
 
@@ -32,8 +30,9 @@ Pull "${e_USER}" Data From Info Server
 
 "${e_USER}" Redeems Badge
   Wait Until Element Should Be Visible  ${PROFILE_MODERATOR_CARD}
-  Run Keyword If  ${s_REDEEM_STATUS}
+  Run Keyword If  ${s_REDEEM_STATUS}  Run Keywords
   ...  Log To Console  ${\n}"${s_ADDRESS}" already redeemed badge. Please reset servers on ${ENVIRONMENT}
+  ...  AND  FAIL  msg=Please run `bash script/restart.sh` on `dao-server` repo
   ...  ELSE  Run Keywords
   ...  Click Element  ${PROFILE_REDEEM_BADGE_BTN}
   ...  AND  User Submits Keystore Password

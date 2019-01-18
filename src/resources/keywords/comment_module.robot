@@ -56,14 +56,12 @@ Resource    ../variables/comment_constants.robot
   ${t_text}=  Get Text  ${COMMMENT_DIV}:eq(0) ${COMMENT_POST}
   Set Suite Variable  ${s_THREAD_ONE_VALUE}  ${t_text}
   Select From List By Label  ${SORTING_DD}  ${e_SORTING}
+  Sleep  3 seconds
+  Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(0)
 
 User Shows All Main Thread Comments
-  ${t_default}=  Get Selenium Speed
-  Set Selenium Speed  0.2 s
-  Wait Until ELement Should Be Visible  ${THREAD_SECTION} > button
-  Set Focus To Element  ${THREAD_SECTION} > button
-  Click Element  ${THREAD_SECTION} > button
-  Set Selenium Speed  ${t_default}
+  Wait Until Element Should Be Visible  ${THREAD_SECTION}
+  Wait And Click Element  ${THREAD_SECTION} > button
 
 User Shows All "${e_COMMENT_TYPE}" Comments
   ${t_BUTTON}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${e_COMMENT_TYPE}_NUMBER}) button[class*="TextBtn"]:last
@@ -86,12 +84,14 @@ User Shows All "${e_COMMENT_TYPE}" Comments
 #  THEN  #
 #========#
 All Thread Comments Should Be Visible
+  Wait Until Element Should Be Visible  ${COMMMENT_DIV}
   :FOR  ${index}  ${value}  IN ENUMERATE  @{g_THREAD_VALUES}
   \  ${t_div}=  Set Variable  ${COMMMENT_DIV}:eq(${index}) ${COMMENT_POST}
   \  Wait Until ELement Should Contain  ${t_div}  ${value}
 
 Main Thread Should Be Sorted
-  Wait Until ELement Should Contain  ${COMMMENT_DIV}:eq(0)  ${s_THREAD_ONE_VALUE}
+  Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(0)
+  Wait Until ELement Should Not Contain  ${COMMMENT_DIV}:eq(0)  ${s_THREAD_ONE_VALUE}
 
 All Comments Should Be Visible
   ${t_thread_div}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${s_TYPE}_NUMBER})
