@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation  This suite will test assert side nav menu list
 ...  when a user is in logged in and logged out state. (DGDG-284)
-Force Tags  regression
+Force Tags  regression  smoke
 Default Tags    DaoSideNavMenuTest
 Suite Setup  "Guest" Launch Governance Page
 Suite Teardown    Close All Browsers

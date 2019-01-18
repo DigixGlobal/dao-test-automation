@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation  This suite will test claiming rewards on Wallet Page
-Force Tags  regression  NotForKOVAN
+Force Tags  regression  sanity  NotForKOVAN
 Default Tags    DaoClaimRewardTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot

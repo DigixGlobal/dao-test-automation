@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation  This suite will test asserting values on Profile Overview are
 ...  correct and validate components are showing correcly based on user role
-Force Tags  regression
+Force Tags  regression  smoke
 Default Tags    DaoProfileOverviewTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
