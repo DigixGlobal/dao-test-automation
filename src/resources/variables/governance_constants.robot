@@ -29,6 +29,7 @@ ${GOVERNANCE_SIDENAR_DIV}  jquery=div[class*="IntroContainer"]
 ${GOVERNANCE_BTN}  button[class*="RoundBtn"]
 ${GOVERNANCE_SIDE_PANEL}  ${GOVERNANCE_SIDENAR_DIV}
 #header
+${HEADER_LOCK_DGD_BTN}  ${GOVERNANCE_MENU} [class*="WalletWrapper"] button
 ${ADDRESS_LABEL}  ${GOVERNANCE_MENU} div[class*="AddressLabel"]
 #modal
 # ${MODAL_ACTIONS}  jquery=div[class*="MuiDialogActions-root"]
