@@ -50,6 +50,7 @@ Comment Like Counter Should Be Correct
   ...  Compute Like Counter
   ...  ELSE  Set Variable  ${s_LATEST_COUNTER}
   ${t_strValue}=  Convert To String  ${t_value}
+  Wait Until Element Should Be Visible  ${s_COMMENT_THREAD} ${COMMENT_ACTION_CONTAINER}:eq(1)
   Wait Until Element Should Contain  ${s_COMMENT_THREAD} ${COMMENT_ACTION_CONTAINER}:eq(1)  ${t_strValue}
 
 #====================#

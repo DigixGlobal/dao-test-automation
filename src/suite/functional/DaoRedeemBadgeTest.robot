@@ -16,6 +16,9 @@ Badge Holder Has Successfully Redeemed Badge
   When "badgeHolder" Marks Himself As Participant
   And "badgeHolder" Redeems Badge
   Then Badge Should Be Successfully Redeemed
+  When Go Back To Dashboard Page
+  And User Goes To "Profile" View Page
+  Then Badge Should Be Successfully Redeemed
 
 Redeemed Badge User Has Successfully Visited Profile Page
   [Setup]  "badgeHolder" Account Has Successfully Logged In To DigixDao Using "json"
