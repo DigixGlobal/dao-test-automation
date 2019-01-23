@@ -1,6 +1,7 @@
 *** Settings ***
 Resource    create_edit_proposal_page.robot
 Resource    proposal_view_page.robot
+Resource    metamask.robot
 Resource    ../variables/governance_constants.robot
 *** Keywords ***
 #=========#
@@ -32,13 +33,22 @@ User Submits Locked Stake
 
 "${e_USER}" Submits "${e_WALLET_TYPE}" Wallet
   # uploading
+  Set Suite Variable  ${s_WALLET_TYPE}  ${e_WALLET_TYPE}
   Load JQuery Tool
   Wait And Click Element  ${LOAD_WALLET_BTN}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_${e_WALLET_TYPE}_BTN}
   Wait Until Element Should Be Visible  ${IMPORT_KEYSTORE_ICON} svg
-  Run Keyword If  "${e_WALLET_TYPE}"=="json"
-  ...  Upload Json Wallet Based On Environment  ${e_USER}
+  Run Keyword If  '${e_WALLET_TYPE}'=='json'
+  ...  Submit Json Wallet  ${e_USER}  ${e_WALLET_TYPE}
+  ...  ELSE
+  ...  Submit Metamask Wallet
+
+
+Submit Json Wallet
+  [Arguments]  ${p_user}  ${p_wallet_type}=json
+  Run Keyword If  "${p_wallet_type}"=="json"
+  ...  Upload Json Wallet Based On Environment  ${p_user}
   User Submits Keystore Password  #validate wallet password
   Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
   User Submits Keystore Password  #sign message modal
@@ -63,6 +73,28 @@ Visit Newly Created Proposal And Click "${e_ACTION}" Action
   # Assign ID For Interaction Buttons
   # ${t_button}=  Return Action Button Names On Proposal  ${e_ACTION}
   # Wait And Click Element  ${t_button}
+
+Logged In Account Using Metamask
+  Select Window  main
+  Maximize Browser Window
+  Go to  ${${ENVIRONMENT}_BASE_URL}${s_ENTRY_POINT}
+  Load JQuery Tool
+  # Wait And Click Element  ${LOAD_WALLET_BTN}
+  # Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
+  # Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_METAMASK_BTN}
+  # Wait Until Element Should Be Visible  ${IMPORT_KEYSTORE_ICON} svg
+
+Submit Metamask Wallet
+  Input Text  ${METAMASK_NICKNAME}  test
+  Click Element  ${UNLOCK_WALLET_BTN}
+  Sleep  5 seconds
+  Select Window  new
+  Wait And Click Element  css=.request-signature__footer button:nth-of-type(2)
+  Select Window  main
+  Sleep  5 seconds
+  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
+  Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
+  Click Element  ${CLOSE_ICON}
 
 #========#
 #  THEN  #
@@ -137,13 +169,20 @@ User Should Be Able To Participate On Proposal
 #  SETUP / TEARDOWN  #
 #====================#
 "${e_USER}" Account Has Successfully Logged In To DigixDao Using "${e_WALLET_TYPE}"
-  "${e_USER}" Launch Governance Page
+  Set Entry Point Based On Environment
+  ${t_strWallet}=  Convert To Lowercase  ${e_WALLET_TYPE}
+  Run keyword If  "${t_strWallet}"=="metamask"  Run Keywords
+  ...  "${e_USER}" Launches Browser With Plugins
+  ...  AND  Logged In Account Using Metamask
+  ...  ELSE
+  ...  Launch Digix Website  ${s_ENTRY_POINT}  ${ENVIRONMENT}  ${e_USER}
   "${e_USER}" Submits "${e_WALLET_TYPE}" Wallet
+  Set Suite Variable  ${s_WALLET_TYPE}  ${e_WALLET_TYPE}
 
-"${e_USER}" Launch Governance Page
-  ${t_entry}=  Set Variable If  "${ENVIRONMENT}"=="KOVAN"
-  ...  ${KOVAN_GOVERNANCE_URL_EXT}  ${GOVERNANCE_LOGIN_URL_EXT}
-  Launch Digix Website  ${t_entry}  ${ENVIRONMENT}  ${e_USER}
+Launch Governance Website
+  [Arguments]  ${p_user_alias}=${ALIAS}
+  Set Entry Point Based On Environment
+  Launch Digix Website  ${s_ENTRY_POINT}  ${ENVIRONMENT}  ${p_user_alias}
 
 #===========#
 #  HELPERS  #

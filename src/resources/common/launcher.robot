@@ -34,3 +34,8 @@ Set Timeout Dependent On Environment
   Set Global Variable  ${g_TIMEOUT}  ${t_timeout}
   Set Global Variable  ${g_INTERVAL}  ${t_interval}
   Set Global Variable  ${g_TIMEOUT_SEC}  ${t_timeout_sec}
+
+Set Entry Point Based On Environment
+  ${t_entry}=  Set Variable If  "${ENVIRONMENT}"=="KOVAN"
+  ...  ${KOVAN_GOVERNANCE_URL_EXT}  ${GOVERNANCE_LOGIN_URL_EXT}
+  Set Suite Variable  ${s_ENTRY_POINT}  ${t_entry}
