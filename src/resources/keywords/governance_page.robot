@@ -27,6 +27,8 @@ User Submits Locked Stake
   Wait Until Element Should Be Visible  ${LOCK_WITH_AMOUNT_BTN}
   Input Text  ${LOCK_DGD_AMOUNT_FIELD}  ${p_amount}
   Wait Until Element Should Be Visible  ${LOCK_DGD_STATUS}
+  ${t_stake}=  Return Stake Value Based On Inputted DGD Amount
+  Set Suite Variable  ${s_LOCK_STAKE}  ${t_stake}
   Wait And Click Element  ${LOCK_WITH_AMOUNT_BTN}
   User Submits Keystore Password
 
@@ -157,3 +159,9 @@ Get Proposal Card Index
   \  Run Keyword If  '${t_same}'=='True'  Run Keywords
   ...  Set Suite Variable  ${s_PROPOSAL_INDEX}  ${locator}
   ...  AND  Exit For Loop
+
+Return Stake Value Based On Inputted DGD Amount
+  Wait Until Element Should Be Visible  ${LOCK_DGD_STAKE_LABEL}
+  ${t_stake}=  Get Text  ${LOCK_DGD_STAKE_LABEL}
+  ${t_value}=  Remove String  ${t_stake}  STAKE
+  [Return]  ${t_value}

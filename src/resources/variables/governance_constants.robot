@@ -52,6 +52,7 @@ ${ADDRESS_INFO_SIDEBAR}  css=[class*="AddressInfo"]
 ${LOCK_DGD_BTN}  jquery=[class*="style__InnerContainer"] button:eq(1)
 ${LOCK_DGD_AMOUNT_FIELD}  css=[data-digix="LockDgdOverlay-DgdAmount"]
 ${LOCK_DGD_STATUS}  css=p[class*="StakeCaption"]
+${LOCK_DGD_STAKE_LABEL}  css=p[class*="StakeCaption"] strong
 ${LOCK_WITH_AMOUNT_BTN}  css=[data-digix="LockDgdOverlay-LockDgd"]
 ${CONGRATULATION_BANNER}  css=div[class*="ConfirmationBox"]
 ${GET_STARTED_BTN}  ${CONGRATULATION_BANNER} + button
