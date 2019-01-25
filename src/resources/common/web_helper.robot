@@ -123,6 +123,20 @@ Get Matching Locator Count
 #====================#
 #  GENERIC KEYWORDS  #
 #====================#
+Wait Until New Window Pops Up
+  [Arguments]  ${p_count}
+  Return Windows Count
+  :FOR  ${index}  IN RANGE  0  5
+  \  ${t_same}=  Evaluate  '${tc_COUNT}'=='${p_count}'
+  \  Run Keyword If  ${t_same}  Run Keywords
+  ...  Exit For Loop
+  ...  ELSE  Return Windows Count
+
+Return Windows Count
+  ${t_windows}=  Get Window Handles  #Get Window Identifiers
+  ${t_count}=  Get Length  ${t_windows}
+  Set Test Variable  ${tc_COUNT}  ${t_count}
+
 Upload TestData Image
   [Arguments]  ${p_filename}
   Load JQuery Tool
@@ -132,9 +146,18 @@ Upload TestData Image
   Choose File  ${${p_filename}_UPLOAD_BTN}  ${t_path}
 
 User Submits Keystore Password
-  Wait Until Element Should Be Visible  ${IMPORT_PASSWORD_FIELD}
-  Input Text  ${IMPORT_PASSWORD_FIELD}  ${${ENVIRONMENT}_DAO__WALLET_PW}
-  Wait And Click Element  ${UNLOCK_WALLET_BTN}
+  ${t_lower}=  Convert To Lowercase  ${s_WALLET_TYPE}
+  Run Keyword If  '${t_lower}'=='metamask'  Run Keywords
+  ...  Wait Until Element Should Be Visible  ${GOVERNANCE_MODAL}
+  ...  AND  Wait Until New Window Pops Up  2
+  ...  AND  Select Window  new
+  ...  AND  Wait And Click Element  css=.btn-confirm
+  ...  AND  Wait Until New Window Pops Up  1
+  ...  AND  Select Window  main
+  ...  ELSE  Run Keywords
+  ...  Wait Until Element Should Be Visible  ${IMPORT_PASSWORD_FIELD}
+  ...  AND  Input Text  ${IMPORT_PASSWORD_FIELD}  ${${ENVIRONMENT}_DAO__WALLET_PW}
+  ...  AND  Wait And Click Element  ${UNLOCK_WALLET_BTN}
 
 LookUp Value On Info Server
   [Arguments]  ${p_address}  ${p_lookUp}
