@@ -38,6 +38,10 @@ Wait And Click Element
     Set Focus To Element  ${p_locator}
     Click Element  ${p_locator}
 
+Wait Until Element Should Be Enabled
+    [Arguments]    ${p_locator}
+    Wait Until Element Is Enabled  ${p_locator}  timeout=${g_TIMEOUT_SEC}
+
 Wait Until Element Is Disabled
     [Arguments]  ${p_locator}
     Wait Until Keyword Succeeds    ${g_TIMEOUT}    ${g_INTERVAL}
@@ -178,3 +182,7 @@ Get SnackBar Text
   Wait Until Element Should Be Visible  ${SNACK_BAR_DIV}:last
   ${t_value}=  Get Text  ${SNACK_BAR_DIV}:last
   Log To Console  ${t_value}
+
+Generate Suite Unique Value
+  ${t_time}=  Get Time  epoch
+  Set Suite Variable  ${s_UNIQUE}  ${t_time}
