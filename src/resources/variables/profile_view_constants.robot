@@ -9,8 +9,25 @@ ${PROFILE_REMAINING_REPUTATION}  css=[data-digix="Profile-ModerationRequirements
 ${PROFILE_REMAINING_STAKE}    css=[data-digix="Profile-ModerationRequirements-Stake"]
 ${PROFILE_REDEEM_BADGE_BTN}  css=[data-digix="redeemBadgeButton"]
 
+${PROFILE_USERNAME_DIV}  css=[data-digix="Profile-UserName"]
+${PROFILE_SET_USERNAME_BTN}  css=[data-digix="Profile-UserName-Cta"]
+${PROFILE_SET_USERNAME_FIELD}  css=[data-digix="SetUsername-TexBox"]
+${PROFILE_CHANGE_USERNAME_BTN}  css=[data-digix="UsernameOverlay-SetUsername"]
+
+${PROFILE_EMAIL_DIV}  css=[data-digix="Profile-Email"]
+${PROFILE_SET_EMAIL_BTN}  css=[data-digix="Profile-Email-Cta"]
+${PROFILE_SET_EMAIL_FIELD}   css=[data-digix="SetEmail-Textbox"]
+${PROFILE_CHANGE_EMAIL_BTN}  css=[data-digix="EmailOverlay-SetEmail"]
+
+${PROFILE_ERROR_DIV}  jquery=[class*="Hint"]
 #constants
 ${LOCAL_MIN_STAKE_PTS}    100
 ${KOVAN_MIN_STAKE_PTS}    1000
 ${LOCAL_MIN_REPUTATION_PTS}  1
 ${KOVAN_MIN_REPUTATION_PTS}  ${EMPTY}
+
+#error messages
+${INVALID_USERNAME}  Username must be between 2-20 characters
+${INVALID_EMAIL}  Please enter a valid email address.
+${INVALID_USERNAME_EXIST}  Username has already been taken
+${INVALID_EMAIL_EXIST}  Email has already been taken

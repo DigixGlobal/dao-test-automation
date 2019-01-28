@@ -43,7 +43,7 @@ ${UNLOCK_WALLET_BTN}  ${MODAL_ACTIONS} button:eq(1)
 # sign message modal
 ${MESSAGE_SIGNER_FORM}  ${GOVERNANCE_MODAL} form
 ${SIGN_MESSAGE_BTN}  ${UNLOCK_WALLET_BTN}
-
+${METAMASK_NICKNAME}  css=[placeholder="Address nickname"]
 #------------------------------------#
 # sidebar
 ${CLOSE_ICON}  jquery=[class*="CloseButton"] svg
