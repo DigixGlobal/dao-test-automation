@@ -92,3 +92,38 @@ Compute Remaining Value
   ...  ${t_remaining}  0
   ${t_strValue}=  Convert To String  ${t_value}
   [Return]  ${t_strValue}
+
+Force Fail Test If Username Is Already Set
+  Wait Until Element Should Be Visible  ${PROFILE_USERNAME_DIV}
+  ${t_modified}=  Run Keyword And Return Status
+  ...  Element Should Contain  ${PROFILE_USERNAME_DIV}  test
+  Run Keyword If  ${t_modified}  Run Keywords
+  ...  Wait Until Element Should Not Be Visible  ${PROFILE_SET_USERNAME_BTN}
+  ...  AND  FAIL  msg=${\n}username is already been set. Please reset servers on ${ENVIRONMENT}
+
+#============#
+#  TEMPLATE  #
+#============#
+User Sets Account Details By Component
+  [Arguments]  ${p_component}  ${p_value}  ${p_expected_result}  ${p_message}=${EMPTY}
+  Wait And Click Element  ${PROFILE_SET_${p_component}_BTN}
+  Wait Until Element Should Be Visible  ${PROFILE_SET_${p_component}_FIELD}
+  Clear Element Text  ${PROFILE_SET_${p_component}_FIELD}
+  Input Text  ${PROFILE_SET_${p_component}_FIELD}  ${p_value}
+  Run Keyword If  '${p_expected_result}'=='invalid'  Run Keywords
+  ...  Wait Until Element Should Contain  ${PROFILE_ERROR_DIV}  ${p_message}
+  ...  AND  Wait Until Element Is Disabled  ${PROFILE_CHANGE_${p_component}_BTN}
+  ...  AND  Click Element  ${CLOSE_ICON}
+  ...  ELSE IF  '${p_expected_result}'=='exist'  Run Keywords
+  ...  Wait Until Element Should Be Enabled   ${PROFILE_CHANGE_${p_component}_BTN}
+  ...  AND  Click Element  ${PROFILE_CHANGE_${p_component}_BTN}
+  ...  AND  Wait Until Element Should Contain  ${PROFILE_ERROR_DIV}  ${p_message}
+  ...  AND  Click Element  ${CLOSE_ICON}
+  ...  ELSE IF  '${p_expected_result}'=='valid'  Run Keywords
+  ...  Wait Until Element Should Be Enabled   ${PROFILE_CHANGE_${p_component}_BTN}
+  ...  AND  Click Element  ${PROFILE_CHANGE_${p_component}_BTN}
+  ...  AND  Wait Until Element Should Be Visible  ${PROFILE_${p_component}_DIV}
+  ...  AND  Wait Until Element Should Contain  ${PROFILE_${p_component}_DIV}  ${p_value}
+  ...  AND  Wait Until Element Should Not Be Visible  ${PROFILE_SET_USERNAME_BTN}
+  Run Keyword If  '${p_component}'=='username' and '${p_expected_result}'=='valid'
+  ...  Wait Until Element Should Not Be Visible  ${PROFILE_SET_USERNAME_BTN}
