@@ -46,7 +46,6 @@ User Submits Locked Stake
   ...  ELSE
   ...  Submit Metamask Wallet
 
-
 Submit Json Wallet
   [Arguments]  ${p_user}  ${p_wallet_type}=json
   Run Keyword If  "${p_wallet_type}"=="json"

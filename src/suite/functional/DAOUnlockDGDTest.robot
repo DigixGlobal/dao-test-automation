@@ -1,5 +1,6 @@
 *** Settings ***
-Documentation  This suite will test redeeming badge on Profile View Page
+Documentation  This suite will test locking and unlocking DGD at Wallet Page
+...  on locking phase.
 Force Tags  regression  sanity  NotForKOVAN
 Default Tags    DAOUnlockDGDTest
 Suite Teardown    Close All Browsers

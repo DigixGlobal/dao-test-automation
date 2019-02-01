@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation  This suite will test setting up username and
 ...  email on Profile view page
-Force Tags  regression  smoke  notForKovan
+Force Tags  regression  sanity  notForKovan
 Default Tags    DaoSetUsernameEmailTest
 Suite Setup  Generate Suite Unique Value
 Suite Teardown    Close All Browsers
