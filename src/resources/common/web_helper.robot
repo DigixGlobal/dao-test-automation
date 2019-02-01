@@ -59,10 +59,6 @@ Wait Until ELement Should Not Contain
   :FOR  ${locator}  IN  @{${e_NAME}_ELEMENT_LIST}
   \  Wait Until Element Should Be Visible  ${locator}
 
-Wait Until Element Should Be Enabled
-  [Arguments]  ${p_locator}
-  Wait Until Element Is Enabled  ${p_locator}  timeout=${g_TIMEOUT_SEC}
-
 #===========================================#
 #               CONSOLE LOGGER              #
 #===========================================#

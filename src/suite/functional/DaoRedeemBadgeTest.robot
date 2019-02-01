@@ -2,29 +2,38 @@
 Documentation  This suite will test redeeming badge on Profile View Page
 Force Tags  regression  sanity  NotForKOVAN
 Default Tags    DaoRedeemBadgeTest
-Suite Teardown    Close All Browsers
+Suite Teardown  Close All Browsers
 Resource  ../../resources/common/web_helper.robot
 Resource  ../../resources/keywords/governance_page.robot
 Resource  ../../resources/keywords/profile_view_page.robot
 
 *** Test Cases ***
-Badge Holder Has Successfully Redeemed Badge
+Badge Holder On Contract Has Successfully Redeemed Badge
   [Setup]  "badgeHolder" Account Has Successfully Logged In To DigixDao Using "json"
   Given User Is In "GOVERNANCE" Page
   And Pull "badgeHolder" Data From Info Server
   When User Goes To "Profile" View Page
-  When "badgeHolder" Marks Himself As Participant
+  And "badgeHolder" Marks Himself As Participant
   And "badgeHolder" Redeems Badge
   Then Badge Should Be Successfully Redeemed
   When Go Back To Dashboard Page
   And User Goes To "Profile" View Page
-  Then Badge Should Be Successfully Redeemed
+  Then Gain Moderator Card Should Not Be Visible
+  And Gain Moderator Status Card Should Be Visible Based On Role
 
-Redeemed Badge User Has Successfully Visited Profile Page
-  [Setup]  "badgeHolder" Account Has Successfully Logged In To DigixDao Using "json"
+Badge Holder Not On Contract Has Successfully Redeemed Badge
+  [Setup]  "badgeHolderNotOnContract" Account Has Successfully Logged In To DigixDao Using "json"
   Given User Is In "GOVERNANCE" Page
+  And Pull "badgeHolder" Data From Info Server
   When User Goes To "Profile" View Page
-  Then Badge Has Already Been Redeemed
+  And "badgeHolderNotOnContract" Approves Interaction To Contract
+  Then User Should Successfully Interacted To Badge Contract
+  When User Goes To "Profile" View Page
+  And "badgeHolder" Redeems Badge
+  Then Badge Should Be Successfully Redeemed
+  When Go Back To Dashboard Page
+  And User Goes To "Profile" View Page
+  Then Redeem Badge Should Be Disabled
 
 NonBadge Holder Has Successfully Visited Profile Page
   [Setup]  "nonBadgeHolder" Account Has Successfully Logged In To DigixDao Using "json"

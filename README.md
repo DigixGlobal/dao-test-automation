@@ -52,6 +52,7 @@ HTTP_ENDPOINT=http://localhost:9001/ipfs
 | account7          | moderator                            | 0x508221f68118d1eaa631d261aca3f2fccc6ecf91 |
 | account8          | proposer                             | 0x519774b813dd6de58554219f16c6aa8350b8ec99 |
 | account9          | nonBadgeHolder                       | 0xca731a9a354be04b8ebfcd9e429f85f48113d403 |
-| account10         | badgeHolder                          | 0x1a4d420bff04e68fb76096ec3cbe981f509c3341 |
+| account3          | badgeHolder                          | 0xda89b1b5835290da6cf1085e1f02d8600074e35d |  *
+| account10         | badgeHolderNotOnContract             | 0x1a4d420bff04e68fb76096ec3cbe981f509c3341 |  *
 | account12         | participant                          | 0xad127e217086779bc0a03b75adee5f5d729aa4eb |
 

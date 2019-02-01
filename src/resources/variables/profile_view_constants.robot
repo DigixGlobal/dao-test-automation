@@ -9,6 +9,9 @@ ${PROFILE_REMAINING_REPUTATION}  css=[data-digix="Profile-ModerationRequirements
 ${PROFILE_REMAINING_STAKE}    css=[data-digix="Profile-ModerationRequirements-Stake"]
 ${PROFILE_REDEEM_BADGE_BTN}  css=[data-digix="redeemBadgeButton"]
 
+#overlay
+${BADGE_APPROVE_INTERACTION_BTN}  css=[data-digix="Approve-Interaction"]
+
 ${PROFILE_USERNAME_DIV}  css=[data-digix="Profile-UserName"]
 ${PROFILE_SET_USERNAME_BTN}  css=[data-digix="Profile-UserName-Cta"]
 ${PROFILE_SET_USERNAME_FIELD}  css=[data-digix="SetUsername-TexBox"]
@@ -31,3 +34,6 @@ ${INVALID_USERNAME}  Username must be between 2-20 characters
 ${INVALID_EMAIL}  Please enter a valid email address.
 ${INVALID_USERNAME_EXIST}  Username has already been taken
 ${INVALID_EMAIL_EXIST}  Email has already been taken
+
+#snackbar messages
+${APPROVE_INTERACTION}  Badge Redemption Approved

@@ -37,6 +37,11 @@ Pull "${e_USER}" Data From Info Server
   ...  Click Element  ${PROFILE_REDEEM_BADGE_BTN}
   ...  AND  User Submits Keystore Password
 
+"${e_USER}" Approves Interaction To Contract
+  Wait And Click Element  ${PROFILE_REDEEM_BADGE_BTN}
+  Wait And Click ELement  ${BADGE_APPROVE_INTERACTION_BTN}
+  User Submits Keystore Password
+
 #========#
 #  THEN  #
 #========#
@@ -76,6 +81,14 @@ Badge Has Already Been Redeemed
 
 Redeem Badge Should Be Disabled
   Badge Has Already Been Redeemed
+
+User Should Successfully Interacted To Badge Contract
+  Wait Until Element Should Be Visible  ${GOVERNANCE_FILTER_SECTION}
+  Sleep  5 seconds
+
+Gain Moderator Card Should Not Be Visible
+  Wait Until Element Should Be Visible  ${PROFILE_ROLE_DIV}
+  Wait Until Element Should Not Be Visible  ${PROFILE_MODERATOR_CARD}
 
 #=====================#
 #  INTERNAL KEYWORDS  #
