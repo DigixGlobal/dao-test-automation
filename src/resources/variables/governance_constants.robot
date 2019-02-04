@@ -8,6 +8,7 @@ ${WALLET_SIDE_MENU_ICON}  css=div[kind="wallet"]
 ${PROFILE_SIDE_MENU_ICON}  css=div[kind="profile"]
 ${HISTORY_SIDE_MENU_ICON}  css=div[kind="history"]
 ${DAO_TOUR_SIDE_MENU_ICON}  css=div[kind="product"]
+${KYC_DASHBOARD_SIDE_MENU_ICON}  css=div[kind="dashboard"]
 @{LOGGED_OUT_SIDENAV_LIST}
 ...  ${HOME_SIDE_MENU_ICON}  ${DAO_TOUR_SIDE_MENU_ICON}
 @{LOGGED_IN_SIDENAV_LIST}

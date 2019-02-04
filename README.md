@@ -43,11 +43,13 @@ HTTP_ENDPOINT=http://localhost:9001/ipfs
 | DaoEditProposalTest    | sanity, regression               | This suite will test editing of proposal and validate the edited details on Proposal View Page                                        |
 | DaoClaimRewardTest     | sanity, regression, NotForKOVAN  | This suite will test claiming rewards on Wallet Page                                                                                  |
 | DaoRedeemBadgeTest     | sanity, regression, NotForKOVAN  | This suite will test redeeming badge on Profile View Page                                                                             |  
+| DaoKYCAdminTest        | sanity, regression               | This suite will test approving and rejecting KYC using KYC Admin Account                                                              |
 
 ### Local Environmenet Keystore Reference
 
 | Default FileName  | Replaced Into Username On Automation |                   Address                  |
 | ----------------- | ------------------------------------ | ------------------------------------------ |
+| account2          | kycOfficer                           | 0x97BE8FF9065cE5F3d562CB6b458cdE88c8307Edf |
 | account4          | rewardee                             | 0x9f244f9316426030bca51baf35a4541422ab4f76 |
 | account7          | moderator                            | 0x508221f68118d1eaa631d261aca3f2fccc6ecf91 |
 | account8          | proposer                             | 0x519774b813dd6de58554219f16c6aa8350b8ec99 |

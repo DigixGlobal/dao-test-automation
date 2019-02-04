@@ -13,7 +13,7 @@ class CustomRunner:
         "DaoJsonWalletETest", "DaoMetamaskWalletETest", "DaoEditProposalTest",
         "DaoLikeModuleTest", "DaoProfileOverviewTest", "DaoSideNavMenuTest",
         "DaoClaimRewardTest", "DaoRedeemBadgeTest", "DaoCreateProposalMetamaskTest",
-        "DaoCommentModuleTest",
+        "DaoCommentModuleTest", "DaoKYCAdminTest",
         "regression", "smoke", "sanity" 
     ]
 
