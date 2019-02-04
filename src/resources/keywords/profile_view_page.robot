@@ -90,6 +90,14 @@ Gain Moderator Card Should Not Be Visible
   Wait Until Element Should Be Visible  ${PROFILE_ROLE_DIV}
   Wait Until Element Should Not Be Visible  ${PROFILE_MODERATOR_CARD}
 
+KYC Status Should Be "${e_STATUS}"
+  Wait Until Element Should Be Visible  ${PROFILE_KYC_STATUS_LABEL}
+  Wait Until ELement Should Contain  ${PROFILE_KYC_STATUS_LABEL}  ${e_STATUS}
+  Run Keyword If  "${e_STATUS}"=="Pending"
+  ...  Wait Until Element Is Disabled  ${PROFILE_SUBMIT_KYC_BTN}
+  ...  ELSE
+  ...  Wait Until Element Should Be Enabled  ${PROFILE_SUBMIT_KYC_BTN}
+
 #=====================#
 #  INTERNAL KEYWORDS  #
 #=====================#
@@ -137,6 +145,5 @@ User Sets Account Details By Component
   ...  AND  Click Element  ${PROFILE_CHANGE_${p_component}_BTN}
   ...  AND  Wait Until Element Should Be Visible  ${PROFILE_${p_component}_DIV}
   ...  AND  Wait Until Element Should Contain  ${PROFILE_${p_component}_DIV}  ${p_value}
-  ...  AND  Wait Until Element Should Not Be Visible  ${PROFILE_SET_USERNAME_BTN}
   Run Keyword If  '${p_component}'=='username' and '${p_expected_result}'=='valid'
   ...  Wait Until Element Should Not Be Visible  ${PROFILE_SET_USERNAME_BTN}

@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation  This suite will test approving and rejecting KYC using KYC Admin Account
+...  NOTE: Run `bundle exec rake dao:seed_pending_kycs` if test data is less than 2
 Force Tags  regression  smoke
 Default Tags    DaoKYCAdminTest
 Suite Teardown    Close All Browsers
@@ -13,12 +14,12 @@ KYCOfficer Has Successfully Approved KYC Account
   Given User Is In "GOVERNANCE" Page
   And KycOfficer Is Logged In
   When User Goes To "KYC_DASHBOARD" View Page
-  And User "Approves" An Account
+  And User "Approves" "ANY" Account
   Then Account Status Should Be "APPROVED"
 
 KYCOfficer Has Successfully Rejected KYC Account
   Given User Is In "KYC_ADMIN" Page
-  When User "Rejects" An Account
+  When User "Rejects" "ANY" Account
   Then Account Status Should Be "REJECTED"
 
 NonOfficer Has Successfully Visited KycAdmin Via Force URL

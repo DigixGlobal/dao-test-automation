@@ -20,7 +20,7 @@ Pull Profile Stats Data
 #  WHEN  #
 #========#
 User Goes To "${e_SIDEMENU}" View Page
-  Wait Until Element Should Be Visible  ${SIDE_MENU_DIV}
+  Open SideNav Menu If Not Visible
   Wait And Click Element  ${${e_SIDEMENU}_SIDE_MENU_ICON}
 
 User Submits Locked Stake
@@ -59,7 +59,7 @@ Submit Json Wallet
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
 
 Go Back To Dashboard Page
-  Wait And Click Element  ${HOME_SIDE_MENU_ICON}
+  User Goes To "Home" View Page
   Wait Until Element Should Be Visible  ${GOVERNANCE_FILTER_SECTION}
 
 Go To Newly Created Proposal View Page
