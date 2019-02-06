@@ -1,15 +1,18 @@
 *** Settings ***
-Documentation  This suite will test end to end process of creating proposals
-...  until setting the proposal to archive via Metamask Wallet as Entry Point
-Force Tags    smoke    regression  endtoend
-Default Tags    DaoMetamaskWalletETest
+Documentation  This suite will test changing of funding then
+...  go to the next phase after edit.
+Force Tags  smoke  regression
+Default Tags    DaoChangeFundingTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
 Resource  ../../resources/keywords/governance_page.robot
 
+*** Variables ***
+${NUMBER_OF_MILESTONE}  2
+
 *** Test Cases ***
 Proposer Has Successfully Created A Proposal
-  [Setup]  "proposer" Account Has Successfully Logged In To DigixDao Using "metamask"
+  [Setup]  "proposer" Account Has Successfully Logged In To DigixDao Using "json"
   Given User Is In "GOVERNANCE" Page
   When "proposer" Creates A Governance Propsosal
   Then User Should Be Redirected To "GOVERNANCE" Page
@@ -17,7 +20,7 @@ Proposer Has Successfully Created A Proposal
   And Proposal Status Should Be "IDEA"
 
 Moderator Has Successfully Endorsed Newly Created Proposal
-  [Setup]  "moderator" Account Has Successfully Logged In To DigixDao Using "metamask"
+  [Setup]  "moderator" Account Has Successfully Logged In To DigixDao Using "json"
   Given User Is In "GOVERNANCE" Page
   When "moderator" "Endorses Proposal" On Newly Created Proposal
   Then User Should Be Able To Participate On Proposal
@@ -73,42 +76,13 @@ Proposer Has Successfully Claimed Vote Result
   When "porposer" "Claims Voting Result" On Newly Created Proposal
   Then Proposal Status Should Be "ONGOING"
 
+Proposer Has Successfully Edited funding
+  Given User Is In "Governance" Page
+  When User Edits Proposal Funding
+  Then Funding Should be Changed
+
 Proposer Has Successfully Claimed First Milestone Funding
+  [Setup]  Go Back To Dashboard Page
   Given User Is In "Governance" Page
   When "proposer" "Claims Proposal Funding" On Newly Created Proposal
   Then Proposal Status Should Be "ONGOING"
-
-Proposer Has Successfully Completed First Milestone
-  Given User Is In "Governance" Page
-  When "proposer" "Sets Proposal To Complete" On Newly Created Proposal
-  Then Proposal Status Should Be "REVIEW"
-
-Proposer Has Successfully Voted Yes For First Milestone
-  [Setup]  Switch Browser  proposer
-  Given User Is In "Governance" Page
-  When "proposer" Votes "Yes" On Proposal
-  Then Vote Count Should Increase
-
-Moderator Has Successfully Voted Yes For First Milestone
-  [Setup]  Switch Browser  moderator
-  Given User Is In "Governance" Page
-  When "moderator" Votes "Yes" On Proposal
-  Then Vote Count Should Increase
-
-Moderator Has Successfully Revealed Vote For First Milstone
-  [Setup]  Switch Browser  moderator
-  Given User Is In "Governance" Page
-  When "moderator" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
-
-Proposer Has Successfully Revealed Vote For First Milstone
-  [Setup]  Switch Browser  proposer
-  Given User Is In "Governance" Page
-  When "proposer" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
-
-Proposer Has Successfully Claimed Vote Result On Reviewed First Milestone
-  [Setup]  Sleep Until Timer Runs Out
-  Given User Is In "Governance" Page
-  When "porposer" "Claims Voting Result" On Newly Created Proposal
-  Then Proposal Status Should Be "ARCHIVED"

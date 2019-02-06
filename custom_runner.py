@@ -13,7 +13,8 @@ class CustomRunner:
         "DaoJsonWalletETest", "DaoMetamaskWalletETest", "DaoEditProposalTest",
         "DaoLikeModuleTest", "DaoProfileOverviewTest", "DaoSideNavMenuTest",
         "DaoClaimRewardTest", "DaoRedeemBadgeTest", "DaoCreateProposalMetamaskTest",
-        "DaoCommentModuleTest", "DaoKYCAdminTest",
+        "DaoCommentModuleTest", "DaoSetUsernameEmailTest", "DAOUnlockDGDTest",
+        "DaoChangeFundingTest", "DaoKYCAdminTest",
         "regression", "smoke", "sanity" 
     ]
 
@@ -125,7 +126,7 @@ class CustomRunner:
         cmd += '--variable BROWSER:%s ' % self.browser
         cmd += '--include %s ' % self.test_suite
         cmd += '%s ' % self.exitOnfailure
-        cmd += '--outputdir Results/ '
+        cmd += '--outputdir Results/%s ' % self.test_suite
         cmd += '.'
         return cmd
 
