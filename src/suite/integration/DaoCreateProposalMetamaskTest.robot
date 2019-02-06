@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation  This suite will test creating of proposal
 ...  using metamask as Entry Point
-Force Tags  regression  sanity  NotForKOVAN
+Force Tags  regression  smoke
 Default Tags    DaoCreateProposalMetamaskTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot

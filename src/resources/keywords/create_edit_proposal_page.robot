@@ -21,6 +21,7 @@ ${MILESTONE_FIELD}  ${MILESTONE_FORM} input
 ${MILESTONE_DESC_FIELD}  ${MILESTONE_FORM} textarea
 ${CREATE_NOW_BTN}  ${PROPOSAL_MENU_NEXT_BTN}
 ${PROPOSAL_SUBMIT_BTN}  jquery=div[class*="ContentWrapper"] button:eq(1)
+
 *** Keywords ***
 #========#
 #  WHEN  #
@@ -60,15 +61,16 @@ User Submit Proposal Details
   Wait Until Element Should Be Visible  ${MILESTONE_FORM}
   Input Text  ${REWARD_FIELD}  ${p_reward}
   Select From List By Label  ${NUM_OF_MILESTONE_FIELD}  ${NUMBER_OF_MILESTONE}
-  Input Text  ${MILESTONE_FIELD}:eq(0)  ${p_milestone}
-  Input Text  ${MILESTONE_DESC_FIELD}:eq(0)  ${t_value}
+  :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_MILESTONE}
+  \  Input Text  ${MILESTONE_FIELD}:eq(${index})  ${p_milestone}
+  \  Input Text  ${MILESTONE_DESC_FIELD}:eq(${index})  ${t_value}
   Set Suite Variable  ${s_REWARD_AMOUNT}  ${p_reward}
   Set Suite Variable  ${s_MILESTONE_AMOUNT}  ${p_milestone}
+  Hide Governance Header Menu
   Compute Suite Total Funding
   Click Element  ${CREATE_NOW_BTN}
   #prevew
   Wait And Click Element  ${PROPOSAL_SUBMIT_BTN}
-  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
   User Submits Keystore Password  #transaction modal
   Set Global Variable  ${g_GENERIC_VALUE}  ${t_value}
   Run Keyword If  '${ENVIRONMENT}'=='KOVAN'  Run Keywords
@@ -79,6 +81,6 @@ User Submit Proposal Details
 #  INTERNAL KEYWORDS  #
 #=====================#
 Compute Suite Total Funding
-  ${t_total}=  Evaluate  ${s_REWARD_AMOUNT} + ${s_MILESTONE_AMOUNT}
+  ${t_total}=  Set Variable  ${s_MILESTONE_AMOUNT}
   ${t_strFunding}=  Convert To String  ${t_total}
   Set Suite Variable  ${s_TOTAL_FUNDING}  ${t_strFunding}
