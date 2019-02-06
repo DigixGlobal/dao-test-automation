@@ -42,18 +42,20 @@ HTTP_ENDPOINT=http://localhost:9001/ipfs
 | DaoLikeModuleTest              | smoke, regression                | This suite will test like/unlike module for proposal and comments                                                                      |
 | DaoProfileOverviewTest         | smoke, regression                | This suite will test asserting values on Profile Overview are correct and validate components are showing correcly based on user role  | 
 | DaoSideNavMenuTest             | smoke, regression                | This suite will test assert side nav menu list when a user is in logged in and logged out state. (DGDG-284)                            | 
+| DaoChangeFundingTest           | sanity, regression               | This suite will test changing of funding then go to the next phase after edit.                                                         |
+| DaoKYCAdminTest                | sanity, regression               | This suite will test approving and rejecting KYC using KYC Admin Account                                                              |
 | DaoEditProposalTest            | sanity, regression               | This suite will test editing of proposal and validate the edited details on Proposal View Page                                         |
 | DaoClaimRewardTest             | sanity, regression, NotForKOVAN  | This suite will test claiming rewards on Wallet Page                                                                                   |
 | DaoRedeemBadgeTest             | sanity, regression, NotForKOVAN  | This suite will test redeeming badge on Profile View Page                                                                              |
 | DaoSetUsernameEmailTest        | sanity, regression, NotForKOVAN  | This suite will test setting up username and email on Profile view page                                                                |
 | DAOUnlockDGDTest               | sanity, regression, NotForKOVAN  | This suite will test locking and unlocking DGD at Wallet Page on locking phase.                                                        |
-| DaoChangeFundingTest           | sanity, regression               | This suite will test changing of funding then go to the next phase after edit.                                                         |
 
 
 ### Local Environmenet Keystore Reference
 
 | Default FileName  | Replaced Into Username On Automation |                   Address                  |
 | ----------------- | ------------------------------------ | ------------------------------------------ |
+| account2          | kycOfficer                           | 0x97BE8FF9065cE5F3d562CB6b458cdE88c8307Edf |
 | account4          | rewardee                             | 0x9f244f9316426030bca51baf35a4541422ab4f76 |
 | account7          | moderator                            | 0x508221f68118d1eaa631d261aca3f2fccc6ecf91 |
 | account8          | proposer                             | 0x519774b813dd6de58554219f16c6aa8350b8ec99 |

@@ -14,7 +14,7 @@ class CustomRunner:
         "DaoLikeModuleTest", "DaoProfileOverviewTest", "DaoSideNavMenuTest",
         "DaoClaimRewardTest", "DaoRedeemBadgeTest", "DaoCreateProposalMetamaskTest",
         "DaoCommentModuleTest", "DaoSetUsernameEmailTest", "DAOUnlockDGDTest",
-        "DaoChangeFundingTest",
+        "DaoChangeFundingTest", "DaoKYCAdminTest",
         "regression", "smoke", "sanity" 
     ]
 
