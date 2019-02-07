@@ -10,12 +10,12 @@ class CustomRunner:
     exitOnfailure = "yes"
     runner = "robot"
     LIST_OF_TAGS = [
-        "DaoJsonWalletETest", "DaoMetamaskWalletETest", "DaoEditProposalTest",
-        "DaoLikeModuleTest", "DaoProfileOverviewTest", "DaoSideNavMenuTest",
-        "DaoClaimRewardTest", "DaoRedeemBadgeTest", "DaoCreateProposalMetamaskTest",
-        "DaoCommentModuleTest", "DaoSetUsernameEmailTest", "DAOUnlockDGDTest",
-        "DaoChangeFundingTest", "DaoKYCAdminTest",
-        "regression", "smoke", "sanity" 
+        "DaoJsonWalletETest", "DaoMetamaskWalletETest", "DaoKYCETest", 
+        "DaoCreateProposalMetamaskTest","DaoEditProposalTest","DaoChangeFundingTest",
+        "DaoLikeModuleTest", "DaoCommentModuleTest", "DaoProfileOverviewTest", "DaoSideNavMenuTest",
+        "DaoClaimRewardTest", "DaoRedeemBadgeTest", "DaoSetUsernameEmailTest", "DAOUnlockDGDTest",
+        "DaoKYCAdminTest", "DaoKYCSubmissionTest",
+        "regression", "smoke", "sanity","endtoend",
     ]
 
     def enter_base_url(self):

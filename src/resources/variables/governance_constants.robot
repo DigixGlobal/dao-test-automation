@@ -2,7 +2,10 @@
 #constants
 ${SALT_FILE_EXT}  _salt.json
 #side-menu
+${HAMBURGER_MENU}  css=.bm-burger-button
 ${SIDE_MENU_DIV}  css=ul[class*="MenuList"]
+${SIDE_NAV_USER_LABEL}  css=[data-digix="Sidebar-DisplayName"]
+${SIDE_NAVE_USER_STATUS}  css=[data-digix="Sidebar-UserStatus"]
 ${HOME_SIDE_MENU_ICON}  css=div[kind="home"]
 ${WALLET_SIDE_MENU_ICON}  css=div[kind="wallet"]
 ${PROFILE_SIDE_MENU_ICON}  css=div[kind="profile"]
@@ -29,7 +32,7 @@ ${GOVERNANCE_SIDE_PANEL}  ${GOVERNANCE_SIDENAR_DIV}
 #header
 ${GOVERNANCE_MENU}  css=section[class*="HeaderWrapper"]
 ${HEADER_LOCK_DGD_BTN}  css=[data-digix="Header-LockDgd"]
-${ADDRESS_LABEL}  ${GOVERNANCE_MENU} div[class*="AddressLabel"]
+${ADDRESS_LABEL}  css=[data-digix="Header-Address"]
 ${LOAD_WALLET_BTN}  css=[data-digix="Header-LoadWallet"]
 
 #------------------------------------#

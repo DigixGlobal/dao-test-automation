@@ -149,7 +149,7 @@ Upload TestData Image
   [Arguments]  ${p_filename}
   Load JQuery Tool
   ${t_path}=  Normalize Path  ${CURDIR}/../testdata/images/${p_filename}.png
-  Modify Element Attribute Via jQuery  ${${p_filename}_UPLOAD_BTN}  visibility  visible
+  Modify Element Attribute Via jQuery  ${${p_filename}_UPLOAD_BTN}  display  block
   Wait Until Element Should Be Visible  ${${p_filename}_UPLOAD_BTN}
   Choose File  ${${p_filename}_UPLOAD_BTN}  ${t_path}
 
@@ -190,3 +190,10 @@ Get SnackBar Text
 Generate Suite Unique Value
   ${t_time}=  Get Time  epoch
   Set Suite Variable  ${s_UNIQUE}  ${t_time}
+
+Open SideNav Menu If Not Visible
+  ${t_visible}=  Run Keyword And Return Status
+  ...  Element Should Be Visible  ${SIDE_NAVE_USER_STATUS}
+  Run Keyword Unless  ${t_visible}
+  ...  Click Element  ${HAMBURGER_MENU}
+  Wait Until Element Should Be Visible  ${SIDE_NAVE_USER_STATUS}
