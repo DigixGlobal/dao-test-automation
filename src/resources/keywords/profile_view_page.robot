@@ -136,13 +136,11 @@ User Sets Account Details By Component
   ...  AND  Wait Until Element Is Disabled  ${PROFILE_CHANGE_${p_component}_BTN}
   ...  AND  Click Element  ${CLOSE_ICON}
   ...  ELSE IF  '${p_expected_result}'=='exist'  Run Keywords
-  ...  Wait Until Element Should Be Enabled   ${PROFILE_CHANGE_${p_component}_BTN}
-  ...  AND  Click Element  ${PROFILE_CHANGE_${p_component}_BTN}
+  ...  Wait And Click Element  ${PROFILE_CHANGE_${p_component}_BTN}
   ...  AND  Wait Until Element Should Contain  ${PROFILE_ERROR_DIV}  ${p_message}
   ...  AND  Click Element  ${CLOSE_ICON}
   ...  ELSE IF  '${p_expected_result}'=='valid'  Run Keywords
-  ...  Wait Until Element Should Be Enabled   ${PROFILE_CHANGE_${p_component}_BTN}
-  ...  AND  Click Element  ${PROFILE_CHANGE_${p_component}_BTN}
+  ...  Wait And Click Element  ${PROFILE_CHANGE_${p_component}_BTN}
   ...  AND  Wait Until Element Should Be Visible  ${PROFILE_${p_component}_DIV}
   ...  AND  Wait Until Element Should Contain  ${PROFILE_${p_component}_DIV}  ${p_value}
   Run Keyword If  '${p_component}'=='username' and '${p_expected_result}'=='valid'

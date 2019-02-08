@@ -15,8 +15,7 @@ Resource    ../variables/comment_constants.robot
   \  ${t_time}=  Get Time  epoch
   \  ${t_value}=  Convert To String  ${t_time} - ${index} - thread
   \  Input Text  ${THREAD_FIELD}  ${t_value}
-  \  Wait Until Element Is Enabled  ${THREAD_BUTTON}
-  \  Click Element  ${THREAD_BUTTON}
+  \  Wait And Click Element  ${THREAD_BUTTON}
   \  ${t_commentDiv}=  Set Variable  ${COMMMENT_DIV}:eq(${index})
   \  Wait Until Element Should Be Visible  ${t_commentDiv}
   \  Append To List  ${t_list}  ${t_value}
@@ -40,8 +39,7 @@ Resource    ../variables/comment_constants.robot
   \  ${t_comment_field}=  Set Variable  ${t_thread_div} textarea
   \  Wait Until Element Should Be Visible  ${t_comment_field}
   \  Input Text  ${t_comment_field}  ${t_value}
-  \  Wait Until Element Is Enabled  ${t_thread_div} ${POST_COMMENT_BTN}
-  \  Click Element  ${t_thread_div} ${POST_COMMENT_BTN}
+  \  Wait And Click Element  ${t_thread_div} ${POST_COMMENT_BTN}
   \  Append To List  ${t_list}  ${t_value}
   Set Test Variable  ${tc_${e_COMMENT_TYPE}_VALUES}  ${t_list}
   Set Test Variable  ${tc_THREAD_DIV}  ${e_THREAD_NUMBER}
@@ -114,5 +112,5 @@ Main Thread "${e_THREAD_NUMBER}" Should Have Like
 #  SETUP / TEARDOWN  #
 #====================#
 User Revisits Newly Created Proposal
-  Wait And Click Element  ${HOME_SIDE_MENU_ICON}
+  User Goes To "Home" View Page
   Go To Newly Created Proposal View Page

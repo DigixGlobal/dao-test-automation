@@ -98,8 +98,7 @@ User Edits Proposal Funding
   Clear Element Text  ${EDIT_FUNDING_MILESTONE2_FIELD}
   Input Text  ${EDIT_FUNDING_MILESTONE2_FIELD}  ${p_milestone}
   Set Suite Variable  ${s_MS_TWO}  ${p_milestone}
-  Wait Until Element Should Be Enabled  ${EDIT_FUNDING_BTN}
-  Click Element  ${EDIT_FUNDING_BTN}
+  Wait And Click Element  ${EDIT_FUNDING_BTN}
   User Submits Keystore Password  #transaction modal
 
 #========#
