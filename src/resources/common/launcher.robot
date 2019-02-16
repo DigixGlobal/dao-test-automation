@@ -1,5 +1,5 @@
 *** Variables ***
-${BROWSER}  chrome
+${BROWSER}  Chrome
 ${ALIAS}  alias1
 ${PROD_BASE_URL}  https://digix.global
 ${KOVAN_BASE_URL}  https://www-kovan.digixdev.com
@@ -9,15 +9,19 @@ ${LOCAL_LABEL}  LOCAL
 ${ENVIRONMENT}  LOCAL
 ${LOCAL_SPEED}  0.1 s
 ${REMOTE_SPEED}  0.2 s
+${HEADLESS}  no
 
 *** Keywords ***
 Launch Digix Website
-    [Arguments]    ${p_url_ext}    ${p_environment}=${ENVIRONMENT}
-    ...  ${p_alias}=${ALIAS}  ${p_browser}=${BROWSER}
-    Open Browser    ${${p_environment}_BASE_URL}${p_url_ext}   browser=${p_browser}    alias=${p_alias}
-    Set Selenium Speed For "${p_environment}" Environment
-    Set Timeout Dependent On Environment
-    Maximize Browser Window
+  [Arguments]    ${p_url_ext}    ${p_environment}=${ENVIRONMENT}
+  ...  ${p_alias}=${ALIAS}  ${p_browser}=${BROWSER}
+  ${chrome_options}=  Set Chrome Headless
+  Create Webdriver    ${p_browser}    alias=${p_alias}  chrome_options=${chrome_options}
+  Go To  ${${p_environment}_BASE_URL}${p_url_ext}
+  # Open Browser    ${${p_environment}_BASE_URL}${p_url_ext}   browser=${p_browser}    alias=${p_alias}
+  Set Selenium Speed For "${p_environment}" Environment
+  Set Timeout Dependent On Environment
+  Maximize Browser Window
 
 Set Selenium Speed For "${e_ENVIRONMENT}" Environment
   ${t_speed}=  Set Variable If  '${e_ENVIRONMENT}'=='${LOCAL_LABEL}'
@@ -39,3 +43,9 @@ Set Entry Point Based On Environment
   ${t_entry}=  Set Variable If  "${ENVIRONMENT}"=="KOVAN"
   ...  ${KOVAN_GOVERNANCE_URL_EXT}  ${GOVERNANCE_LOGIN_URL_EXT}
   Set Suite Variable  ${s_ENTRY_POINT}  ${t_entry}
+
+Set Chrome Headless
+  ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
+  Run Keyword If  '${HEADLESS.lower()}'=='yes'
+  ...  Call Method    ${options}    add_argument    --headless
+  [Return]    ${options}
