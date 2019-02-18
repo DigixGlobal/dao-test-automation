@@ -5,7 +5,7 @@ Resource    ../variables/governance_constants.robot
 # proposal
 ${PROJECT_SUMMARY}  jquery=div[class*="ProjectSummary"]
 ${PROPOSAL_TITLE_DIV}  ${PROJECT_SUMMARY} [class*="Title"]
-${PROPOSAL_FUNDING_DIV}  css=[data-digx="funding-amount-label"]
+${PROPOSAL_FUNDING_DIV}  css=[data-digix="funding-amount-label"]
 ${PROPOSAL_EDIT_FUNDING_LABEL}  css=[data-digix="edit-funding-amount-label"]
 ${PROPOSAL_REWARD_DIV}  css=[data-digix="reward-amount-label"]
 ${PROPOSAL_EDIT_REWARD_LABEL}  css=[data-digix="edit-reward-amount-label"]

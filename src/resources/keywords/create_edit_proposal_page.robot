@@ -1,4 +1,5 @@
 *** Settings ***
+Resource   proposal_view_page.robot
 Resource    ../variables/governance_constants.robot
 
 *** Variables ***
@@ -6,9 +7,9 @@ ${GOVERNANCE_CREATE_BTN}  css=a[href="#/proposals/create"] button
 # create proposal fields
 ${PROPOSAL_TAB_PANEL}  jquery=div[class*="TabPanel"]
 ${PROPOSAL_MENU}  ${PROPOSAL_TAB_PANEL} +  [class*="Header"] > div:eq(1)
-${PROPOSAL_MENU_PREVIEW_BTN}  ${PROPOSAL_MENU} button:eq(0)
-${PROPOSAL_MENU_PREVIOUS_BTN}  ${PROPOSAL_MENU} button:eq(1)
-${PROPOSAL_MENU_NEXT_BTN}  ${PROPOSAL_MENU} button:eq(2)
+${PROPOSAL_MENU_PREVIEW_BTN}  ${PROPOSAL_MENU} button:eq(0)  #css=[data-digix="Create-Proposal-Preview"]
+${PROPOSAL_MENU_PREVIOUS_BTN}  ${PROPOSAL_MENU} button:eq(1)  #css=[data-digix="Create-Proposal-Previous"]
+${PROPOSAL_MENU_NEXT_BTN}  ${PROPOSAL_MENU} button:eq(2)  #css=[data-digix="Create-Proposal-Next"]
 ${PROJECT_TITLE_FIELD}  css=input[id="title"]
 ${PROJECT_DESC_FIELD}  css=textarea[id="description"]
 ${PROJECT_INFO_FIELD}  css=#details .ql-editor
@@ -19,16 +20,16 @@ ${NUM_OF_MILESTONE_FIELD}  css=select[id="noOfMilestones"]
 ${MILESTONE_FORM}  jquery=div[class*="CreateMilestone"]
 ${MILESTONE_FIELD}  ${MILESTONE_FORM} input
 ${MILESTONE_DESC_FIELD}  ${MILESTONE_FORM} textarea
-${CREATE_NOW_BTN}  ${PROPOSAL_MENU_NEXT_BTN}
+${CREATE_NOW_BTN}  ${PROPOSAL_MENU_NEXT_BTN}  #css=[data-digix="Create-Proposal-Button"]
 ${PROPOSAL_SUBMIT_BTN}  jquery=div[class*="ContentWrapper"] button:eq(1)
-
+#Preview
+${CONTINUE_EDITING_BTN}  css=[class*="ProposalsWrapper"] button
 *** Keywords ***
 #========#
 #  WHEN  #
 #========#
 "${e_USER}" Creates A Governance Propsosal
-  Wait Until Element Should Be Visible  ${ADDRESS_LABEL}
-  Wait And Click Element  ${GOVERNANCE_CREATE_BTN}
+  User Goes To Create Proposal Page
   User Submit Proposal Details
 
 "${e_USER}" Edits Newly Created Proposal Details
@@ -37,27 +38,53 @@ ${PROPOSAL_SUBMIT_BTN}  jquery=div[class*="ContentWrapper"] button:eq(1)
 
 User Submit Proposal Details
   [Arguments]  ${p_reward}=${MILESTONE_REWARD_AMOUNT}  ${p_milestone}=${MILESTONE_AMOUNT}  ${p_type}=Create
-  ${t_time}=  Get Time  epoch
-  ${t_strValue}=  Convert To String  ${t_time}
-  ${t_value}=  Set Variable If  "${p_type}"=="Create"
-  ...  ${t_strValue}  ${t_strValue} - edit
-  Log To Console  ProjectName:${t_strValue}
+  Set Proposal Value  ${p_type}
   # overview
-  Wait Until Element Should Be Visible  ${PROJECT_TITLE_FIELD}
-  Input Text  ${PROJECT_TITLE_FIELD}  ${t_value}
-  Input Text  ${PROJECT_DESC_FIELD}  ${t_value}
-  Click Element  ${PROPOSAL_MENU_NEXT_BTN}
+  User Submits Primary Proposal Details  ${g_GENERIC_VALUE}  ${g_GENERIC_VALUE}
   #project detail
+  User Submits Secondary Proposal Details  ${g_GENERIC_VALUE}
+  #multimedia
+  User Submits Multimedia Images
+  #milestone
+  User Submits Milestone Details  ${p_reward}  ${p_milestone}  ${g_GENERIC_VALUE}
+  #prevew
+  User Submits Proposal Details
+
+#=====================#
+#  INTERNAL KEYWORDS  #
+#=====================#
+Compute Suite Total Funding
+  ${t_total}=  Set Variable  ${s_MILESTONE_AMOUNT}
+  ${t_strFunding}=  Convert To String  ${t_total}
+  Set Suite Variable  ${s_TOTAL_FUNDING}  ${t_strFunding}
+
+User Goes To Create Proposal Page
+  Wait Until Element Should Be Visible  ${ADDRESS_LABEL}
+  Wait And Click Element  ${GOVERNANCE_CREATE_BTN}
+
+User Submits Primary Proposal Details
+  [Arguments]  ${p_title}  ${p_shortDesc}
+  Wait Until Element Should Be Visible  ${PROJECT_TITLE_FIELD}
+  Input Text  ${PROJECT_TITLE_FIELD}  ${p_title}
+  Input Text  ${PROJECT_DESC_FIELD}  ${p_shortDesc}
+  Click Element  ${PROPOSAL_MENU_NEXT_BTN}
+
+User Submits Secondary Proposal Details
+  [Arguments]  ${p_desc}=None
   Wait Until Element Should Be Visible  ${PROJECT_INFO_FIELD}
   Clear Element Text  ${PROJECT_INFO_FIELD}
-  Press Key  ${PROJECT_INFO_FIELD}  ${t_value}
+  Press Key  ${PROJECT_INFO_FIELD}  ${p_desc}
   Click Element  ${PROPOSAL_MENU_NEXT_BTN}
-  #multimedia
+
+User Submits Multimedia Images
+  [Arguments]  ${p_image}=image
   Wait Until Element Should Be Visible  ${UPLOAD_IMAGE_BTN}
   Modify Element Attribute Via jQuery  ${IMAGE_UPLOAD_BTN}  display  block
   Upload TestData Image  image
   Click Element  ${PROPOSAL_MENU_NEXT_BTN}
-  #milestone
+
+User Submits Milestone Details
+  [Arguments]  ${p_reward}  ${p_milestone}  ${t_value}
   Wait Until Element Should Be Visible  ${MILESTONE_FORM}
   Input Text  ${REWARD_FIELD}  ${p_reward}
   Select From List By Label  ${NUM_OF_MILESTONE_FIELD}  ${NUMBER_OF_MILESTONE}
@@ -69,18 +96,32 @@ User Submit Proposal Details
   Hide Governance Header Menu
   Compute Suite Total Funding
   Click Element  ${CREATE_NOW_BTN}
-  #prevew
+
+User Previews Details
+  Wait And Click Element  ${PROPOSAL_MENU_PREVIEW_BTN}
+
+User Edits Proposal Details
+  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+
+Proposal Preview Should Be Visible
+  Wait Until Element Should Be Visible  ${PROPOSAL_TITLE_DIV}
+  Wait Until Element Should Contain  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
+
+User Submits Proposal Details
   Wait And Click Element  ${PROPOSAL_SUBMIT_BTN}
   User Submits Keystore Password  #transaction modal
-  Set Global Variable  ${g_GENERIC_VALUE}  ${t_value}
   Run Keyword If  '${ENVIRONMENT}'=='KOVAN'  Run Keywords
   ...  Log To Console  sleep the test due to it runs on ${ENVIRONMENT} for 60 seconds
   ...  AND  Sleep  60 seconds
 
-#=====================#
-#  INTERNAL KEYWORDS  #
-#=====================#
-Compute Suite Total Funding
-  ${t_total}=  Set Variable  ${s_MILESTONE_AMOUNT}
-  ${t_strFunding}=  Convert To String  ${t_total}
-  Set Suite Variable  ${s_TOTAL_FUNDING}  ${t_strFunding}
+User Goes Back To Previous Page
+  Wait And Click Element  ${CONTINUE_EDITING_BTN}
+
+Set Proposal Value
+  [Arguments]  ${p_type}=Create
+  ${t_time}=  Get Time  epoch
+  ${t_strValue}=  Convert To String  ${t_time}
+  ${t_value}=  Set Variable If  "${p_type.lower()}"=="create"
+  ...  ${t_strValue}  ${t_strValue} - edit
+  Log To Console  ${\n}ProjectName:${t_strValue}
+  Set Global Variable  ${g_GENERIC_VALUE}  ${t_value}

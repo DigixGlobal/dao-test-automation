@@ -45,8 +45,8 @@ HTTP_ENDPOINT=http://localhost:9001/ipfs
 | DaoSideNavMenuTest             | smoke, regression                | This suite will test assert side nav menu list when a user is in logged in and logged out state. (DGDG-284)                            | 
 | DaoKYCSubmissionTest           | smoke, regression                | This suite will submitting of KYC Details for nonKYC user.                                                                             |
 | DaoKYCAdminTest                | smoke, regression                | This suite will test approving and rejecting KYC using KYC Admin Account                                                               |
+| DaoCreateEditPreviewTest       | smoke, regression                | This suite will test creating,and editing proposals also included preview function                                                     |
 | DaoChangeFundingTest           | sanity, regression               | This suite will test changing of funding then go to the next phase after edit.                                                         |
-| DaoEditProposalTest            | sanity, regression               | This suite will test editing of proposal and validate the edited details on Proposal View Page                                         |
 | DaoClaimRewardTest             | sanity, regression, NotForKOVAN  | This suite will test claiming rewards on Wallet Page                                                                                   |
 | DaoRedeemBadgeTest             | sanity, regression, NotForKOVAN  | This suite will test redeeming badge on Profile View Page                                                                              |
 | DaoSetUsernameEmailTest        | sanity, regression, NotForKOVAN  | This suite will test setting up username and email on Profile view page                                                                |
