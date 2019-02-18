@@ -43,8 +43,7 @@ Resource  ../variables/wallet_view_contants.robot
   ...  Click Element  ${WALLET_FILL_AMOUNT_LINK}
   Wait Until Element Should Contain
   ...  ${WALLET_REMAINING_UNLOCK_AMOUNT_LABEL}  ${t_strValue}
-  Wait Until Element Should Be Enabled  ${WALLET_UNLOCKED_BTN}
-  Click Element  ${WALLET_UNLOCKED_BTN}
+  Wait And Click Element  ${WALLET_UNLOCKED_BTN}
   User Submits Keystore Password
   Set Suite Variable  ${s_LOCKED_DGD_AMOUNT}  ${e_AMOUNT}
 

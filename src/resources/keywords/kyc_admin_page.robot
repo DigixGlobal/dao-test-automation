@@ -22,8 +22,7 @@ User "${e_ACTION}" "${e_NAME}" Account
   ...  AND  Press Key  ${KYC_ADMIN_EXPIRATION_FIELD}  ${t_date}
   ...  ELSE
   ...  Select From List By Label  ${KYC_ADMIN_REJECTION_DD}  ${REJECTION_REASON}
-  Wait Until Element Should Be Enabled  ${KYC_ADMIN_MODAL_BTN}
-  Click Element  ${KYC_ADMIN_MODAL_BTN}
+  Wait And Click Element  ${KYC_ADMIN_MODAL_BTN}
 
 User Forcely Goes To KYC Dashboard Page
   Go To  ${${ENVIRONMENT}_BASE_URL}${KYC_ADMIN_URL_EXT}

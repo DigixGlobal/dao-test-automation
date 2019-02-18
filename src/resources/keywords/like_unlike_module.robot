@@ -9,7 +9,7 @@ User "${e_ACTION}" Newly Created Proposal In "${e_PAGE}" Page
   Hide SnackBar
   ${t_locator}=  Set Variable If  "${e_PAGE}"=="DASHBOARD"
   ...  ${PROPOSAL_CARD}:eq(0) ${DASHBOARD_${e_ACTION}_LINK}
-  ...  css=[class*="UpvoteStatus"] button
+  ...  css=[class*="Upvote"] button
   ${t_actionType}=  Set Variable If  "${e_ACTION}"=="LIKES"
   ...  LIKE  LIKES
   ${t_text}=  Get Text  ${t_locator}
@@ -41,7 +41,7 @@ Proposoal Like Counter Should Be Correct In "${e_PAGE}" Page
   ${t_counter}=  Compute Like Counter
   ${t_locator}=  Set Variable If  "${e_PAGE}"=="DASHBOARD"
   ...  ${PROPOSAL_CARD}:eq(0) ${DASHBOARD_${s_ACTION}_LINK}
-  ...  css=[class*="UpvoteStatus"] button
+  ...  css=[class*="Upvote"] button
   Wait Until ELement Should Contain  ${t_locator}  ${t_counter}
 
 Comment Like Counter Should Be Correct

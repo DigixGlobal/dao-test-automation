@@ -3,6 +3,7 @@
 ${SALT_FILE_EXT}  _salt.json
 #side-menu
 ${HAMBURGER_MENU}  css=.bm-burger-button
+${HAMBURGER_CLOSE_ICON}  css=.bm-cross-button
 ${SIDE_MENU_DIV}  css=ul[class*="MenuList"]
 ${SIDE_NAV_USER_LABEL}  css=[data-digix="Sidebar-DisplayName"]
 ${SIDE_NAVE_USER_STATUS}  css=[data-digix="Sidebar-UserStatus"]

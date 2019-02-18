@@ -35,6 +35,7 @@ Wait Until Element Should Not Be Visible
 Wait And Click Element
     [Arguments]  ${p_locator}
     Wait Until Element Is Visible  ${p_locator}  timeout=${g_TIMEOUT_SEC}
+    Wait Until Element Should Be Enabled  ${p_locator}
     Set Focus To Element  ${p_locator}
     Click Element  ${p_locator}
 
@@ -193,7 +194,7 @@ Generate Suite Unique Value
 
 Open SideNav Menu If Not Visible
   ${t_visible}=  Run Keyword And Return Status
-  ...  Element Should Be Visible  ${SIDE_NAVE_USER_STATUS}
-  Run Keyword Unless  ${t_visible}
+  ...  Element Should Be Visible  ${HAMBURGER_CLOSE_ICON}
+  Run Keyword Unless  ${t_visible}  Run Keywords
   ...  Click Element  ${HAMBURGER_MENU}
-  Wait Until Element Should Be Visible  ${SIDE_NAVE_USER_STATUS}
+  ...  AND  Wait Until Element Should Be Visible  ${HAMBURGER_CLOSE_ICON}

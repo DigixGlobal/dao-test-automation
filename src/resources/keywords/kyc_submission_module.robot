@@ -32,8 +32,7 @@ User Submits KYC Details For Approval
   Upload TestData Image  KYC_ID
   Input Text  ${KYC_ID_EXPIRATION_FIELD}  ${s_VALID_ID_EXP}
   Input Text  ${KYC_ID_NUMBER_FIELD}  ${t_unique}
-  Wait Until Element Should Be Enabled  ${KYC_OVERLAY_NEXT_BTN}
-  Click Element  ${KYC_OVERLAY_NEXT_BTN}
+  Wait And Click Element  ${KYC_OVERLAY_NEXT_BTN}
   # residence proof
   Select From List By Label  ${KYC_RESIDENCE_DD}  ${LOCATION}
   Input Text  ${KYC_ADDRESS_ONE_FIELD}  ${t_unique}
@@ -43,13 +42,11 @@ User Submits KYC Details For Approval
   Input Text  ${KYC_ZIP_CODE_FIELD}  ${t_unique}
   Select From List By Label  ${KYC_RESIDENCE_PROOF_DD}  ${RESIDENCE_PROOF}
   Upload TestData Image  KYC_RESIDENCE_ID
-  Wait Until Element Should Be Enabled  ${KYC_OVERLAY_NEXT_BTN}
-  Click Element  ${KYC_OVERLAY_NEXT_BTN}
+  Wait And Click Element  ${KYC_OVERLAY_NEXT_BTN}
   # photo proof
   Select From List By Label  ${KYC_PHOTO_PROOF_DD}  ${METHOD_OF_PHOTO_PROOF}
   Upload TestData Image  KYC_PHOTO_PROOF
-  Wait Until Element Should Be Enabled  ${KYC_SUBMIT_BTN}
-  Click Element  ${KYC_SUBMIT_BTN}
+  Wait And Click Element  ${KYC_SUBMIT_BTN}
 
 #=====================#
 #  INTERNAL KEYWORDS  #
@@ -72,5 +69,4 @@ Set Email If Set EMail KYC Button Is Visible
   ...  Click Element  ${PROFILE_SET_EMAIL_KYC_BTN}
   ...  AND  Clear Element Text  ${PROFILE_SET_EMAIL_FIELD}
   ...  AND  Input Text  ${PROFILE_SET_EMAIL_FIELD}  ${t_email}
-  ...  AND  Wait Until Element Should Be Enabled   ${PROFILE_CHANGE_EMAIL_BTN}
-  ...  AND  Click Element  ${PROFILE_CHANGE_EMAIL_BTN}
+  ...  AND  Wait And Click Element  ${PROFILE_CHANGE_EMAIL_BTN}
