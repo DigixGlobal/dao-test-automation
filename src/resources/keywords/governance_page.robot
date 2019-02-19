@@ -54,9 +54,9 @@ Submit Json Wallet
   Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
   User Submits Keystore Password  #sign message modal
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
-  Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
-  Click Element  ${CLOSE_ICON}
-  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
+  # Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
+  # Click Element  ${CLOSE_ICON}
+  # Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
 
 Go Back To Dashboard Page
   User Goes To "Home" View Page
@@ -94,8 +94,8 @@ Submit Metamask Wallet
   Select Window  main
   Sleep  5 seconds
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
-  Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
-  Click Element  ${CLOSE_ICON}
+  # Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
+  # Click Element  ${CLOSE_ICON}
 
 #========#
 #  THEN  #

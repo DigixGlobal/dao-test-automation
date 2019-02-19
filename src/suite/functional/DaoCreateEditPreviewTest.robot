@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation  This suite will test creating,and editing proposals
-... also included preview function
+...  also included preview function
 Force Tags    smoke    regression
 Default Tags    DaoCreateEditPreviewTest
 Suite Teardown    Close All Browsers
