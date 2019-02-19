@@ -10,6 +10,8 @@ ${ENVIRONMENT}  LOCAL
 ${LOCAL_SPEED}  0.1 s
 ${REMOTE_SPEED}  0.2 s
 ${HEADLESS}  no
+${HEIGHT}  1080
+${WIDTH}  1920
 
 *** Keywords ***
 Launch Digix Website
@@ -18,12 +20,27 @@ Launch Digix Website
   ${chrome_options}=  Set Chrome Headless
   # Create Webdriver    ${p_browser}    alias=${p_alias}  chrome_options=${chrome_options}
   # Go To  ${${p_environment}_BASE_URL}${p_url_ext}
-  # Start Virtual Display    1920    1080
+  Run Test To Headless Browser
   Open Browser    ${${p_environment}_BASE_URL}${p_url_ext}   browser=${p_browser}    alias=${p_alias}
   Set Selenium Speed For "${p_environment}" Environment
   Set Timeout Dependent On Environment
   Maximize Browser Window
 
+Launch Browser With Metamask Extension
+  [Arguments]  ${p_alias}=${ALIAS}  ${p_browser}=Chrome
+  ${chrome_options}=  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()    sys
+  Should Exist  ${CURDIR}/../../resources/testdata/etc/unload.crx
+  Call Method  ${chrome_options}  add_extension  ${CURDIR}/../../resources/testdata/etc/unload.crx
+  Call Method  ${chrome_options}  add_argument  "--window-size\=1920,1080"
+  Run Test To Headless Browser
+  Create Webdriver    ${p_browser}    ${p_alias}    chrome_options=${chrome_options}
+  Set Selenium Speed For "${ENVIRONMENT}" Environment
+  Set Timeout Dependent On Environment
+  Sleep  5 seconds
+
+#=====================#
+#  INTERNAL KEYWORDS  #
+#=====================#
 Set Selenium Speed For "${e_ENVIRONMENT}" Environment
   ${t_speed}=  Set Variable If  '${e_ENVIRONMENT}'=='${LOCAL_LABEL}'
   ...  ${LOCAL_SPEED}  ${REMOTE_SPEED}
@@ -50,3 +67,7 @@ Set Chrome Headless
   Run Keyword If  '${HEADLESS.lower()}'=='yes'
   ...  Call Method    ${options}    add_argument    --headless
   [Return]    ${options}
+
+Run Test To Headless Browser
+  Run Keyword If  '${HEADLESS.lower()}'=='yes'
+  ...  Start Virtual Display  ${HEIGHT}  ${WIDTH}

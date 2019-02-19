@@ -2,20 +2,14 @@
 ${PHRASE}  harbor oak enter vessel morning adult stick proof stock bus work goat
 ${METAMASK_PW}  digixtest
 ${KEYSTORE_PW}  digixdao
+${METAMASK_HASH}  nkbihfbeogaeaoehlefnkodbefgpgknn/home.html#initialize
+${CHROME_CALL}  chrome-extension://
+${LOCAL_METAMASK_LABEL}  private network
 
 *** Keywords ***
-Launch Browser With Metamask Extension
-  [Arguments]  ${p_alias}=${ALIAS}  ${p_browser}=Chrome
-  ${chrome_options}=  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()    sys
-  Should Exist  ${CURDIR}/../../resources/testdata/etc/unload.crx
-  Call Method  ${chrome_options}  add_extension  ${CURDIR}/../../resources/testdata/etc/unload.crx
-  Create Webdriver    ${p_browser}    ${p_alias}    chrome_options=${chrome_options}
-  Set Selenium Speed For "${ENVIRONMENT}" Environment
-  Set Timeout Dependent On Environment
-  Sleep  5 seconds
-
 Setup Metamask Details
-  Select Window  new
+  Select Window  main
+  Go To  ${CHROME_CALL}${METAMASK_HASH}
   Wait And Click Element  css=.welcome-screen__button
   Wait And Click Element  css=[class*="import-link"]
   Wait Until Element Should Be Visible  css=.import-account__secret-phrase
@@ -51,6 +45,15 @@ Select "${e_NETWORK}" Network
   Click Element  css=.network-droppo li:nth-of-type(5)
   Wait UNtil Element Should Contain  css=.network-name  Private Network
 
+Remove New Tab If Exist
+  ${t_tabs}=  Get Window Handles
+  ${t_count}=  Get Length  ${t_tabs}
+  ${t_isTrue}=  Evaluate  ${t_count}>1
+  Run Keyword If  ${t_isTrue}  Run Keywords
+  ...  Select Window  new
+  ...  AND  Close Window
+  ...  AND  Select Window  main
+
 #=========#
 #  SETUP  #
 #=========#
@@ -60,4 +63,4 @@ Select "${e_NETWORK}" Network
   Import "${e_USER}" Wallet To Metamask
   Select "${ENVIRONMENT}" Network
   User Has Successfully Imported Wallet To Metamask
-  Close Window
+  Remove New Tab If Exist
