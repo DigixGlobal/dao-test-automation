@@ -86,4 +86,4 @@ ${ARCHIVED_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(7)
 # proposal card container
 ${PROPOSAL_CARD}  jquery=div[class*="ProposalWrapper"]
 ${VIEW_PROJECT_LINK}  a[class*="ProposalLink"]
-${PROPOSAL_STATUS_BTN}  button[class*="FlatBtn"]
+${PROPOSAL_STATUS_BTN}  button[kind="tag"]

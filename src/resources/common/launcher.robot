@@ -16,9 +16,10 @@ Launch Digix Website
   [Arguments]    ${p_url_ext}    ${p_environment}=${ENVIRONMENT}
   ...  ${p_alias}=${ALIAS}  ${p_browser}=${BROWSER}
   ${chrome_options}=  Set Chrome Headless
-  Create Webdriver    ${p_browser}    alias=${p_alias}  chrome_options=${chrome_options}
-  Go To  ${${p_environment}_BASE_URL}${p_url_ext}
-  # Open Browser    ${${p_environment}_BASE_URL}${p_url_ext}   browser=${p_browser}    alias=${p_alias}
+  # Create Webdriver    ${p_browser}    alias=${p_alias}  chrome_options=${chrome_options}
+  # Go To  ${${p_environment}_BASE_URL}${p_url_ext}
+  # Start Virtual Display    1920    1080
+  Open Browser    ${${p_environment}_BASE_URL}${p_url_ext}   browser=${p_browser}    alias=${p_alias}
   Set Selenium Speed For "${p_environment}" Environment
   Set Timeout Dependent On Environment
   Maximize Browser Window

@@ -11,7 +11,7 @@ class CustomRunner:
     runner = "robot"
     headless="no"
     LIST_OF_TAGS = [
-        "DaoJsonWalletETest", "DaoMetamaskWalletETest", "DaoKYCETest", 
+        "DaoJsonWalletETest", "DaoTwoMilestonesETest", "DaoMetamaskWalletETest", "DaoKYCETest", 
         "DaoCreateProposalMetamaskTest","DaoCreateEditPreviewTest","DaoChangeFundingTest",
         "DaoLikeModuleTest", "DaoCommentModuleTest", "DaoProfileOverviewTest", "DaoSideNavMenuTest",
         "DaoClaimRewardTest", "DaoRedeemBadgeTest", "DaoSetUsernameEmailTest", "DAOUnlockDGDTest",
