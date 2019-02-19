@@ -12,7 +12,7 @@ class CustomRunner:
     headless="no"
     LIST_OF_TAGS = [
         "DaoJsonWalletETest", "DaoMetamaskWalletETest", "DaoKYCETest", 
-        "DaoCreateProposalMetamaskTest","DaoEditProposalTest","DaoChangeFundingTest",
+        "DaoCreateProposalMetamaskTest","DaoCreateEditPreviewTest","DaoChangeFundingTest",
         "DaoLikeModuleTest", "DaoCommentModuleTest", "DaoProfileOverviewTest", "DaoSideNavMenuTest",
         "DaoClaimRewardTest", "DaoRedeemBadgeTest", "DaoSetUsernameEmailTest", "DAOUnlockDGDTest",
         "DaoKYCAdminTest", "DaoKYCSubmissionTest",
