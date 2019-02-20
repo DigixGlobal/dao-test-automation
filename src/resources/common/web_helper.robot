@@ -1,5 +1,6 @@
 *** Settings ***
 Library     ../custom/internal_json.py
+Library     ../custom/headless_download.py
 Library     OperatingSystem
 Library     SeleniumLibrary
 Library     Collections

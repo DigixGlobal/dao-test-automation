@@ -9,7 +9,6 @@ class CustomRunner:
     browser = "Chrome"
     exitOnfailure = "yes"
     runner = "robot"
-    headless="no"
     LIST_OF_TAGS = [
         "DaoJsonWalletETest", "DaoTwoMilestonesETest", "DaoMetamaskWalletETest", "DaoKYCETest", 
         "DaoCreateProposalMetamaskTest","DaoCreateEditPreviewTest","DaoChangeFundingTest",
@@ -43,7 +42,7 @@ class CustomRunner:
         print "#   STEP 2: Select Browser                                 #"
         print "############################################################"
         print "1. chrome (make sure chromedriver is configured)"
-        # print "2. firefox"
+        print "2. Headless Chrome"
 
         while True:
             choice = raw_input("Enter number (default %s): " % self.browser)
@@ -52,9 +51,9 @@ class CustomRunner:
             if choice == '1':
                 self.browser = 'Chrome'
                 break
-            # if choice == '2':
-            #     self.browser = 'firefox'
-            #     break
+            if choice == '2':
+                self.browser = 'headlesschrome'
+                break
         print "Tests will be run in browser: %s" % self.browser
 
     def choose_test_suite(self):
@@ -94,28 +93,9 @@ class CustomRunner:
                 break
         print "Tests will be exit immediately: %s" % self.exitOnfailure
 
-    def headless_test(self):
-        print "############################################################"
-        print "#   STEP 5: Run On Headless browser?                       #"
-        print "############################################################"
-        print "1. Yes"
-        print "2. No"
-
-        while True:
-            choice = raw_input("Healess (default %s): " % self.headless)
-            if choice == '':
-                break
-            if choice == '1':
-                self.headless = 'Yes'
-                break
-            if choice == '2':
-                self.headless = 'No'
-                break
-        print "Headless browser?: %s" % self.headless
-
     def interpreter_runnner(self):
         print "############################################################"
-        print "#   STEP 6: Runner?                                        #"
+        print "#   STEP 5: Runner?                                        #"
         print "############################################################"
         print "1. robot"
         print "2. pybot"
@@ -132,7 +112,7 @@ class CustomRunner:
                 self.runner = 'pybot'
                 break    
             if choice == '3':
-                self.runner = 'pabot --processes 2'
+                self.runner = 'pabot --processes 4'
                 break
         print "Tests will be runned on: %s" % self.runner
 
@@ -144,7 +124,6 @@ class CustomRunner:
         cmd = '%s ' % self.runner
         cmd += '--variable ENVIRONMENT:%s ' % self.environment
         cmd += '--variable BROWSER:%s ' % self.browser
-        cmd += '--variable HEADLESS:%s ' % self.headless
         cmd += '--include %s ' % self.test_suite
         cmd += '%s ' % self.exitOnfailure
         cmd += '--outputdir Results/%s ' % self.test_suite
@@ -170,6 +149,5 @@ if __name__ == "__main__":
     app.choose_browser()
     app.choose_test_suite()
     app.exit_on_failure()
-    app.headless_test()
     app.interpreter_runnner()
     app.run_rf()

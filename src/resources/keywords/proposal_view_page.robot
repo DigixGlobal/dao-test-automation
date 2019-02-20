@@ -47,6 +47,7 @@ ${EDIT_FUNDING_BTN}  css=[data-digix="Edit-Funding"]
   ...  ELSE IF  "${e_RESPONSE}"=="No"
   ...  Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(1)  #No vote button
   ${t_salt}=  Get Element Attribute  ${GOVERNANCE_SIDE_PANEL} a:eq(0)  download
+  Enable Download On Headless Browser
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} a:eq(0)  #Download Json File button
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(2)  #confirm commit button
   Replace Salt File According To User Role  ${t_salt}  ${e_USER}
