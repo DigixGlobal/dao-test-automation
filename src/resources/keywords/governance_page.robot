@@ -171,8 +171,7 @@ User Should Be Able To Participate On Proposal
 #====================#
 "${e_USER}" Account Has Successfully Logged In To DigixDao Using "${e_WALLET_TYPE}"
   Set Entry Point Based On Environment
-  ${t_strWallet}=  Convert To Lowercase  ${e_WALLET_TYPE}
-  Run keyword If  "${t_strWallet}"=="metamask"  Run Keywords
+  Run keyword If  "${e_WALLET_TYPE.lower()}"=="metamask"  Run Keywords
   ...  "${e_USER}" Launches Browser With Plugins
   ...  AND  Logged In Account Using Metamask
   ...  ELSE

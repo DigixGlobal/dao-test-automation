@@ -1,10 +1,11 @@
 *** Settings ***
 Library     ../custom/internal_json.py
+Library     ../custom/headless_download.py
 Library     OperatingSystem
 Library     SeleniumLibrary
 Library     Collections
 Library     String
-# Library     XvfbRobot
+Library     XvfbRobot
 Resource    launcher.robot
 Resource    global_constants.robot
 Resource    ../variables/url_extension.robot
