@@ -1,6 +1,7 @@
 *** Settings ***
 Library     ../custom/internal_json.py
 Library     ../custom/headless_download.py
+Library     ../custom/internal_eth.py
 Library     OperatingSystem
 Library     SeleniumLibrary
 Library     Collections
@@ -200,3 +201,11 @@ Open SideNav Menu If Not Visible
   Run Keyword Unless  ${t_visible}  Run Keywords
   ...  Click Element  ${HAMBURGER_MENU}
   ...  AND  Wait Until Element Should Be Visible  ${HAMBURGER_CLOSE_ICON}
+
+Pull Data From Contract
+  [Arguments]  ${p_fileName}  ${p_lookUp}
+  ${t_content}=  Normalize Path  ${CURDIR}../../../../../dao-contracts/build/contracts/${p_filename}
+  ${t_value}=  Find Value On Json File  ${t_content}  /${p_lookUp}
+  [Return]  ${t_value}
+  # ${t_value}=  Get Value From Json  ${t_content}  ${p_lookUp}
+  # Log  ${t_value}
