@@ -1,5 +1,3 @@
-from eth_account import Account
-from web3.auto.infura import w3
 from web3 import Web3, HTTPProvider, IPCProvider
 import json
 
@@ -13,20 +11,18 @@ def load_erc20_token(address, abi):
     erc20 = web3.eth.contract(address=CHECKSUM_CONTRACT, abi=ERC20_ABI)
     return erc20
 
-def create_new_wallet(environment):
+def create_new_wallet_via_web3(environment):
     web3 = Web3(HTTPProvider(HTTP_PROVIDER_ADDRESS))
     acct = web3.eth.account.create(PASSWORD)
     json = web3.eth.account.encrypt(acct.privateKey,PASSWORD)
     return json
 
-def create_json_wallet(content):
-    file = open("newWallet.json", "a")
-    file.write(json.dumps(content))
-
-def transfer_funds_to_account(erc20 , address):
+def transfer_funds_to_account(erc20 , address_to, value):
     web3 = Web3(HTTPProvider(HTTP_PROVIDER_ADDRESS)) 
-    address_convert = web3.toChecksumAddress(address)
-    erc20.functions.transfer(address_convert,int(10e9)).transact({'from': web3.eth.coinbase})
-    trans = {'from':web3.eth.coinbase, 'to':address_convert, 'value': web3.toWei(10, 'ether')}
-    trx= web3.eth.sendTransaction(trans)
-    return (address_convert,int(10e9),trx)
+    _from = web3.eth.coinbase
+    _to = web3.toChecksumAddress(address_to)
+    # amount = int(value * int(1e9))
+    erc20.functions.transfer(_to, int(10e9)).transact({'from': _from})
+    trans = {'from':_from, 'to':_to, 'value': web3.toWei(value, 'ether')}
+    tx_hash= web3.eth.sendTransaction(trans)
+    return (_to,amount,tx_hash)
