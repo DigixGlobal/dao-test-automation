@@ -20,10 +20,10 @@ ${KYC_DASHBOARD_SIDE_MENU_ICON}  css=div[kind="dashboard"]
 ...  ${HISTORY_SIDE_MENU_ICON}  @{LOGGED_OUT_SIDENAV_LIST}
 
 # user profile stats
-${DASHBOARD_STATS_DIV}    jquery=[class*="timeline"] + [class*="Container"]
+${DASHBOARD_STATS_DIV}    css=[class*="UserStats"]
 ${STAT_QUARTER_POINT}     css=[data-digix="Dashboard-Stats-QuarterPoints"]
 ${STAT_REPUTATION_POINT}  css=[data-digix="Dashboard-Stats-ReputationPoints"]
-${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Stats-Stake"]
+${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Stats-Stake"] span
 
 #generic
 ${SNACK_BAR_DIV}  jquery=div[class*="SnackbarContainer"]
@@ -51,7 +51,9 @@ ${SIGN_MESSAGE_BTN}  ${UNLOCK_WALLET_BTN}
 ${METAMASK_NICKNAME}  css=[placeholder="Address nickname"]
 #------------------------------------#
 # sidebar
+${OVERLAY_CLOSE_ICON}  css=[class*="CloseButtonWithHeader"] [kind="close"]
 ${CLOSE_ICON}  jquery=[class*="CloseButton"] svg
+${CONNECTED_WALLET_OVERLAY}  css=[data-digix="ConnectedWalletComponent"]
 ${LOAD_WALLET_SIDEBAR_BUTTON}  ${GOVERNANCE_SIDENAR_DIV} ${ROUND_BTN}
 ${ADDRESS_INFO_SIDEBAR}  css=[class*="AddressInfo"]
 ${LOCK_DGD_BTN}  jquery=[class*="style__InnerContainer"] button:eq(1)

@@ -97,6 +97,10 @@ Submit Metamask Wallet
   # Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
   # Click Element  ${CLOSE_ICON}
 
+User Closes Connected Wallet Overlay
+  Wait Until Element Should Be Visible  ${CONNECTED_WALLET_OVERLAY}
+  Click Element  ${OVERLAY_CLOSE_ICON}
+
 #========#
 #  THEN  #
 #========#
