@@ -8,6 +8,7 @@ Resource  ../variables/kyc_submission_constants.robot
 #========#
 User Submits KYC Details For Approval
   [Arguments]  ${p_unique}=NONE
+  Hide SnackBar
   Genearate Dates
   ${t_unique}=  Run Keyword If  '${p_unique}'=='NONE'
   ...  Get Time  epoch

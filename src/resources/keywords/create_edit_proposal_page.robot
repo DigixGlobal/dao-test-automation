@@ -24,10 +24,21 @@ ${CREATE_NOW_BTN}   css=[data-digix="Create-Proposal-Button"]
 ${PROPOSAL_SUBMIT_BTN}  jquery=[class*="CTA"] button:eq(1)
 #Preview
 ${CONTINUE_EDITING_BTN}  css=[class*="ProposalsWrapper"] button
+#error overlay
+${ERROR_OVERLAY_CONTAINER}  css=[data-digix="ProjectError-Notification"]
+${ERROR_CARD_TITLE}  css=[data-digix="ProjectError-Notification-Title"]
+${ERROR_OVERLAY_RETURN_BTN}  css=[data-digix="ProjectError-Return"]
+${ERROR_KYC_NOT_APPROVED_MSG}  KYC IS NOT VALID
+
 *** Keywords ***
 #========#
 #  WHEN  #
 #========#
+"${e_USER}" Ticks Create Button On Dashboard Page
+  Wait And Click Element  ${GOVERNANCE_CREATE_BTN}
+
+User Closes Error Overlay
+  Wait And Click Element  ${ERROR_OVERLAY_RETURN_BTN}
 "${e_USER}" Creates A Governance Propsosal
   User Goes To Create Proposal Page
   User Submit Proposal Details
@@ -49,6 +60,14 @@ User Submit Proposal Details
   User Submits Milestone Details  ${p_reward}  ${p_milestone}  ${g_GENERIC_VALUE}
   #prevew
   User Submits Proposal Details
+
+#========#
+#  THEN  #
+#========#
+Error Overlay Should "${e_ACTION}" Visible
+  Run Keyword  Wait Until Element Should ${e_ACTION} Visible  ${ERROR_OVERLAY_RETURN_BTN}
+  Run Keyword If  '${e_ACTION.lower()}'!='not be'
+  ...  Wait Until Element Should Contain  ${ERROR_CARD_TITLE}  ${ERROR_KYC_NOT_APPROVED_MSG}
 
 #=====================#
 #  INTERNAL KEYWORDS  #
