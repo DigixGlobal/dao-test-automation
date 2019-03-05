@@ -64,8 +64,7 @@ ${LOCK_WITH_AMOUNT_BTN}  css=[data-digix="LockDgdOverlay-LockDgd"]
 ${CONGRATULATION_BANNER}  css=div[class*="ConfirmationBox"]
 ${GET_STARTED_BTN}  ${CONGRATULATION_BANNER} + button
 ${SALT_JSON_UPLOAD_BTN}  css=#json-upload
-${NOTE_CONTAINER}  css=div[class*="NoteContainer"]
-
+${NOTE_CONTAINER}  css=div[class*="Notifications"]
 #------------------------------------#
 # wallet type
 ${WALLET_METAMASK_BTN}  div[kind="metamask"]
@@ -76,14 +75,14 @@ ${WALLET_JSON_BTN}  div[kind="json"]
 
 #------------------------------------#
 # dashboard filter tabs
-${GOVERNANCE_FILTER_SECTION}  jquery=div[class*="FilterWrapper"]
-${ALL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(1)
-${IDEA_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(2)
-${DRAFT_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(3)
-${PROPOSAL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(4)
-${ONGOING_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(5)
-${REVIEW_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(6)
-${ARCHIVED_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(7)
+${GOVERNANCE_FILTER_SECTION}  css=div[class*="FilterWrapper"]
+${ALL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(1)
+${IDEA_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(2)
+${DRAFT_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(3)
+${PROPOSAL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(4)
+${ONGOING_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(5)
+${REVIEW_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(6)
+${ARCHIVED_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(7)
 
 # proposal card container
 ${PROPOSAL_CARD}  jquery=div[class*="ProposalWrapper"]
