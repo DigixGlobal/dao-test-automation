@@ -70,6 +70,7 @@ Go To Newly Created Proposal View Page
 
 Visit Newly Created Proposal And Click "${e_ACTION}" Action
   Go To Newly Created Proposal View Page
+  Vote Success Banner Should Be Visible On '${e_ACTION}' Action
   Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
   # Assign ID For Interaction Buttons
   # ${t_button}=  Return Action Button Names On Proposal  ${e_ACTION}

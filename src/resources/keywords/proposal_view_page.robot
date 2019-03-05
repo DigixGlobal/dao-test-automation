@@ -16,6 +16,7 @@ ${PROPOSAL_MILESTONE_DIV}  jquery=[class*="MilestonesContainer"]
 ${PROPOSAL_MILESTONE_ARROW_ICON}  ${PROPOSAL_MILESTONE_DIV} svg:last
 ${PROPOSAL_MS_DESC_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Content"]
 ${PROPOSAL_MS_AMOUNT_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Amount"]
+${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
 ${TIMER_DIV}  css=div[class*="QuorumInfoCol"]
 
 ${EDIT_FUNDING_REWARD_FIELD}  css=[data-digix="Edit-funding-reward-expected"]
@@ -23,6 +24,8 @@ ${EDIT_FUNDING_MILESTONE1_FIELD}  css=[data-digix="Edit-milestone-funding-1"]
 ${EDIT_FUNDING_MILESTONE2_FIELD}  css=[data-digix="Edit-milestone-funding-2"]
 ${EDIT_FUNDING_BTN}  css=[data-digix="Edit-Funding"]
 
+# contents
+${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the voting.
 *** Keywords ***
 #========#
 #  WHEN  #
@@ -129,9 +132,24 @@ Funding Should be Changed
   ${t_reward}=  Compute New Reward Funding
   Wait Until Element Contains  ${PROPOSAL_EDIT_REWARD_LABEL}  ${t_reward}
 
+Vote Success Banner Should Be Visible On '${e_ACTION}' Action
+  Run Keyword If  '${e_ACTION.lower()}'=='claims approved proposal' or '${e_ACTION.lower()}'=='claims voting result'
+  ...  Wait Until Element Should Contain  ${PROPOSAL_CLAIM_NOTIF_BANNER}  ${CLAIM_SUCCESS_MSG}
+
 #=====================#
 #  INTERNAL KEYWORDS  #
 #=====================#
+# WIP #
+# Assert DateTime Is Correct On Notification Content
+#   # You need to do this action before 03/05/2019 10:51 PM, or your proposal will auto fail.
+#   ${t_url}=  Get Location
+#   ${t_hash}=  Fetch From Right  ${t_url}  /proposals/
+#   ${test}=  Set Variable  http://localhost:3001/proposals/details/${t_hash}
+#   ${t_value}=  Find Value On Json Url  ${t_url}  /results/draftVoting/votingDeadline
+#   ${t_daoConfig}=  Set Variable  http://localhost:3001/daoConfigs
+#   ${t_add_deadline}=   Find Value On Json Url  ${t_daoConfig}  /result/CONFIG_VOTE_CLAIMING_DEADLINE
+#   ${t_total}=  Evaluate  ${t_voteDeadline} + ${t_add_deadline}
+
 Replace Salt File According To User Role
   [Arguments]  ${p_filename}  ${p_role}
   ${t_path}=  Normalize Path  ~/Downloads/
