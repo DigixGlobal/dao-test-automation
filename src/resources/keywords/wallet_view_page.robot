@@ -24,9 +24,9 @@ Resource  ../variables/wallet_view_contants.robot
   Wait Until Element Should Be Visible  ${LOCK_WITH_AMOUNT_BTN}  #on governance_contants file
   User Submits Locked Stake  ${e_AMOUNT}
   Set Suite Variable  ${s_LOCKED_DGD_AMOUNT}  ${e_AMOUNT}
-  Wait Until Element Should Be Visible  ${CONGRATULATION_BANNER}
-  Wait And Click Element  ${OVERLAY_CLOSE_BTN}
-  Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
+  # Wait Until Element Should Be Visible  ${CONGRATULATION_BANNER}
+  # Wait And Click Element  ${OVERLAY_CLOSE_BTN}
+  # Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
 
 "${e_USER}" Unlocks "${e_AMOUNT}" Stake On "${e_PHASE}"
   Pulled Wallet Stats

@@ -3,7 +3,7 @@ Resource   proposal_view_page.robot
 Resource    ../variables/governance_constants.robot
 
 *** Variables ***
-${GOVERNANCE_CREATE_BTN}  css=a[href="#/proposals/create"] button
+${GOVERNANCE_CREATE_BTN}  css=button [kind="plus"]
 # create proposal fields
 ${PROPOSAL_TAB_PANEL}  jquery=div[class*="TabPanel"]
 ${PROPOSAL_MENU}  ${PROPOSAL_TAB_PANEL} +  [class*="Header"] > div:eq(1)
@@ -20,8 +20,8 @@ ${NUM_OF_MILESTONE_FIELD}  css=select[id="noOfMilestones"]
 ${MILESTONE_FORM}  jquery=div[class*="CreateMilestone"]
 ${MILESTONE_FIELD}  ${MILESTONE_FORM} input
 ${MILESTONE_DESC_FIELD}  ${MILESTONE_FORM} textarea
-${CREATE_NOW_BTN}  ${PROPOSAL_MENU_NEXT_BTN}  #css=[data-digix="Create-Proposal-Button"]
-${PROPOSAL_SUBMIT_BTN}  jquery=div[class*="ContentWrapper"] button:eq(1)
+${CREATE_NOW_BTN}   css=[data-digix="Create-Proposal-Button"]
+${PROPOSAL_SUBMIT_BTN}  jquery=[class*="CTA"] button:eq(1)
 #Preview
 ${CONTINUE_EDITING_BTN}  css=[class*="ProposalsWrapper"] button
 *** Keywords ***
