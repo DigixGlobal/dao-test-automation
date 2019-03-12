@@ -24,8 +24,10 @@ ${EDIT_FUNDING_MILESTONE1_FIELD}  css=[data-digix="Edit-milestone-funding-1"]
 ${EDIT_FUNDING_MILESTONE2_FIELD}  css=[data-digix="Edit-milestone-funding-2"]
 ${EDIT_FUNDING_BTN}  css=[data-digix="Edit-Funding"]
 
+${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
 # contents
 ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the voting.
+
 *** Keywords ***
 #========#
 #  WHEN  #
@@ -82,6 +84,13 @@ ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the votin
   Visit Newly Created Proposal And Click "${e_ACTION}" Action
   User Submits Keystore Password  #transaction modal
 
+"${e_USER}" Claims "${e_TYPE}" Voting Result
+  Newly Created Proposal Should Be Visible On "All" Tab
+  Go To Newly Created Proposal View Page
+  Wait Until Element Should Contain  ${PROPOSAL_CLAIM_NOTIF_BANNER}  ${CLAIM_SUCCESS_MSG}
+  User Claims Multiple Results  ${e_TYPE}
+  Go Back To Dashboard Page
+
 User Edits Proposal Funding
   [Arguments]  ${p_reward}=5  ${p_milestone}=8
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -104,6 +113,21 @@ User Edits Proposal Funding
   Set Suite Variable  ${s_MS_TWO}  ${p_milestone}
   Wait And Click Element  ${EDIT_FUNDING_BTN}
   User Submits Keystore Password  #transaction modal
+
+User Claims Multiple Results
+  [Arguments]  ${p_type}
+  ${t_count}=  Return Number Of User On Config  ${p_type}
+  ${t_counter}=  Set Variable If
+  ...  '${p_type.lower()}'=='moderator'  2
+  ...  '${p_type.lower()}'=='proposal'  6
+  ...  '${p_type.lower()}'=='milestone'  11
+  :FOR  ${index}  IN RANGE  0  ${t_counter}
+  \  ${t_label}=  Evaluate  ${index} + 1
+  \  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+  \  Wait Until Element Contains  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/
+  \  Wait And Click Element  ${PROPOSAL_CONFIRMING_CLAIM_BTN}
+  \  User Submits Keystore Password  #transaction modal
+  \  Sleep  2 seconds
 
 #========#
 #  THEN  #
@@ -132,10 +156,6 @@ Funding Should be Changed
   ${t_reward}=  Compute New Reward Funding
   Wait Until Element Contains  ${PROPOSAL_EDIT_REWARD_LABEL}  ${t_reward}
 
-Vote Success Banner Should Be Visible On '${e_ACTION}' Action
-  Run Keyword If  '${e_ACTION.lower()}'=='claims approved proposal' or '${e_ACTION.lower()}'=='claims voting result'
-  ...  Wait Until Element Should Contain  ${PROPOSAL_CLAIM_NOTIF_BANNER}  ${CLAIM_SUCCESS_MSG}
-
 #=====================#
 #  INTERNAL KEYWORDS  #
 #=====================#
@@ -149,6 +169,13 @@ Vote Success Banner Should Be Visible On '${e_ACTION}' Action
 #   ${t_daoConfig}=  Set Variable  http://localhost:3001/daoConfigs
 #   ${t_add_deadline}=   Find Value On Json Url  ${t_daoConfig}  /result/CONFIG_VOTE_CLAIMING_DEADLINE
 #   ${t_total}=  Evaluate  ${t_voteDeadline} + ${t_add_deadline}
+
+Return Number Of User On Config
+  [Arguments]  ${p_type}=moderator
+  ${t_lookup}=  Set Variable If  '${p_type.lower()}'=='moderator'
+  ...  nModerators  nParticipants
+  ${t_value}=  Find Value On Json Url  ${LOCAL_DAO_INFO_URL}  /result/${t_lookup}
+  [Return]  ${t_value}
 
 Replace Salt File According To User Role
   [Arguments]  ${p_filename}  ${p_role}

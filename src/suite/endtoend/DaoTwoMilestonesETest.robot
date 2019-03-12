@@ -46,7 +46,7 @@ Proposer Has Successfully Claimed Approved Proposal
   [Setup]  Run Keywords  Sleep Until Timer Runs Out
   ...  AND  Switch Browser  proposer
   Given User Is In "Governance" Page
-  When "porposer" "Claims Approved Proposal" On Newly Created Proposal
+  When "proposer" Claims "Moderator" Voting Result
   Then Proposal Status Should Be "PROPOSAL"
 
 Moderator Has Successfully Voted Yes On Proposal
@@ -96,7 +96,7 @@ Proposer Has Successfully Revealed Vote To Proposal
 Proposer Has Successfully Claimed Vote Result
   [Setup]  Sleep Until Timer Runs Out
   Given User Is In "Governance" Page
-  When "porposer" "Claims Voting Result" On Newly Created Proposal
+  When "proposer" Claims "Proposal" Voting Result
   Then Proposal Status Should Be "ONGOING"
 
 #1st milestone
@@ -150,7 +150,7 @@ Proposer Has Successfully Revealed Vote For First Milestone
 Proposer Has Successfully Claimed Vote Result On Reviewed First Milestone
   [Setup]  Sleep Until Timer Runs Out
   Given User Is In "Governance" Page
-  When "porposer" "Claims Voting Result" On Newly Created Proposal
+  When "proposer" Claims "milestone" Voting Result
   # Then Proposal Status Should Be "ARCHIVED"                      #only for 1 milestone
   Then Proposal Status Should Be "ONGOING"
 
@@ -205,5 +205,5 @@ Proposer Has Successfully Revealed Vote For Second Milestone
 Proposer Has Successfully Claimed Vote Result On Reviewed Second Milestone
   [Setup]  Sleep Until Timer Runs Out
   Given User Is In "Governance" Page
-  When "porposer" "Claims Voting Result" On Newly Created Proposal
+  When "proposer" Claims "milestone" Voting Result
   Then Proposal Status Should Be "ARCHIVED"

@@ -26,7 +26,7 @@ Moderator Has Successfully Endorsed Newly Created Proposal
   Then User Should Be Able To Participate On Proposal
   And Proposal Status Should Be "DRAFT"
 
-Participant Has Successfully Locked DGD
+Participant Has Successfully Logged In To DigixDao
   [Setup]  "participant" Account Has Successfully Logged In To DigixDao Using "json"
   Then User Should Be Redirected To "Governance" Page
 
@@ -46,7 +46,7 @@ Proposer Has Successfully Claimed Approved Proposal
   [Setup]  Run Keywords  Sleep Until Timer Runs Out
   ...  AND  Switch Browser  proposer
   Given User Is In "Governance" Page
-  When "porposer" "Claims Approved Proposal" On Newly Created Proposal
+  When "proposer" Claims "Moderator" Voting Result
   Then Proposal Status Should Be "PROPOSAL"
 
 Moderator Has Successfully Voted Yes On Proposal
@@ -96,7 +96,7 @@ Proposer Has Successfully Revealed Vote To Proposal
 Proposer Has Successfully Claimed Vote Result
   [Setup]  Sleep Until Timer Runs Out
   Given User Is In "Governance" Page
-  When "porposer" "Claims Voting Result" On Newly Created Proposal
+  When "proposer" Claims "Proposal" Voting Result
   Then Proposal Status Should Be "ONGOING"
 
 #1st milestone
@@ -128,9 +128,15 @@ Moderator Has Successfully Voted Yes For First Milestone
   When "moderator" Votes "Yes" On Proposal
   Then Vote Count Should Increase
 
-Participant Has Successfully Revealed Vote For First Milestone
+Proposer Has Successfully Revealed Vote For First Milestone
   [Setup]  Run Keywords  Sleep Until Timer Runs Out  REVEAL
-  ...  AND  Switch Browser  participant
+  ...  AND  Switch Browser  proposer
+  Given User Is In "Governance" Page
+  When "proposer" Reveals Vote Via Salt File
+  Then Vote Count Should Increase
+
+Participant Has Successfully Revealed Vote For First Milestone
+  [Setup]  Switch Browser  participant
   Given User Is In "Governance" Page
   When "participant" Reveals Vote Via Salt File
   Then Vote Count Should Increase
@@ -141,14 +147,9 @@ Moderator Has Successfully Revealed Vote For First Milestone
   When "moderator" Reveals Vote Via Salt File
   Then Vote Count Should Increase
 
-Proposer Has Successfully Revealed Vote For First Milestone
-  [Setup]  Switch Browser  proposer
-  Given User Is In "Governance" Page
-  When "proposer" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
-
 Proposer Has Successfully Claimed Vote Result On Reviewed First Milestone
-  [Setup]  Sleep Until Timer Runs Out
+  [Setup]  Run Keywords  Sleep Until Timer Runs Out
+  ...  AND  Switch Browser  proposer
   Given User Is In "Governance" Page
-  When "porposer" "Claims Voting Result" On Newly Created Proposal
+  When "proposer" Claims "milestone" Voting Result
   Then Proposal Status Should Be "ARCHIVED"
