@@ -16,6 +16,7 @@ ${BADGE_APPROVE_INTERACTION_BTN}  css=[data-digix="Approve-Interaction"]
 
 ${PROFILE_USERNAME_DIV}  css=[data-digix="Profile-UserName"]
 ${PROFILE_SET_USERNAME_BTN}  css=[data-digix="Profile-UserName-Cta"]
+${PROFILE_USERNAME_PROCEED_BTN}  css=[data-digix="UsernameOverlay-Proceed"]
 ${PROFILE_SET_USERNAME_FIELD}  css=[data-digix="SetUsername-TexBox"]
 ${PROFILE_CHANGE_USERNAME_BTN}  css=[data-digix="UsernameOverlay-SetUsername"]
 
