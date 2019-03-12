@@ -9,6 +9,7 @@ ${LONG_TIMEOUT}  6x
 ${LONG_INTERVAL}  10s
 ${TIMEOUT_SEC}  20 seconds
 ${LONG_TIMEOUT_SEC}  60 seconds
+${MAX_CLAIM_TRANSACTION}  2
 
 #test values
 ${KEYSTORE_PATH}  ../testdata/keystores

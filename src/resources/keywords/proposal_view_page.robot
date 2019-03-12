@@ -16,12 +16,17 @@ ${PROPOSAL_MILESTONE_DIV}  jquery=[class*="MilestonesContainer"]
 ${PROPOSAL_MILESTONE_ARROW_ICON}  ${PROPOSAL_MILESTONE_DIV} svg:last
 ${PROPOSAL_MS_DESC_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Content"]
 ${PROPOSAL_MS_AMOUNT_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Amount"]
+${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
 ${TIMER_DIV}  css=div[class*="QuorumInfoCol"]
 
 ${EDIT_FUNDING_REWARD_FIELD}  css=[data-digix="Edit-funding-reward-expected"]
 ${EDIT_FUNDING_MILESTONE1_FIELD}  css=[data-digix="Edit-milestone-funding-1"]
 ${EDIT_FUNDING_MILESTONE2_FIELD}  css=[data-digix="Edit-milestone-funding-2"]
 ${EDIT_FUNDING_BTN}  css=[data-digix="Edit-Funding"]
+
+${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
+# contents
+${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the voting.
 
 *** Keywords ***
 #========#
@@ -79,6 +84,13 @@ ${EDIT_FUNDING_BTN}  css=[data-digix="Edit-Funding"]
   Visit Newly Created Proposal And Click "${e_ACTION}" Action
   User Submits Keystore Password  #transaction modal
 
+"${e_USER}" Claims "${e_TYPE}" Voting Result
+  Newly Created Proposal Should Be Visible On "All" Tab
+  Go To Newly Created Proposal View Page
+  Wait Until Element Should Contain  ${PROPOSAL_CLAIM_NOTIF_BANNER}  ${CLAIM_SUCCESS_MSG}
+  User Claims Multiple Results  ${e_TYPE}
+  Go Back To Dashboard Page
+
 User Edits Proposal Funding
   [Arguments]  ${p_reward}=5  ${p_milestone}=8
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -101,6 +113,21 @@ User Edits Proposal Funding
   Set Suite Variable  ${s_MS_TWO}  ${p_milestone}
   Wait And Click Element  ${EDIT_FUNDING_BTN}
   User Submits Keystore Password  #transaction modal
+
+User Claims Multiple Results
+  [Arguments]  ${p_type}
+  ${t_count}=  Return Number Of User On Config  ${p_type}
+  ${t_counter}=  Set Variable If
+  ...  '${p_type.lower()}'=='moderator'  2
+  ...  '${p_type.lower()}'=='proposal'  6
+  ...  '${p_type.lower()}'=='milestone'  11
+  :FOR  ${index}  IN RANGE  0  ${t_counter}
+  \  ${t_label}=  Evaluate  ${index} + 1
+  \  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+  \  Wait Until Element Contains  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/
+  \  Wait And Click Element  ${PROPOSAL_CONFIRMING_CLAIM_BTN}
+  \  User Submits Keystore Password  #transaction modal
+  \  Sleep  2 seconds
 
 #========#
 #  THEN  #
@@ -132,6 +159,24 @@ Funding Should be Changed
 #=====================#
 #  INTERNAL KEYWORDS  #
 #=====================#
+# WIP #
+# Assert DateTime Is Correct On Notification Content
+#   # You need to do this action before 03/05/2019 10:51 PM, or your proposal will auto fail.
+#   ${t_url}=  Get Location
+#   ${t_hash}=  Fetch From Right  ${t_url}  /proposals/
+#   ${test}=  Set Variable  http://localhost:3001/proposals/details/${t_hash}
+#   ${t_value}=  Find Value On Json Url  ${t_url}  /results/draftVoting/votingDeadline
+#   ${t_daoConfig}=  Set Variable  http://localhost:3001/daoConfigs
+#   ${t_add_deadline}=   Find Value On Json Url  ${t_daoConfig}  /result/CONFIG_VOTE_CLAIMING_DEADLINE
+#   ${t_total}=  Evaluate  ${t_voteDeadline} + ${t_add_deadline}
+
+Return Number Of User On Config
+  [Arguments]  ${p_type}=moderator
+  ${t_lookup}=  Set Variable If  '${p_type.lower()}'=='moderator'
+  ...  nModerators  nParticipants
+  ${t_value}=  Find Value On Json Url  ${LOCAL_DAO_INFO_URL}  /result/${t_lookup}
+  [Return]  ${t_value}
+
 Replace Salt File According To User Role
   [Arguments]  ${p_filename}  ${p_role}
   ${t_path}=  Normalize Path  ~/Downloads/
