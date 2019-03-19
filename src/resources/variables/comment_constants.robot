@@ -8,7 +8,7 @@ ${SORTING_DD}  css=#comment-filter
 ${POST_COMMENT_BTN}  button[class*="PostCommentButton"]
 ${THREAD_SECTION}  jquery=div[class*="ThreadedComments"]
 ${THREAD_FIELD}  ${THREAD_SECTION} > div > div > textarea
-${THREAD_BUTTON}  ${THREAD_SECTION} ${POST_COMMENT_BTN}
+${THREAD_BUTTON}  css=[data-digix="Thread-Button"]
 ${COMMMENT_DIV}  jquery=div[class*="ParentCommentItem"]
 ${COMMENT_POST}  div[class*="CommentPost"]
 ${COMMENT_ACTION_CONTAINER}  [class*="ActionCommentButton"]

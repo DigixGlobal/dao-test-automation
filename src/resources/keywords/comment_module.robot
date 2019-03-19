@@ -8,7 +8,6 @@ Resource    ../variables/comment_constants.robot
 "${e_USER}" Posts "${e_COUNT}" Thread On Created Proposal
   Switch Browser  ${e_USER}
   Go To Newly Created Proposal View Page
-  Wait Until Element Should Be Visible  ${THREAD_SECTION}
   Set Selenium Speed  ${REMOTE_SPEED}
   ${t_list}=  Create List
   :FOR  ${index}  IN RANGE  0  ${e_COUNT}

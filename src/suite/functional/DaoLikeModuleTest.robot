@@ -58,23 +58,23 @@ Proposer Has Successfully UnLiked A Proposal On Proposal View Page
   When Go To Newly Created Proposal View Page
   Then Proposoal Like Counter Should Be Correct In "PROPOSAL_VIEW" Page
 
-Proposer Has Successfully Liked A Comment
-  [Setup]  Go Back To Dashboard Page
-  Given User Is In "GOVERNANCE" Page
-  When "proposer" Posts "1" Thread On Created Proposal
-  Then All Thread Comments Should Be Visible
-  When User "LIKES" A Comment
-  Then Comment Like Counter Should Be Correct
-  When Go Back To Dashboard Page
-  And Go To Newly Created Proposal View Page
-  Then Comment Like Counter Should Be Correct  NoAction
+# Proposer Has Successfully Liked A Comment
+#   [Setup]  Go Back To Dashboard Page
+#   Given User Is In "GOVERNANCE" Page
+#   When "proposer" Posts "1" Thread On Created Proposal
+#   Then All Thread Comments Should Be Visible
+#   When User "LIKES" A Comment
+#   Then Comment Like Counter Should Be Correct
+#   When Go Back To Dashboard Page
+#   And Go To Newly Created Proposal View Page
+#   Then Comment Like Counter Should Be Correct  NoAction
 
-Proposer Has Successfully Unliked A Comment
-  [Setup]  Go Back To Dashboard Page
-  Given User Is In "GOVERNANCE" Page
-  When Go To Newly Created Proposal View Page
-  And User "UNLIKES" A Comment
-  Then Comment Like Counter Should Be Correct
-  When Go Back To Dashboard Page
-  And Go To Newly Created Proposal View Page
-  Then Comment Like Counter Should Be Correct  NoAction
+# Proposer Has Successfully Unliked A Comment
+#   [Setup]  Go Back To Dashboard Page
+#   Given User Is In "GOVERNANCE" Page
+#   When Go To Newly Created Proposal View Page
+#   And User "UNLIKES" A Comment
+#   Then Comment Like Counter Should Be Correct
+#   When Go Back To Dashboard Page
+#   And Go To Newly Created Proposal View Page
+#   Then Comment Like Counter Should Be Correct  NoAction
