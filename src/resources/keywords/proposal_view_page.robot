@@ -138,6 +138,7 @@ User Claims Multiple Results
 Proposal Details Should Be Correct On Proposal Details Page
   Go To Newly Created Proposal View Page
   Element Should Contain Text  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
+  Force Element Via jQuery  ${HELP_LAUNCHER}  hide
   Wait And Click Element  ${PROPOSAL_MILESTONE_ARROW_ICON}
   Wait Until Element Should Be Visible  ${PROPOSAL_MS_DESC_DIV}
   Element Should Contain Text  ${PROPOSAL_SHORT_DESC_DIV}  ${g_GENERIC_VALUE}
@@ -178,7 +179,7 @@ Return Number Of User On Config
   [Arguments]  ${p_type}=moderator
   ${t_lookup}=  Set Variable If  '${p_type.lower()}'=='moderator'
   ...  nModerators  nParticipants
-  ${t_value}=  Find Value On Json Url  ${LOCAL_DAO_INFO_URL}  /result/${t_lookup}
+  ${t_value}=  Find Value On Json Url  ${${ENVIRONMENT}_DAO_INFO_URL}  /result/${t_lookup}
   [Return]  ${t_value}
 
 Replace Salt File According To User Role

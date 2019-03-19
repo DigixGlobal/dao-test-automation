@@ -177,7 +177,7 @@ User Submits Keystore Password
 
 LookUp Value On Info Server
   [Arguments]  ${p_address}  ${p_lookUp}
-  ${t_url}=  Set Variable  ${${ENVIRONMENT}_INFO_URL}/address/${p_address}
+  ${t_url}=  Set Variable  ${${ENVIRONMENT}_DAO_INFO_URL}/address/${p_address}
   ${t_lookup}=  Set Variable  ${p_lookUp}
   ${t_value}=  Find Value On Json URL  ${t_url}  ${p_lookUp}
   [Return]  ${t_value}
