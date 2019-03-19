@@ -3,16 +3,17 @@ Resource    ../variables/governance_constants.robot
 
 *** Variables ***
 # proposal
+${PROPOSAL_ABORT_BTN}  css=[data-digix="ProposalAction-Abort"]
 ${PROJECT_SUMMARY}  jquery=div[class*="ProjectSummary"]
-${PROPOSAL_TITLE_DIV}  ${PROJECT_SUMMARY} [class*="Title"]
+${PROPOSAL_TITLE_DIV}  ${PROJECT_SUMMARY} [class*="Title"]  #css=[data-digix="Proposal-Title"]
 ${PROPOSAL_FUNDING_DIV}  css=[data-digix="funding-amount-label"]
 ${PROPOSAL_EDIT_FUNDING_LABEL}  css=[data-digix="edit-funding-amount-label"]
 ${PROPOSAL_REWARD_DIV}  css=[data-digix="reward-amount-label"]
 ${PROPOSAL_EDIT_REWARD_LABEL}  css=[data-digix="edit-reward-amount-label"]
 ${PROPOSAL_DETAILS_DIV}  jquery=[class*="DetailsContainer"]
-${PROPOSAL_SHORT_DESC_DIV}  ${PROPOSAL_DETAILS_DIV} [class*="ShortDescription"]
-${PROPOSAL_DESC_DIV}  ${PROPOSAL_DETAILS_DIV} [class*="Details"] span
-${PROPOSAL_MILESTONE_DIV}  jquery=[class*="MilestonesContainer"]
+${PROPOSAL_SHORT_DESC_DIV}  css=[data-digix="Details-Short-Desc"]
+${PROPOSAL_DESC_DIV}  css=[data-digix="Details-Desc"]
+${PROPOSAL_MILESTONE_DIV}  jquery=[class*="AccordionItem"]
 ${PROPOSAL_MILESTONE_ARROW_ICON}  ${PROPOSAL_MILESTONE_DIV} svg:last
 ${PROPOSAL_MS_DESC_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Content"]
 ${PROPOSAL_MS_AMOUNT_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Amount"]
@@ -124,9 +125,9 @@ User Claims Multiple Results
   :FOR  ${index}  IN RANGE  0  ${t_counter}
   \  ${t_label}=  Evaluate  ${index} + 1
   \  Wait Until Element Should Be Enabled  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
-  \  Wait Until Element Contains  ${PROJECT_SUMMARY} ${ROUND_BTN}:last  ${t_label}/
+  \  Element Should Contain Text  ${PROJECT_SUMMARY} ${ROUND_BTN}:last  ${t_label}/
   \  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
-  \  Wait Until Element Contains  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/
+  \  Element Should Contain Text  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/
   \  Wait And Click Element  ${PROPOSAL_CONFIRMING_CLAIM_BTN}
   \  User Submits Keystore Password  #transaction modal
   \  Sleep  2 seconds
@@ -136,14 +137,15 @@ User Claims Multiple Results
 #========#
 Proposal Details Should Be Correct On Proposal Details Page
   Go To Newly Created Proposal View Page
-  Wait Until Element Contains  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
+  Element Should Contain Text  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
   Wait And Click Element  ${PROPOSAL_MILESTONE_ARROW_ICON}
-  Wait Until Element Contains  ${PROPOSAL_SHORT_DESC_DIV}  ${g_GENERIC_VALUE}
-  Wait Until Element Contains  ${PROPOSAL_DESC_DIV}  ${g_GENERIC_VALUE}
-  Wait Until Element Contains  ${PROPOSAL_MS_DESC_DIV}  ${g_GENERIC_VALUE}
-  Wait Until Element Contains  ${PROPOSAL_MS_AMOUNT_DIV}  ${s_MILESTONE_AMOUNT}
-  Wait Until Element Contains  ${PROPOSAL_REWARD_DIV}  ${s_REWARD_AMOUNT}
-  Wait Until Element Contains  ${PROPOSAL_FUNDING_DIV}  ${s_TOTAL_FUNDING}
+  Wait Until Element Should Be Visible  ${PROPOSAL_MS_DESC_DIV}
+  Element Should Contain Text  ${PROPOSAL_SHORT_DESC_DIV}  ${g_GENERIC_VALUE}
+  Element Should Contain Text  ${PROPOSAL_DESC_DIV}  ${g_GENERIC_VALUE}
+  Element Should Contain Text  ${PROPOSAL_MS_DESC_DIV}  ${g_GENERIC_VALUE}
+  Element Should Contain Text  ${PROPOSAL_MS_AMOUNT_DIV}  ${s_MILESTONE_AMOUNT}
+  Element Should Contain Text  ${PROPOSAL_REWARD_DIV}  ${s_REWARD_AMOUNT}
+  Element Should Contain Text  ${PROPOSAL_FUNDING_DIV}  ${s_TOTAL_FUNDING}
 
 Vote Count Should Increase
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -154,9 +156,9 @@ Funding Should be Changed
   Hide SnackBar
   Go To Newly Created Proposal View Page
   ${t_milestone}=  Compute New Milestone Funding
-  Wait Until Element Contains  ${PROPOSAL_EDIT_FUNDING_LABEL}  ${t_milestone}
+  Element Should Contain Text  ${PROPOSAL_EDIT_FUNDING_LABEL}  ${t_milestone}
   ${t_reward}=  Compute New Reward Funding
-  Wait Until Element Contains  ${PROPOSAL_EDIT_REWARD_LABEL}  ${t_reward}
+  Element Should Contain Text  ${PROPOSAL_EDIT_REWARD_LABEL}  ${t_reward}
 
 #=====================#
 #  INTERNAL KEYWORDS  #

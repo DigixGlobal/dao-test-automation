@@ -120,11 +120,12 @@ User Previews Details
   Wait And Click Element  ${PROPOSAL_MENU_PREVIEW_BTN}
 
 User Edits Proposal Details
+  Hide Governance Header Menu
   Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
 
 Proposal Preview Should Be Visible
   Wait Until Element Should Be Visible  ${PROPOSAL_TITLE_DIV}
-  Wait Until Element Should Contain  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
+  Element Should Contain  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}  ignore_case=${TRUE}
 
 User Submits Proposal Details
   Wait And Click Element  ${PROPOSAL_SUBMIT_BTN}

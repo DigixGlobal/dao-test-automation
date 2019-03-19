@@ -62,6 +62,11 @@ Wait Until ELement Should Not Contain
   :FOR  ${locator}  IN  @{${e_NAME}_ELEMENT_LIST}
   \  Wait Until Element Should Be Visible  ${locator}
 
+Element Should Contain Text
+  [Arguments]  ${p_locator}  ${p_text}
+  Wait Until Element Should Be Visible  ${p_locator}
+  Element Should Contain  ${p_locator}  ${p_text}  ignore_case=${TRUE}
+
 #===========================================#
 #               CONSOLE LOGGER              #
 #===========================================#
