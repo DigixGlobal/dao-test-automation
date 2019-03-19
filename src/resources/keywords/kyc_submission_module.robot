@@ -14,6 +14,7 @@ User Submits KYC Details For Approval
   ...  Get Time  epoch
   ...  ELSE  Set Variable  ${p_unique}
   Set Email If Set EMail KYC Button Is Visible  ${t_unique}
+  Hide SnackBar
   Force Element Via jQuery  ${HELP_LAUNCHER}  hide
   Wait And Click Element  ${PROFILE_SUBMIT_KYC_BTN}
   Wait And Click Element  ${KYC_PROCEED_BTN}
