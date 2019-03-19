@@ -17,7 +17,7 @@ ${PROPOSAL_MILESTONE_ARROW_ICON}  ${PROPOSAL_MILESTONE_DIV} svg:last
 ${PROPOSAL_MS_DESC_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Content"]
 ${PROPOSAL_MS_AMOUNT_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Amount"]
 ${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
-${TIMER_DIV}  css=div[class*="QuorumInfoCol"]
+${TIMER_DIV}  [class*="QuorumInfoCol"]:first span:last
 
 ${EDIT_FUNDING_REWARD_FIELD}  css=[data-digix="Edit-funding-reward-expected"]
 ${EDIT_FUNDING_MILESTONE1_FIELD}  css=[data-digix="Edit-milestone-funding-1"]
@@ -123,6 +123,8 @@ User Claims Multiple Results
   ...  '${p_type.lower()}'=='milestone'  11
   :FOR  ${index}  IN RANGE  0  ${t_counter}
   \  ${t_label}=  Evaluate  ${index} + 1
+  \  Wait Until Element Should Be Enabled  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+  \  Wait Until Element Contains  ${PROJECT_SUMMARY} ${ROUND_BTN}:last  ${t_label}/
   \  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
   \  Wait Until Element Contains  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/
   \  Wait And Click Element  ${PROPOSAL_CONFIRMING_CLAIM_BTN}
@@ -191,8 +193,8 @@ Replace Salt File According To User Role
   ...  ELSE  Remove File  ${t_file}
 
 Get Remaining Time To Execute Next Step
-  Wait Until Element Should Be Visible  ${TIMER_DIV}
-  ${t_text}=  Get Text  ${TIMER_DIV}
+  Wait Until Element Should Be Visible  jquery=[class*="VotingResultWrapper"]:last ${TIMER_DIV}
+  ${t_text}=  Get Text  jquery=[class*="VotingResultWrapper"]:last ${TIMER_DIV}
   Set Global Variable  ${g_TIMER}  ${t_text}
 
 Sleep Until Timer Runs Out
