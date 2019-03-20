@@ -14,18 +14,10 @@ User Has Successfully Claimed Rewards On Wallet Page
   When User Goes To "Wallet" View Page
   And "rewardee" Claims Reward
   Then User Should Be Successfully Claimed Reward
-  When Go Back To Dashboard Page
-  And User Goes To "Wallet" View Page
-  Then Claim Reward Value Should Be Zero
+  And Claim Reward Value Should Be Zero
 
 Claimed Reward User Has Successfully Visited Wallet Page
   [Setup]  "rewardee" Account Has Successfully Logged In To DigixDao Using "json"
-  Given User Is In "GOVERNANCE" Page
-  When User Goes To "Wallet" View Page
-  Then User Should Already Claimed Reward
-
-User Has Successfully Visited Wallet Page Without Any Reward
-  [Setup]  "proposer" Account Has Successfully Logged In To DigixDao Using "json"
   Given User Is In "GOVERNANCE" Page
   When User Goes To "Wallet" View Page
   Then User Should Already Claimed Reward
