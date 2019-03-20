@@ -30,6 +30,7 @@ Resource  ../variables/wallet_view_contants.robot
 
 "${e_USER}" Unlocks "${e_AMOUNT}" Stake On "${e_PHASE}"
   Pulled Wallet Stats
+  Hide SnackBar
   Wait And Click Element  ${WALLET_UNLOCKED_DGD_BTN}
   Wait Until Element Should Be Visible  ${WALLET_UNLOCK_AMOUNT_FIELD}
   Wait Until Element Should Contain  ${WALLET_DGD_AMOUNT_LABEL}  ${s_STAKE_AMOUNT}
@@ -71,7 +72,7 @@ User Should Already Claimed Reward
 
 User Should Successfully "${e_ACTION}" DGD
   Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
-  Wait Until Element Is Disabled  ${WALLET_${e_ACTION}_DGD_BTN}
+  # Wait Until Element Is Disabled  ${WALLET_${e_ACTION}_DGD_BTN}
 
 "${e_ACTION}" DGD Computation Should Be Correct
   ${t_operand}=  Set Variable If  '${e_ACTION}'=='LOCKED'

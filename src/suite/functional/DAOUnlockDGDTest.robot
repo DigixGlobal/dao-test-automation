@@ -17,8 +17,6 @@ User Has Successfully Added Locked DGD On Wallet Page
   And Pulled Wallet Stats
   When "rewardee" Locks "10" DGD on Wallet Page
   Then User Should Successfully "LOCKED" DGD
-  And Go Back To Dashboard Page
-  And User Goes To "Wallet" View Page
   Then "LOCKED" DGD Computation Should Be Correct
 
 User Has Successfully Unlocked Portion Of User Staked
@@ -27,8 +25,6 @@ User Has Successfully Unlocked Portion Of User Staked
   When User Goes To "Wallet" View Page
   And "proposer" unlocks "5" Stake On "Locking Phase"
   Then User Should Successfully "UNLOCKED" DGD
-  When Go Back To Dashboard Page
-  And User Goes To "Wallet" View Page
   Then "UNLOCKED" DGD Computation Should Be Correct
 
 User Has Successfully Locked Whole User Stake
@@ -38,6 +34,4 @@ User Has Successfully Locked Whole User Stake
   And "proposer" Unlocks "MAX" Stake On "Locking Phase"
   Then User Should Successfully "UNLOCKED" DGD
   Then User Should Not Be Able To Unlocked DGD
-  When Go Back To Dashboard Page
-  And User Goes To "Wallet" View Page
   Then "UNLOCKED" DGD Computation Should Be Correct
