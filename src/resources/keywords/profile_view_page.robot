@@ -97,9 +97,9 @@ KYC Status Should Be "${e_STATUS}"
   Wait Until Element Should Be Visible  ${PROFILE_KYC_STATUS_LABEL}
   Wait Until ELement Should Contain  ${PROFILE_KYC_STATUS_LABEL}  ${e_STATUS}
   Run Keyword If  "${e_STATUS.lower()}"=="pending"
-  ...  Wait Until Element Is Disabled  ${PROFILE_SUBMIT_KYC_BTN}
-  ...  ELSE IF  "${e_STATUS.lower()}"=="approved"
   ...  Wait Until Element Should Not Be Visible  ${PROFILE_SUBMIT_KYC_BTN}
+  ...  ELSE IF  "${e_STATUS.lower()}"=="approved"
+  ...  Wait Until Element Should Be Enabled  ${PROFILE_SUBMIT_KYC_BTN}
   ...  ELSE
   ...  Wait Until Element Should Be Enabled  ${PROFILE_SUBMIT_KYC_BTN}
 

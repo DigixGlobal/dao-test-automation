@@ -7,9 +7,9 @@ ${GOVERNANCE_CREATE_BTN}  css=button [kind="plus"]
 # create proposal fields
 ${PROPOSAL_TAB_PANEL}  jquery=div[class*="TabPanel"]
 ${PROPOSAL_MENU}  ${PROPOSAL_TAB_PANEL} +  [class*="Header"] > div:eq(1)
-${PROPOSAL_MENU_PREVIEW_BTN}  ${PROPOSAL_MENU} button:eq(0)  #css=[data-digix="Create-Proposal-Preview"]
-${PROPOSAL_MENU_PREVIOUS_BTN}  ${PROPOSAL_MENU} button:eq(1)  #css=[data-digix="Create-Proposal-Previous"]
-${PROPOSAL_MENU_NEXT_BTN}  ${PROPOSAL_MENU} button:eq(2)  #css=[data-digix="Create-Proposal-Next"]
+${PROPOSAL_MENU_PREVIEW_BTN}  css=[data-digix="Create-Proposal-Preview"]
+${PROPOSAL_MENU_PREVIOUS_BTN}  css=[data-digix="Create-Proposal-Previous"]
+${PROPOSAL_MENU_NEXT_BTN}  css=[data-digix="Create-Proposal-Next"]
 ${PROJECT_TITLE_FIELD}  css=input[id="title"]
 ${PROJECT_DESC_FIELD}  css=textarea[id="description"]
 ${PROJECT_INFO_FIELD}  css=#details .ql-editor
