@@ -52,9 +52,10 @@ ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the votin
   ...  Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(0)  #Yes vote button
   ...  ELSE IF  "${e_RESPONSE}"=="No"
   ...  Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(1)  #No vote button
-  ${t_salt}=  Get Element Attribute  ${GOVERNANCE_SIDE_PANEL} a:eq(0)  download
   Enable Download On Headless Browser
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} a:eq(0)  #Download Json File button
+  ${t_name}=  Get Element Attribute  ${GOVERNANCE_SIDE_PANEL} a:eq(0)  download
+  ${t_salt}=  Replace String  ${t_name}  :  _
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(2)  #confirm commit button
   Replace Salt File According To User Role  ${t_salt}  ${e_USER}
   User Submits Keystore Password

@@ -37,6 +37,7 @@ User Submits Locked Stake
   # uploading
   Set Suite Variable  ${s_WALLET_TYPE}  ${e_WALLET_TYPE}
   Load JQuery Tool
+  Accept DigixDao Terms and Condition
   Wait And Click Element  ${LOAD_WALLET_BTN}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_${e_WALLET_TYPE}_BTN}

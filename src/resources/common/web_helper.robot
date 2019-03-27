@@ -12,6 +12,7 @@ Resource    ../variables/url_extension.robot
 
 *** Variables ***
 ${HELP_LAUNCHER}  css=#launcher
+${TOS_AGREE_BTN}  css=[data-digix="TOC-READ-AGREE"]
 @{EXCLUDE_KNOWN_CONSOLE_LOG_LIST}
 ...    miketestmike
 
@@ -205,3 +206,8 @@ Open SideNav Menu If Not Visible
   Run Keyword Unless  ${t_visible}  Run Keywords
   ...  Click Element  ${HAMBURGER_MENU}
   ...  AND  Wait Until Element Should Be Visible  ${HAMBURGER_CLOSE_ICON}
+
+Accept DigixDao Terms and Condition
+  Wait Until Element Should Be Visible  ${TOS_AGREE_BTN}
+  Execute Javascript  var test=document.querySelector('[id="overlayDiv"]'); test.scrollTop +=test.scrollHeight
+  Wait And Click Element  ${TOS_AGREE_BTN}
