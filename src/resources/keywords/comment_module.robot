@@ -25,7 +25,7 @@ Resource    ../variables/comment_constants.robot
   Switch Browser  ${e_USER}
   ${t_icon}=  Set Variable If  '${e_COMMENT_TYPE}'=='NESTED_REPLIES'
   ...  ${REPLY_ICON}:last  ${REPLY_ICON}
-  Wait Until Element Should Be Visible  ${THREAD_SECTION}
+  # Wait Until Element Should Be Visible  ${THREAD_SECTION}
   Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
   ${t_list}=  Create List
   Set Selenium Speed  ${REMOTE_SPEED}
@@ -58,10 +58,10 @@ Resource    ../variables/comment_constants.robot
 
 User Shows All Main Thread Comments
   Wait Until Element Should Be Visible  ${THREAD_SECTION}
-  Wait And Click Element  ${THREAD_SECTION} > button
+  Wait And Click Element  ${THREAD_SECTION} ${LOAD_MORE_COMMENT_LINK}
 
 User Shows All "${e_COMMENT_TYPE}" Comments
-  ${t_BUTTON}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${e_COMMENT_TYPE}_NUMBER}) button[class*="TextBtn"]:last
+  ${t_BUTTON}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${e_COMMENT_TYPE}_NUMBER}) ${LOAD_MORE_REPLIES_LINK}
   Wait Until ELement Should Be Visible  ${t_BUTTON}
   Set Focus To Element  ${t_BUTTON}
   Click Element  ${t_BUTTON}
@@ -84,6 +84,7 @@ All Thread Comments Should Be Visible
   Wait Until Element Should Be Visible  ${COMMMENT_DIV}
   :FOR  ${index}  ${value}  IN ENUMERATE  @{g_THREAD_VALUES}
   \  ${t_div}=  Set Variable  ${COMMMENT_DIV}:eq(${index}) ${COMMENT_POST}
+  \  ${t_text}=  Get Text  ${t_div}
   \  Wait Until ELement Should Contain  ${t_div}  ${value}
 
 Main Thread Should Be Sorted
