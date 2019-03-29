@@ -108,7 +108,8 @@ Proposer Has Successfully Claimed First Milestone Funding
 Proposer Has Successfully Completed First Milestone
   Given User Is In "Governance" Page
   When "proposer" "Sets Proposal To Complete" On Newly Created Proposal
-  Then Proposal Status Should Be "REVIEW"
+  Then User Should Be Redirected To "GOVERNANCE" Page
+  # And Proposal Status Should Be "REVIEW"  #not updated immediately
 
 Participant Has Successfully Voted No For First Milestone
   [Setup]  Switch Browser  participant
