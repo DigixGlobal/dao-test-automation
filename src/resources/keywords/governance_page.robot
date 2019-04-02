@@ -16,6 +16,13 @@ Pull Profile Stats Data
   Set Suite Variable  ${s_REPUTATION_PTS}  ${t_rp}
   Set Suite Variable  ${s_STAKE_PTS}  ${t_sp}
 
+Pull "${e_ACCOUNT}" From SideNav
+  ${t_isNotVisible}=  Run Keyword And Return Status
+  ...  Element Should Not Be Visible  ${SIDE_NAV_USER_LABEL}
+  Run Keyword If  ${t_isNotVisible}
+  ...  Click Element  ${HAMBURGER_MENU}
+  ${t_value}=  Get Text  ${SIDE_NAV_USER_LABEL}
+  Set Suite Variable  ${${e_ACCOUNT}_USERNAME}  ${t_value}
 #========#
 #  WHEN  #
 #========#

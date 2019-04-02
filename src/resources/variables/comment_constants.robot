@@ -18,3 +18,8 @@ ${COMMENT_REPLY}  section.comment-reply
 ${COMMENT_REPLY_POST}  div
 ${LOAD_MORE_COMMENT_LINK}  [data-digix="Comment-Load-Thread"]
 ${LOAD_MORE_REPLIES_LINK}  [data-digix="Comment-Load-Replies"]
+#ADMIN
+${SEARCH_BAN_FIELD}  css=input.search[type="text"]
+${SERACH_ICON}  css=[kind="magnifier"]
+${BANNED_BTN}  css=[class*="ButtonBan"]
+${BANNED_CONTAINER}  css=[class*="BannedCommentEditor"]
