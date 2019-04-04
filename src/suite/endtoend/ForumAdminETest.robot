@@ -1,6 +1,6 @@
 *** Settings ***
-Documentation  This suite will test end to end process of
-...  posting comments on newly created proposal and hide/unhide commit via forumAdmin Account
+Documentation  This suite will test end to end process of posting comments on newly created proposal,
+...  hide/unhide comment, and banning/unbanning users from commenting via forumAdmin Account
 Force Tags  smoke  regression
 Default Tags   ForumAdminETest
 Suite Teardown    Close All Browsers
