@@ -89,3 +89,9 @@ ${ARCHIVED_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(7)
 ${PROPOSAL_CARD}  jquery=div[class*="ProposalWrapper"]
 ${VIEW_PROJECT_LINK}  a[class*="ProposalLink"]
 ${PROPOSAL_STATUS_BTN}  button[kind="tag"]
+
+
+#overlay
+${ENABLE_YOUR_DGD_FORM}  css=[data-digix="ConnectedWalletComponent"]
+${DGD_APPROVE_INTERACTION_BTN}  ${ENABLE_YOUR_DGD_FORM} button
+${CONNECT_WALLET_LOCK_DGD_BTN}  css=[class*="WalletDetails"] button

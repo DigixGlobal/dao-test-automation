@@ -26,6 +26,17 @@ Pull "${e_ACCOUNT}" From SideNav
 #========#
 #  WHEN  #
 #========#
+User Approves Interaction TO DigixDao
+  Wait Until Element Should Be Visible  ${ENABLE_YOUR_DGD_FORM}
+  Wait And Click Element  ${DGD_APPROVE_INTERACTION_BTN}
+  User Submits Keystore Password
+
+User Locks DGD on "${e_MODULE}"
+  Wait Until Element Should Be Visible  ${CONNECTED_WALLET_OVERLAY}
+  Wait And Click Element  ${CONNECT_WALLET_LOCK_DGD_BTN}
+  User Submits Locked Stake
+  Wait Until Element Is Visible  ${IMPORT_PASSWORD_FIELD}  timeout=60 seconds
+
 User Goes To "${e_SIDEMENU}" View Page
   Open SideNav Menu If Not Visible
   Wait And Click Element  ${${e_SIDEMENU}_SIDE_MENU_ICON}
@@ -112,6 +123,9 @@ User Closes Connected Wallet Overlay
 #========#
 #  THEN  #
 #========#
+User Should Be Able To See Connected Wallet Overlay
+  Wait Until Element Should Be Visible  ${CONNECTED_WALLET_OVERLAY}
+
 "${e_STATE}" SideNav Menu Items Should Be Visible
   :FOR  ${locator}  IN  @{${e_STATE}_SIDENAV_LIST}
   \  Wait Until Element Should Be Visible  ${locator}

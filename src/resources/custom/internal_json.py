@@ -16,6 +16,8 @@ def load_json_from_file(file_name):
 def get_value_from_json(json_object, json_path):
     dump = json.dumps(json_object)
     data = json.loads(dump)
+    # value = jsonpointer.resolve_pointer(data,lookup)
+    # return json.dumps(value)
     return data[json_path]
 
 def convert_json_to_string(json_object):
@@ -28,3 +30,18 @@ def find_value_on_json_url(url, lookup):
     data = json.loads(dump)
     value = jsonpointer.resolve_pointer(data,lookup)
     return value
+
+def find_value_on_json_file(file_dir,lookup):
+    file_content = open(file_dir)
+    data = file_content.read()
+    load = json.loads(data)
+    abi = jsonpointer.resolve_pointer(load,lookup)
+    abi_dump = json.dumps(abi)
+    return abi_dump
+
+def latest_network_address(json_object):
+    content = json.loads(json_object)
+    values = [(stamp, value['address']) for stamp, value in content.items()]
+    address = max(values, key=lambda abc:abc[0])
+    return address[1]
+    
