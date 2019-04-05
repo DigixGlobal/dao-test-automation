@@ -1,4 +1,5 @@
 *** Settings ***
+Resource    forum_admin_module.robot
 Resource    ../variables/comment_constants.robot
 
 *** Keywords ***
@@ -77,9 +78,23 @@ User Shows All "${e_COMMENT_TYPE}" Comments
   Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
   Click Element  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [kind="like"]
 
+Admin "${e_ACTION}" "${e_NAME}" From Commenting
+  Wait Until Element Should Be Visible  ${SEARCH_BAN_FIELD}
+  Input Text  ${SEARCH_BAN_FIELD}  ${e_NAME}
+  Wait And Click Element  ${SERACH_ICON}
+  Wait And Click Element  ${BANNED_BTN}
+
 #========#
 #  THEN  #
 #========#
+User Should "${e_VISIBILITY}" Able To Post A Comment
+  ${t_value}=   Set Variable If  '${e_VISIBILITY.lower()}'=='not be'
+  ...  be  not be
+  Run Keyword  Wait Until Element Should ${t_value} Visible  ${BANNED_CONTAINER}
+
+Ban Button Label Should Be "${e_BUTTON_LABEL}"
+  Wait Until Element Should Contain  ${BANNED_BTN}  ${e_BUTTON_LABEL}
+
 All Thread Comments Should Be Visible
   Wait Until Element Should Be Visible  ${COMMMENT_DIV}
   :FOR  ${index}  ${value}  IN ENUMERATE  @{g_THREAD_VALUES}
