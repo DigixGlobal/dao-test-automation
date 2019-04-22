@@ -27,7 +27,7 @@ Resource    ../variables/comment_constants.robot
   ${t_icon}=  Set Variable If  '${e_COMMENT_TYPE}'=='NESTED_REPLIES'
   ...  ${REPLY_ICON}:last  ${REPLY_ICON}
   # Wait Until Element Should Be Visible  ${THREAD_SECTION}
-  Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
+  Hide Governance Header Menu
   ${t_list}=  Create List
   Set Selenium Speed  ${REMOTE_SPEED}
   :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_${e_COMMENT_TYPE}}
@@ -36,7 +36,7 @@ Resource    ../variables/comment_constants.robot
   \  ${t_thread_div}=  Set Variable  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
   \  Set Focus To Element  ${t_thread_div} ${t_icon}
   \  Wait And Click Element  ${t_thread_div} ${t_icon}
-  \  ${t_comment_field}=  Set Variable  ${t_thread_div} textarea
+  \  ${t_comment_field}=  Set Variable  ${t_thread_div} .ql-editor:last
   \  Wait Until Element Should Be Visible  ${t_comment_field}
   \  Input Text  ${t_comment_field}  ${t_value}
   \  Wait And Click Element  ${t_thread_div} ${POST_COMMENT_BTN}
@@ -80,7 +80,9 @@ User Shows All "${e_COMMENT_TYPE}" Comments
 
 Admin "${e_ACTION}" "${e_NAME}" From Commenting
   Wait Until Element Should Be Visible  ${SEARCH_BAN_FIELD}
-  Input Text  ${SEARCH_BAN_FIELD}  ${e_NAME}
+  ${t_text}=  Fetch From Right  ${e_NAME}  ,
+  ${t_remove}=  Remove String  ${t_text}  ${SPACE}  !
+  Input Text  ${SEARCH_BAN_FIELD}  ${t_remove}
   Wait And Click Element  ${SERACH_ICON}
   Wait And Click Element  ${BANNED_BTN}
 
