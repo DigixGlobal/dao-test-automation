@@ -93,6 +93,12 @@ User Should Not Be Able To Unlocked DGD
   Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
   Wait Until Element Is Disabled  ${WALLET_UNLOCKED_DGD_BTN}
 
+User Should Successfully Viewed Token USD Conversion
+  Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
+  Convert "DGD" To USD
+  Convert "DGX" To USD
+  Convert "ETH" To USD
+
 #====================#
 #  INTERNAL KEYWORD  #
 #====================#
@@ -106,3 +112,25 @@ Move System To "${e_PHASE}" Phase
   ...  locking_phase  main_phase
   ${t_status}=  Run And Return Rc And Output  cd ${EXECDIR}/../dao-contracts && npm run teleport:${t_phase} && cd ${EXECDIR}
   Log To Console  ${t_status}
+
+Convert "${e_TOKEN_NAME}" To USD
+  ${t_compare}=  Get Text  ${WALLET_${e_TOKEN_NAME}_USD_CONVERSION}
+  ${t_text}=  Get Text  ${WALLET_${e_TOKEN_NAME}_BALANCE}
+  ${t_rmv_compare}=  Remove String  ${t_compare}  $  ,  USD  ${SPACE}  ...
+  ${t_value}=  Find Value On Json Url  ${PRICE_FEED_URL}  /${e_TOKEN_NAME}
+  ${t_num}=  Remove String  ${t_text}  ,  ...
+  ${t_usd}=  Get From Dictionary  ${t_value}  USD
+  ${t_conversion}=  Evaluate  ${t_num} * ${t_usd}
+  Range Value Are In Range  ${t_conversion}  ${t_rmv_compare}
+
+Range Value Are In Range
+  [Arguments]  ${t_base}  ${t_compare}
+  : For  ${index}  IN RANGE  0  5
+  \  Log  ${t_base}
+  \  ${t_percentage}=  Evaluate  ${t_base} * 0.03
+  \  ${t_min}=  Evaluate  ${t_base} - ${t_percentage}
+  \  ${t_max}=  Evaluate  ${t_base} + ${t_percentage}
+  \  ${t_in_range}=  Evaluate  ${t_min} <= ${t_compare} <= ${t_max}
+  \  Exit For Loop If  ${t_in_range}
+  \  Run Keyword If  ${index}==4
+  ...  FAIL  msg=${t_compare} is not in range

@@ -21,3 +21,9 @@ Claimed Reward User Has Successfully Visited Wallet Page
   Given User Is In "GOVERNANCE" Page
   When User Goes To "Wallet" View Page
   Then User Should Already Claimed Reward
+
+User Has Successfully Viewed DGD,DGX, And Eth Usd Conversion
+  [Setup]  Go Back To Dashboard Page
+  Given Given User Is In "GOVERNANCE" Page
+  When User Goes To "Wallet" View Page
+  Then User Should Successfully Viewed Token USD Conversion
