@@ -201,7 +201,7 @@ Launch Governance Website
 #===========#
 Get Proposal Card Index
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
-  @{t_elements}=  Get WebElements  ${PROPOSAL_CARD} ${VIEW_PROJECT_LINK}
+  @{t_elements}=  Get WebElements  ${PROPOSAL_CARD} ${PARTICIPATE_BTN}
   :FOR  ${index}  ${locator}  IN ENUMERATE  @{t_elements}
   \  ${t_text}=  Get Text  ${PROPOSAL_CARD}:eq(${index}) h2
   \  ${t_same}=  Evaluate  '${t_text}'=='${g_GENERIC_VALUE}'

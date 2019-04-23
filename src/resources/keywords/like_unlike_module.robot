@@ -11,7 +11,7 @@ User "${e_ACTION}" Newly Created Proposal In "${e_PAGE}" Page
   ...  ${PROPOSAL_CARD}:eq(0) ${DASHBOARD_${e_ACTION}_LINK}
   ...  ${PROPOSAL_LIKE_LINK}
   ${t_actionType}=  Set Variable If  "${e_ACTION}"=="LIKES"
-  ...  LIKE  LIKES
+  ...  LIKES  LIKES
   ${t_text}=  Get Text  ${t_locator}
   ${t_likeCount}=  Remove String  ${t_text}  ${t_actionType}
   ${t_value}=  Convert To Integer  ${t_likeCount}

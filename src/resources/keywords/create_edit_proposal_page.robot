@@ -19,7 +19,7 @@ ${REWARD_FIELD}  css=input[id="finalReward"]
 ${NUM_OF_MILESTONE_FIELD}  css=select[id="noOfMilestones"]
 ${MILESTONE_FORM}  jquery=div[class*="CreateMilestone"]
 ${MILESTONE_FIELD}  ${MILESTONE_FORM} input
-${MILESTONE_DESC_FIELD}  ${MILESTONE_FORM} textarea
+${MILESTONE_DESC_FIELD}  ${MILESTONE_FORM} .ql-editor  #textarea
 ${CREATE_NOW_BTN}   css=[data-digix*="-Proposal-Button"]
 ${PROPOSAL_SUBMIT_BTN}  jquery=[class*="CTA"] button:eq(1)
 #Preview

@@ -32,7 +32,7 @@ ${ROUND_BTN}  button[class*="RoundBtn"]
 ${GOVERNANCE_SIDENAR_DIV}  jquery=div[class*="IntroContainer"]
 ${GOVERNANCE_SIDE_PANEL}  ${GOVERNANCE_SIDENAR_DIV}
 #header
-${GOVERNANCE_MENU}  css=section[class*="HeaderWrapper"]
+${GOVERNANCE_MENU}  css=[id="nav-wrap"]
 ${HEADER_LOCK_DGD_BTN}  css=[data-digix="Header-LockDgd"]
 ${ADDRESS_LABEL}  css=[data-digix="Header-Address"]
 ${LOAD_WALLET_BTN}  css=[data-digix="Header-LoadWallet"]
@@ -59,8 +59,8 @@ ${LOAD_WALLET_SIDEBAR_BUTTON}  ${GOVERNANCE_SIDENAR_DIV} ${ROUND_BTN}
 ${ADDRESS_INFO_SIDEBAR}  css=[class*="AddressInfo"]
 ${LOCK_DGD_BTN}  jquery=[class*="style__InnerContainer"] button:eq(1)
 ${LOCK_DGD_AMOUNT_FIELD}  css=[data-digix="LockDgdOverlay-DgdAmount"]
-${LOCK_DGD_STATUS}  css=p[class*="StakeCaption"]
-${LOCK_DGD_STAKE_LABEL}  css=p[class*="StakeCaption"] strong
+${LOCK_DGD_STATUS}  css=[class*="FormNote"] > p
+${LOCK_DGD_STAKE_LABEL}  ${LOCK_DGD_STATUS} > strong
 ${LOCK_WITH_AMOUNT_BTN}  css=[data-digix="LockDgdOverlay-LockDgd"]
 ${CONGRATULATION_BANNER}  css=div[class*="ConfirmationBox"]
 ${GET_STARTED_BTN}  ${CONGRATULATION_BANNER} + button
@@ -86,6 +86,7 @@ ${REVIEW_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(6)
 ${ARCHIVED_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(7)
 
 # proposal card container
-${PROPOSAL_CARD}  jquery=div[class*="ProposalWrapper"]
+${PROPOSAL_CARD}  jquery=[data-digix="Proposal-Card"]
 ${VIEW_PROJECT_LINK}  a[class*="ProposalLink"]
+${PARTICIPATE_BTN}  button[class*="RoundBtn"]
 ${PROPOSAL_STATUS_BTN}  button[kind="tag"]

@@ -7,7 +7,7 @@ ${ROUND_BTN}  button[class*="RoundBtn"]
 ${SORTING_DD}  css=#comment-filter
 ${POST_COMMENT_BTN}  button[class*="PostCommentButton"]
 ${THREAD_SECTION}  jquery=section
-${THREAD_FIELD}  css=[data-digix="Thread-Field"]
+${THREAD_FIELD}  css=.ql-editor
 ${THREAD_BUTTON}  css=[data-digix="Thread-Button"]
 ${COMMMENT_DIV}  jquery=div[class*="ParentCommentItem"]
 ${COMMENT_POST}  div[class*="Content"]

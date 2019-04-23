@@ -75,9 +75,9 @@ User Should Successfully "${e_ACTION}" DGD
   # Wait Until Element Is Disabled  ${WALLET_${e_ACTION}_DGD_BTN}
 
 "${e_ACTION}" DGD Computation Should Be Correct
-  ${t_operand}=  Set Variable If  '${e_ACTION}'=='LOCKED'
+  ${t_operand}=  Set Variable If  '${e_ACTION.lower()}'=='locked'
   ...  +  -
-  ${t_amount}=  Set Variable If  '${e_ACTION}'=='LOCKED'
+  ${t_amount}=  Set Variable If  '${e_ACTION.lower()}'=='locked'
   ...  ${s_LOCK_STAKE}  ${s_LOCKED_DGD_AMOUNT}
   Log  ${s_STAKE_AMOUNT}, ${s_LOCKED_DGD_AMOUNT}, ${s_LOCK_STAKE}
   Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
