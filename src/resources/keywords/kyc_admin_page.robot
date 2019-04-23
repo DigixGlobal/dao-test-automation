@@ -23,6 +23,7 @@ User "${e_ACTION}" "${e_NAME}" Account
   ...  ELSE
   ...  Select From List By Label  ${KYC_ADMIN_REJECTION_DD}  ${REJECTION_REASON}
   Wait And Click Element  ${KYC_ADMIN_MODAL_BTN}
+  Wait Until Element Should Not Be Visible  ${KYC_ADMIN_MODAL_BTN}
 
 User Forcely Goes To KYC Dashboard Page
   Go To  ${${ENVIRONMENT}_BASE_URL}${KYC_ADMIN_URL_EXT}
@@ -32,6 +33,7 @@ User Forcely Goes To KYC Dashboard Page
 #========#
 Account Status Should Be "${e_STATUS}"
   Load JQuery Tool
+  Wait Until Element Should Be Enabled  ${KYC_ADMIN_${e_STATUS}_TAB}
   Wait And Click Element  ${KYC_ADMIN_${e_STATUS}_TAB}
   Wait Until Element Should Be Visible  ${KYC_ADMIN_TABLE_PAGINATION_DIV}
   Open "${s_FIRST_NAME}" KYC Modal

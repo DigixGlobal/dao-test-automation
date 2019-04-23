@@ -42,6 +42,9 @@ Pull "${e_USER}" Data From Info Server
   Wait And Click ELement  ${BADGE_APPROVE_INTERACTION_BTN}
   User Submits Keystore Password
 
+User Acknowledges Can Change Once
+  Wait And Click Element  ${PROFILE_USERNAME_PROCEED_BTN}
+
 #========#
 #  THEN  #
 #========#
@@ -93,8 +96,10 @@ Gain Moderator Card Should Not Be Visible
 KYC Status Should Be "${e_STATUS}"
   Wait Until Element Should Be Visible  ${PROFILE_KYC_STATUS_LABEL}
   Wait Until ELement Should Contain  ${PROFILE_KYC_STATUS_LABEL}  ${e_STATUS}
-  Run Keyword If  "${e_STATUS}"=="Pending"
-  ...  Wait Until Element Is Disabled  ${PROFILE_SUBMIT_KYC_BTN}
+  Run Keyword If  "${e_STATUS.lower()}"=="pending"
+  ...  Wait Until Element Should Not Be Visible  ${PROFILE_SUBMIT_KYC_BTN}
+  ...  ELSE IF  "${e_STATUS.lower()}"=="approved"
+  ...  Wait Until Element Should Be Enabled  ${PROFILE_SUBMIT_KYC_BTN}
   ...  ELSE
   ...  Wait Until Element Should Be Enabled  ${PROFILE_SUBMIT_KYC_BTN}
 
@@ -128,6 +133,8 @@ Force Fail Test If Username Is Already Set
 User Sets Account Details By Component
   [Arguments]  ${p_component}  ${p_value}  ${p_expected_result}  ${p_message}=${EMPTY}
   Wait And Click Element  ${PROFILE_SET_${p_component}_BTN}
+  Run Keyword If  '${p_component.lower()}'=='username'
+  ...  User Acknowledges Can Change Once
   Wait Until Element Should Be Visible  ${PROFILE_SET_${p_component}_FIELD}
   Clear Element Text  ${PROFILE_SET_${p_component}_FIELD}
   Input Text  ${PROFILE_SET_${p_component}_FIELD}  ${p_value}

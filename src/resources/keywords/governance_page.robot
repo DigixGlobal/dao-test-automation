@@ -16,6 +16,13 @@ Pull Profile Stats Data
   Set Suite Variable  ${s_REPUTATION_PTS}  ${t_rp}
   Set Suite Variable  ${s_STAKE_PTS}  ${t_sp}
 
+Pull "${e_ACCOUNT}" From SideNav
+  ${t_isNotVisible}=  Run Keyword And Return Status
+  ...  Element Should Not Be Visible  ${SIDE_NAV_USER_LABEL}
+  Run Keyword If  ${t_isNotVisible}
+  ...  Click Element  ${HAMBURGER_MENU}
+  ${t_value}=  Get Text  ${SIDE_NAV_USER_LABEL}
+  Set Suite Variable  ${${e_ACCOUNT}_USERNAME}  ${t_value}
 #========#
 #  WHEN  #
 #========#
@@ -37,6 +44,7 @@ User Submits Locked Stake
   # uploading
   Set Suite Variable  ${s_WALLET_TYPE}  ${e_WALLET_TYPE}
   Load JQuery Tool
+  Accept DigixDao Terms and Condition
   Wait And Click Element  ${LOAD_WALLET_BTN}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
   Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_${e_WALLET_TYPE}_BTN}
@@ -96,6 +104,10 @@ Submit Metamask Wallet
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
   # Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
   # Click Element  ${CLOSE_ICON}
+
+User Closes Connected Wallet Overlay
+  Wait Until Element Should Be Visible  ${CONNECTED_WALLET_OVERLAY}
+  Click Element  ${OVERLAY_CLOSE_ICON}
 
 #========#
 #  THEN  #
@@ -189,7 +201,7 @@ Launch Governance Website
 #===========#
 Get Proposal Card Index
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
-  @{t_elements}=  Get WebElements  ${PROPOSAL_CARD} ${VIEW_PROJECT_LINK}
+  @{t_elements}=  Get WebElements  ${PROPOSAL_CARD} ${PARTICIPATE_BTN}
   :FOR  ${index}  ${locator}  IN ENUMERATE  @{t_elements}
   \  ${t_text}=  Get Text  ${PROPOSAL_CARD}:eq(${index}) h2
   \  ${t_same}=  Evaluate  '${t_text}'=='${g_GENERIC_VALUE}'

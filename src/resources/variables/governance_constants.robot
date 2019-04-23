@@ -13,6 +13,7 @@ ${PROFILE_SIDE_MENU_ICON}  css=div[kind="profile"]
 ${HISTORY_SIDE_MENU_ICON}  css=div[kind="history"]
 ${DAO_TOUR_SIDE_MENU_ICON}  css=div[kind="product"]
 ${KYC_DASHBOARD_SIDE_MENU_ICON}  css=div[kind="dashboard"]
+${ADMIN_SIDE_MENU_ICON}  css=div[kind="user"]
 @{LOGGED_OUT_SIDENAV_LIST}
 ...  ${HOME_SIDE_MENU_ICON}  ${DAO_TOUR_SIDE_MENU_ICON}
 @{LOGGED_IN_SIDENAV_LIST}
@@ -20,10 +21,10 @@ ${KYC_DASHBOARD_SIDE_MENU_ICON}  css=div[kind="dashboard"]
 ...  ${HISTORY_SIDE_MENU_ICON}  @{LOGGED_OUT_SIDENAV_LIST}
 
 # user profile stats
-${DASHBOARD_STATS_DIV}    jquery=[class*="timeline"] + [class*="Container"]
+${DASHBOARD_STATS_DIV}    css=[class*="UserStats"]
 ${STAT_QUARTER_POINT}     css=[data-digix="Dashboard-Stats-QuarterPoints"]
 ${STAT_REPUTATION_POINT}  css=[data-digix="Dashboard-Stats-ReputationPoints"]
-${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Stats-Stake"]
+${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Stats-Stake"] span
 
 #generic
 ${SNACK_BAR_DIV}  jquery=div[class*="SnackbarContainer"]
@@ -31,7 +32,7 @@ ${ROUND_BTN}  button[class*="RoundBtn"]
 ${GOVERNANCE_SIDENAR_DIV}  jquery=div[class*="IntroContainer"]
 ${GOVERNANCE_SIDE_PANEL}  ${GOVERNANCE_SIDENAR_DIV}
 #header
-${GOVERNANCE_MENU}  css=section[class*="HeaderWrapper"]
+${GOVERNANCE_MENU}  css=[id="nav-wrap"]
 ${HEADER_LOCK_DGD_BTN}  css=[data-digix="Header-LockDgd"]
 ${ADDRESS_LABEL}  css=[data-digix="Header-Address"]
 ${LOAD_WALLET_BTN}  css=[data-digix="Header-LoadWallet"]
@@ -51,19 +52,20 @@ ${SIGN_MESSAGE_BTN}  ${UNLOCK_WALLET_BTN}
 ${METAMASK_NICKNAME}  css=[placeholder="Address nickname"]
 #------------------------------------#
 # sidebar
+${OVERLAY_CLOSE_ICON}  css=[class*="CloseButtonWithHeader"] [kind="close"]
 ${CLOSE_ICON}  jquery=[class*="CloseButton"] svg
+${CONNECTED_WALLET_OVERLAY}  css=[data-digix="ConnectedWalletComponent"]
 ${LOAD_WALLET_SIDEBAR_BUTTON}  ${GOVERNANCE_SIDENAR_DIV} ${ROUND_BTN}
 ${ADDRESS_INFO_SIDEBAR}  css=[class*="AddressInfo"]
 ${LOCK_DGD_BTN}  jquery=[class*="style__InnerContainer"] button:eq(1)
 ${LOCK_DGD_AMOUNT_FIELD}  css=[data-digix="LockDgdOverlay-DgdAmount"]
-${LOCK_DGD_STATUS}  css=p[class*="StakeCaption"]
-${LOCK_DGD_STAKE_LABEL}  css=p[class*="StakeCaption"] strong
+${LOCK_DGD_STATUS}  css=[class*="FormNote"] > p
+${LOCK_DGD_STAKE_LABEL}  ${LOCK_DGD_STATUS} > strong
 ${LOCK_WITH_AMOUNT_BTN}  css=[data-digix="LockDgdOverlay-LockDgd"]
 ${CONGRATULATION_BANNER}  css=div[class*="ConfirmationBox"]
 ${GET_STARTED_BTN}  ${CONGRATULATION_BANNER} + button
 ${SALT_JSON_UPLOAD_BTN}  css=#json-upload
-${NOTE_CONTAINER}  css=div[class*="NoteContainer"]
-
+${NOTE_CONTAINER}  css=div[class*="Notifications"]
 #------------------------------------#
 # wallet type
 ${WALLET_METAMASK_BTN}  div[kind="metamask"]
@@ -74,16 +76,17 @@ ${WALLET_JSON_BTN}  div[kind="json"]
 
 #------------------------------------#
 # dashboard filter tabs
-${GOVERNANCE_FILTER_SECTION}  jquery=div[class*="FilterWrapper"]
-${ALL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(1)
-${IDEA_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(2)
-${DRAFT_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(3)
-${PROPOSAL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(4)
-${ONGOING_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(5)
-${REVIEW_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(6)
-${ARCHIVED_TAB}  ${GOVERNANCE_FILTER_SECTION} a:eq(7)
+${GOVERNANCE_FILTER_SECTION}  css=div[class*="FilterWrapper"]
+${ALL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(1)
+${IDEA_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(2)
+${DRAFT_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(3)
+${PROPOSAL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(4)
+${ONGOING_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(5)
+${REVIEW_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(6)
+${ARCHIVED_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(7)
 
 # proposal card container
-${PROPOSAL_CARD}  jquery=div[class*="ProposalWrapper"]
+${PROPOSAL_CARD}  jquery=[data-digix="Proposal-Card"]
 ${VIEW_PROJECT_LINK}  a[class*="ProposalLink"]
+${PARTICIPATE_BTN}  button[class*="RoundBtn"]
 ${PROPOSAL_STATUS_BTN}  button[kind="tag"]

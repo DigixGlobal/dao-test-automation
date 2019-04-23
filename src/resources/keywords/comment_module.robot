@@ -1,4 +1,5 @@
 *** Settings ***
+Resource    forum_admin_module.robot
 Resource    ../variables/comment_constants.robot
 
 *** Keywords ***
@@ -8,7 +9,6 @@ Resource    ../variables/comment_constants.robot
 "${e_USER}" Posts "${e_COUNT}" Thread On Created Proposal
   Switch Browser  ${e_USER}
   Go To Newly Created Proposal View Page
-  Wait Until Element Should Be Visible  ${THREAD_SECTION}
   Set Selenium Speed  ${REMOTE_SPEED}
   ${t_list}=  Create List
   :FOR  ${index}  IN RANGE  0  ${e_COUNT}
@@ -26,8 +26,8 @@ Resource    ../variables/comment_constants.robot
   Switch Browser  ${e_USER}
   ${t_icon}=  Set Variable If  '${e_COMMENT_TYPE}'=='NESTED_REPLIES'
   ...  ${REPLY_ICON}:last  ${REPLY_ICON}
-  Wait Until Element Should Be Visible  ${THREAD_SECTION}
-  Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
+  # Wait Until Element Should Be Visible  ${THREAD_SECTION}
+  Hide Governance Header Menu
   ${t_list}=  Create List
   Set Selenium Speed  ${REMOTE_SPEED}
   :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_${e_COMMENT_TYPE}}
@@ -36,7 +36,7 @@ Resource    ../variables/comment_constants.robot
   \  ${t_thread_div}=  Set Variable  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
   \  Set Focus To Element  ${t_thread_div} ${t_icon}
   \  Wait And Click Element  ${t_thread_div} ${t_icon}
-  \  ${t_comment_field}=  Set Variable  ${t_thread_div} textarea
+  \  ${t_comment_field}=  Set Variable  ${t_thread_div} .ql-editor:last
   \  Wait Until Element Should Be Visible  ${t_comment_field}
   \  Input Text  ${t_comment_field}  ${t_value}
   \  Wait And Click Element  ${t_thread_div} ${POST_COMMENT_BTN}
@@ -59,10 +59,10 @@ Resource    ../variables/comment_constants.robot
 
 User Shows All Main Thread Comments
   Wait Until Element Should Be Visible  ${THREAD_SECTION}
-  Wait And Click Element  ${THREAD_SECTION} > button
+  Wait And Click Element  ${THREAD_SECTION} ${LOAD_MORE_COMMENT_LINK}
 
 User Shows All "${e_COMMENT_TYPE}" Comments
-  ${t_BUTTON}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${e_COMMENT_TYPE}_NUMBER}) button[class*="TextBtn"]:last
+  ${t_BUTTON}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${e_COMMENT_TYPE}_NUMBER}) ${LOAD_MORE_REPLIES_LINK}
   Wait Until ELement Should Be Visible  ${t_BUTTON}
   Set Focus To Element  ${t_BUTTON}
   Click Element  ${t_BUTTON}
@@ -78,13 +78,30 @@ User Shows All "${e_COMMENT_TYPE}" Comments
   Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
   Click Element  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [kind="like"]
 
+Admin "${e_ACTION}" "${e_NAME}" From Commenting
+  Wait Until Element Should Be Visible  ${SEARCH_BAN_FIELD}
+  ${t_text}=  Fetch From Right  ${e_NAME}  ,
+  ${t_remove}=  Remove String  ${t_text}  ${SPACE}  !
+  Input Text  ${SEARCH_BAN_FIELD}  ${t_remove}
+  Wait And Click Element  ${SERACH_ICON}
+  Wait And Click Element  ${BANNED_BTN}
+
 #========#
 #  THEN  #
 #========#
+User Should "${e_VISIBILITY}" Able To Post A Comment
+  ${t_value}=   Set Variable If  '${e_VISIBILITY.lower()}'=='not be'
+  ...  be  not be
+  Run Keyword  Wait Until Element Should ${t_value} Visible  ${BANNED_CONTAINER}
+
+Ban Button Label Should Be "${e_BUTTON_LABEL}"
+  Wait Until Element Should Contain  ${BANNED_BTN}  ${e_BUTTON_LABEL}
+
 All Thread Comments Should Be Visible
   Wait Until Element Should Be Visible  ${COMMMENT_DIV}
   :FOR  ${index}  ${value}  IN ENUMERATE  @{g_THREAD_VALUES}
   \  ${t_div}=  Set Variable  ${COMMMENT_DIV}:eq(${index}) ${COMMENT_POST}
+  \  ${t_text}=  Get Text  ${t_div}
   \  Wait Until ELement Should Contain  ${t_div}  ${value}
 
 Main Thread Should Be Sorted

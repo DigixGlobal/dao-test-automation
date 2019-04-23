@@ -17,16 +17,12 @@ Proposer Has Successfully Created A Proposal
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
 
-Proposer Has Successfully Posted Multiple Threads
+Proposer Has Successfully Posted Multiple ThreadsA And Sorted To Oldest
   Given User Is In "GOVERNANCE" Page
   When "proposer" Posts "11" Thread On Created Proposal
+  And "proposer" Sorts Main Thread From "Oldest"
+  And User Shows All Main Thread Comments
   Then All Thread Comments Should Be Visible
-
-Proposer Has Successfully Sorted Main Thread From Oldest
-  Given User Is In "PROPOSAL_VIEW" Page
-  When "proposer" Sorts Main Thread From "Oldest"
-  And "proposer" Sorts Main Thread From "Latest"
-  Then Main Thread Should Be Sorted
 
 Proposer Has Successfully Posted Multiple Comments
   Given User Is In "PROPOSAL_VIEW" Page
@@ -45,8 +41,6 @@ Proposer Has Successfully Showed All Comments
   Then Main Thread Should Be Sorted
   When User Shows All Main Thread Comments
   Then All Thread Comments Should Be Visible
-  When "proposer" Sorts Main Thread From "Latest"
-  Then Main Thread Should Be Sorted
   When User Shows All "REPLIES" Comments
   Then All Comments Should Be Visible
   When User Shows All "NESTED_REPLIES" Comments

@@ -12,6 +12,7 @@ Resource    ../variables/url_extension.robot
 
 *** Variables ***
 ${HELP_LAUNCHER}  css=#launcher
+${TOS_AGREE_BTN}  css=[data-digix="TOC-READ-AGREE"]
 @{EXCLUDE_KNOWN_CONSOLE_LOG_LIST}
 ...    miketestmike
 
@@ -61,6 +62,11 @@ Wait Until ELement Should Not Contain
 "${e_NAME}" Elements Should Be Visible
   :FOR  ${locator}  IN  @{${e_NAME}_ELEMENT_LIST}
   \  Wait Until Element Should Be Visible  ${locator}
+
+Element Should Contain Text
+  [Arguments]  ${p_locator}  ${p_text}
+  Wait Until Element Should Be Visible  ${p_locator}
+  Element Should Contain  ${p_locator}  ${p_text}  ignore_case=${TRUE}
 
 #===========================================#
 #               CONSOLE LOGGER              #
@@ -172,7 +178,7 @@ User Submits Keystore Password
 
 LookUp Value On Info Server
   [Arguments]  ${p_address}  ${p_lookUp}
-  ${t_url}=  Set Variable  ${${ENVIRONMENT}_INFO_URL}/address/${p_address}
+  ${t_url}=  Set Variable  ${${ENVIRONMENT}_INFO_SERVER_URL}/address/${p_address}
   ${t_lookup}=  Set Variable  ${p_lookUp}
   ${t_value}=  Find Value On Json URL  ${t_url}  ${p_lookUp}
   [Return]  ${t_value}
@@ -201,4 +207,7 @@ Open SideNav Menu If Not Visible
   ...  Click Element  ${HAMBURGER_MENU}
   ...  AND  Wait Until Element Should Be Visible  ${HAMBURGER_CLOSE_ICON}
 
-
+Accept DigixDao Terms and Condition
+  Wait Until Element Should Be Visible  ${TOS_AGREE_BTN}
+  Execute Javascript  var test=document.querySelector('[id="overlayDiv"]'); test.scrollTop +=test.scrollHeight
+  Wait And Click Element  ${TOS_AGREE_BTN}

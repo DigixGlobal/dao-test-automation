@@ -1,9 +1,9 @@
 *** Variables ***
 ${PROFILE_ROLE_DIV}           css=[data-digix="Profile-Status"]
-${PROFILE_REWARD_DIV}         jquery=[class*="RewardSummary"]
-${PROFILE_QUARTER_AMOUNT}     css=[data-digix="Profile-QuarterPoints"]
-${PROFILE_REPUTATION_AMOUNT}  css=[data-digix="Profile-ReputationPoints"]
-${PROFILE_STAKE_AMOUNT}       css=[data-digix="Profile-Stake"]
+${PROFILE_REWARD_DIV}         css=[class*="UserStats"]
+${PROFILE_QUARTER_AMOUNT}     css=[data-digix="Dashboard-Stats-QuarterPoints"]
+${PROFILE_REPUTATION_AMOUNT}  css=[data-digix="Dashboard-Stats-ReputationPoints"]
+${PROFILE_STAKE_AMOUNT}       css=[data-digix="Dashboard-DGD-Stake"]
 ${PROFILE_MODERATOR_CARD}     css=[data-digix="Profile-ModerationRequirements"]
 ${PROFILE_REMAINING_REPUTATION}  css=[data-digix="Profile-ModerationRequirements-Reputation"]
 ${PROFILE_REMAINING_STAKE}    css=[data-digix="Profile-ModerationRequirements-Stake"]
@@ -16,6 +16,7 @@ ${BADGE_APPROVE_INTERACTION_BTN}  css=[data-digix="Approve-Interaction"]
 
 ${PROFILE_USERNAME_DIV}  css=[data-digix="Profile-UserName"]
 ${PROFILE_SET_USERNAME_BTN}  css=[data-digix="Profile-UserName-Cta"]
+${PROFILE_USERNAME_PROCEED_BTN}  css=[data-digix="UsernameOverlay-Proceed"]
 ${PROFILE_SET_USERNAME_FIELD}  css=[data-digix="SetUsername-TexBox"]
 ${PROFILE_CHANGE_USERNAME_BTN}  css=[data-digix="UsernameOverlay-SetUsername"]
 

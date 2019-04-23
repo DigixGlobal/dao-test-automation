@@ -8,11 +8,13 @@ Resource  ../variables/kyc_submission_constants.robot
 #========#
 User Submits KYC Details For Approval
   [Arguments]  ${p_unique}=NONE
+  Hide SnackBar
   Genearate Dates
   ${t_unique}=  Run Keyword If  '${p_unique}'=='NONE'
   ...  Get Time  epoch
   ...  ELSE  Set Variable  ${p_unique}
   Set Email If Set EMail KYC Button Is Visible  ${t_unique}
+  Hide SnackBar
   Force Element Via jQuery  ${HELP_LAUNCHER}  hide
   Wait And Click Element  ${PROFILE_SUBMIT_KYC_BTN}
   Wait And Click Element  ${KYC_PROCEED_BTN}

@@ -3,13 +3,13 @@ Resource   proposal_view_page.robot
 Resource    ../variables/governance_constants.robot
 
 *** Variables ***
-${GOVERNANCE_CREATE_BTN}  css=a[href="#/proposals/create"] button
+${GOVERNANCE_CREATE_BTN}  css=button [kind="plus"]
 # create proposal fields
 ${PROPOSAL_TAB_PANEL}  jquery=div[class*="TabPanel"]
 ${PROPOSAL_MENU}  ${PROPOSAL_TAB_PANEL} +  [class*="Header"] > div:eq(1)
-${PROPOSAL_MENU_PREVIEW_BTN}  ${PROPOSAL_MENU} button:eq(0)  #css=[data-digix="Create-Proposal-Preview"]
-${PROPOSAL_MENU_PREVIOUS_BTN}  ${PROPOSAL_MENU} button:eq(1)  #css=[data-digix="Create-Proposal-Previous"]
-${PROPOSAL_MENU_NEXT_BTN}  ${PROPOSAL_MENU} button:eq(2)  #css=[data-digix="Create-Proposal-Next"]
+${PROPOSAL_MENU_PREVIEW_BTN}  css=[data-digix*="-Proposal-Preview"]
+${PROPOSAL_MENU_PREVIOUS_BTN}  css=[data-digix*="-Proposal-Previous"]
+${PROPOSAL_MENU_NEXT_BTN}  css=[data-digix*="-Proposal-Next"]
 ${PROJECT_TITLE_FIELD}  css=input[id="title"]
 ${PROJECT_DESC_FIELD}  css=textarea[id="description"]
 ${PROJECT_INFO_FIELD}  css=#details .ql-editor
@@ -19,15 +19,26 @@ ${REWARD_FIELD}  css=input[id="finalReward"]
 ${NUM_OF_MILESTONE_FIELD}  css=select[id="noOfMilestones"]
 ${MILESTONE_FORM}  jquery=div[class*="CreateMilestone"]
 ${MILESTONE_FIELD}  ${MILESTONE_FORM} input
-${MILESTONE_DESC_FIELD}  ${MILESTONE_FORM} textarea
-${CREATE_NOW_BTN}  ${PROPOSAL_MENU_NEXT_BTN}  #css=[data-digix="Create-Proposal-Button"]
-${PROPOSAL_SUBMIT_BTN}  jquery=div[class*="ContentWrapper"] button:eq(1)
+${MILESTONE_DESC_FIELD}  ${MILESTONE_FORM} .ql-editor  #textarea
+${CREATE_NOW_BTN}   css=[data-digix*="-Proposal-Button"]
+${PROPOSAL_SUBMIT_BTN}  jquery=[class*="CTA"] button:eq(1)
 #Preview
 ${CONTINUE_EDITING_BTN}  css=[class*="ProposalsWrapper"] button
+#error overlay
+${ERROR_OVERLAY_CONTAINER}  css=[data-digix="ProjectError-Notification"]
+${ERROR_CARD_TITLE}  css=[data-digix="ProjectError-Notification-Title"]
+${ERROR_OVERLAY_RETURN_BTN}  css=[data-digix="ProjectError-Return"]
+${ERROR_KYC_NOT_APPROVED_MSG}  KYC IS NOT VALID
+
 *** Keywords ***
 #========#
 #  WHEN  #
 #========#
+"${e_USER}" Ticks Create Button On Dashboard Page
+  Wait And Click Element  ${GOVERNANCE_CREATE_BTN}
+
+User Closes Error Overlay
+  Wait And Click Element  ${ERROR_OVERLAY_RETURN_BTN}
 "${e_USER}" Creates A Governance Propsosal
   User Goes To Create Proposal Page
   User Submit Proposal Details
@@ -49,6 +60,14 @@ User Submit Proposal Details
   User Submits Milestone Details  ${p_reward}  ${p_milestone}  ${g_GENERIC_VALUE}
   #prevew
   User Submits Proposal Details
+
+#========#
+#  THEN  #
+#========#
+Error Overlay Should "${e_ACTION}" Visible
+  Run Keyword  Wait Until Element Should ${e_ACTION} Visible  ${ERROR_OVERLAY_RETURN_BTN}
+  Run Keyword If  '${e_ACTION.lower()}'!='not be'
+  ...  Wait Until Element Should Contain  ${ERROR_CARD_TITLE}  ${ERROR_KYC_NOT_APPROVED_MSG}
 
 #=====================#
 #  INTERNAL KEYWORDS  #
@@ -101,11 +120,12 @@ User Previews Details
   Wait And Click Element  ${PROPOSAL_MENU_PREVIEW_BTN}
 
 User Edits Proposal Details
+  Hide Governance Header Menu
   Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
 
 Proposal Preview Should Be Visible
   Wait Until Element Should Be Visible  ${PROPOSAL_TITLE_DIV}
-  Wait Until Element Should Contain  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
+  Element Should Contain  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}  ignore_case=${TRUE}
 
 User Submits Proposal Details
   Wait And Click Element  ${PROPOSAL_SUBMIT_BTN}

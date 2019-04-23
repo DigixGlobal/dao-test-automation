@@ -24,12 +24,13 @@ Resource  ../variables/wallet_view_contants.robot
   Wait Until Element Should Be Visible  ${LOCK_WITH_AMOUNT_BTN}  #on governance_contants file
   User Submits Locked Stake  ${e_AMOUNT}
   Set Suite Variable  ${s_LOCKED_DGD_AMOUNT}  ${e_AMOUNT}
-  Wait Until Element Should Be Visible  ${CONGRATULATION_BANNER}
-  Wait And Click Element  ${OVERLAY_CLOSE_BTN}
-  Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
+  # Wait Until Element Should Be Visible  ${CONGRATULATION_BANNER}
+  # Wait And Click Element  ${OVERLAY_CLOSE_BTN}
+  # Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
 
 "${e_USER}" Unlocks "${e_AMOUNT}" Stake On "${e_PHASE}"
   Pulled Wallet Stats
+  Hide SnackBar
   Wait And Click Element  ${WALLET_UNLOCKED_DGD_BTN}
   Wait Until Element Should Be Visible  ${WALLET_UNLOCK_AMOUNT_FIELD}
   Wait Until Element Should Contain  ${WALLET_DGD_AMOUNT_LABEL}  ${s_STAKE_AMOUNT}
@@ -71,12 +72,12 @@ User Should Already Claimed Reward
 
 User Should Successfully "${e_ACTION}" DGD
   Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
-  Wait Until Element Is Disabled  ${WALLET_${e_ACTION}_DGD_BTN}
+  # Wait Until Element Is Disabled  ${WALLET_${e_ACTION}_DGD_BTN}
 
 "${e_ACTION}" DGD Computation Should Be Correct
-  ${t_operand}=  Set Variable If  '${e_ACTION}'=='LOCKED'
+  ${t_operand}=  Set Variable If  '${e_ACTION.lower()}'=='locked'
   ...  +  -
-  ${t_amount}=  Set Variable If  '${e_ACTION}'=='LOCKED'
+  ${t_amount}=  Set Variable If  '${e_ACTION.lower()}'=='locked'
   ...  ${s_LOCK_STAKE}  ${s_LOCKED_DGD_AMOUNT}
   Log  ${s_STAKE_AMOUNT}, ${s_LOCKED_DGD_AMOUNT}, ${s_LOCK_STAKE}
   Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}
