@@ -20,3 +20,11 @@ ${WALLET_INLINE_MSG_DIV}  css=[class*="DrawerContainer"] [class*="Hint"]
 ${WALLET_REMAINING_UNLOCK_AMOUNT_LABEL}  css=[data-digix="UnlockDgd-RemainingDgd-stake"]
 ${WALLET_MAX_ERROR_AMOUNT}  css=[data-digx="UnlockDgd-Error-MaxAmount"]
 ${WALLET_UNLOCKED_BTN}  css=[data-digix="UnlockDgd-Cta"]
+
+#wallet balance
+${WALLET_DGD_BALANCE}  css=[data-digix="Wallet-DGD-Balance"]
+${WALLET_DGX_BALANCE}  css=[data-digix="Wallet-DGX-Balance"]
+${WALLET_ETH_BALANCE}  css=[data-digix="Wallet-ETH-Balance"]
+${WALLET_DGD_USD_CONVERSION}  css=[data-digix="Wallet-DgdUsd-Balance"]
+${WALLET_DGX_USD_CONVERSION}  css=[data-digix="Wallet-DgxUsd-Balance"]
+${WALLET_ETH_USD_CONVERSION}  css=[data-digix="Wallet-EthUsd-Balance"]
