@@ -39,7 +39,9 @@ ${ERROR_KYC_NOT_APPROVED_MSG}  KYC IS NOT VALID
 
 User Closes Error Overlay
   Wait And Click Element  ${ERROR_OVERLAY_RETURN_BTN}
+
 "${e_USER}" Creates A Governance Propsosal
+  Pull Project Creator Name
   User Goes To Create Proposal Page
   User Submit Proposal Details
 

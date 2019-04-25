@@ -117,6 +117,9 @@ User Closes Connected Wallet Overlay
 #========#
 #  THEN  #
 #========#
+Project Creator Name Should Be Visible
+  Wait Until Element Should Contain  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_AUTHOR}  ${s_PROJECT_CREATOR.upper()}
+
 Quarter Points Should Increase
   ${t_pt}=  Evaluate  ${s_QUARTER_PTS} + 1
   ${t_str}=  Convert To String  ${t_pt}

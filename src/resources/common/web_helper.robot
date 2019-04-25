@@ -211,3 +211,13 @@ Accept DigixDao Terms and Condition
   Wait Until Element Should Be Visible  ${TOS_AGREE_BTN}
   Execute Javascript  var test=document.querySelector('[id="overlayDiv"]'); test.scrollTop +=test.scrollHeight
   Wait And Click Element  ${TOS_AGREE_BTN}
+
+Pull Project Creator Name
+  ${t_isNotVisible}=  Run Keyword And Return Status
+  ...  Element Should Not Be Visible  ${SIDE_NAV_USER_LABEL}
+  Run Keyword If  ${t_isNotVisible}
+  ...  Click Element  ${HAMBURGER_MENU}
+  ${t_value}=  Get Text  ${SIDE_NAV_USER_LABEL}
+  ${t_text}=  Fetch From Right  ${t_value}  ,
+  ${t_remove}=  Remove String  ${t_text}  ${SPACE}  !
+  Set Suite Variable  ${s_PROJECT_CREATOR}  ${t_remove}

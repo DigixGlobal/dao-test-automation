@@ -18,6 +18,7 @@ Proposer Has Successfully Created A Proposal
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
+  And Project Creator Name Should Be Visible
 
 Moderator Has Successfully Endorsed Newly Created Proposal
   [Setup]  "moderator" Account Has Successfully Logged In To DigixDao Using "json"
