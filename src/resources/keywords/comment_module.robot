@@ -124,10 +124,3 @@ Main Thread "${e_THREAD_NUMBER}" Should Have Like
   Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
   Set Focus To Element  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER})
   Wait Until ELement Should Contain  ${COMMMENT_DIV}:eq(${e_THREAD_NUMBER}) [class*="ActionCommentButton"]:eq(1)  1
-
-#====================#
-#  SETUP / TEARDOWN  #
-#====================#
-User Revisits Newly Created Proposal
-  User Goes To "Home" View Page
-  Go To Newly Created Proposal View Page

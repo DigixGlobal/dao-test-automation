@@ -19,6 +19,10 @@ ${PROPOSAL_MS_DESC_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Content"]
 ${PROPOSAL_MS_AMOUNT_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Amount"]
 ${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
 ${TIMER_DIV}  [class*="QuorumInfoCol"]:first span:last
+${PROPOSAL_ADD_UPDATE_BTN}  css=[data-digix="ADD-UPDATES"]
+${PROPOSAL_UPDATE_SECTION}  css=[data-digix="Add-Updates-Section"]
+${PROPOSAL_CLAIM_FAILED_BTN}  css=[data-digix="ProposalAction-Approval"]
+${PROPOSAL_STATUS_DIV}  css=button[class*="TagBtn"]
 
 ${EDIT_FUNDING_REWARD_FIELD}  css=[data-digix="Edit-funding-reward-expected"]
 ${EDIT_FUNDING_MILESTONE1_FIELD}  css=[data-digix="Edit-milestone-funding-1"]
@@ -29,10 +33,30 @@ ${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
 # contents
 ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the voting.
 
+#Add Documents Form
+${ADD_DOCS_BTN}  css=[data-digix="CONFIRM-ADD-MORE-DOCS"]
+${ADD_DOCS_UPLOAD_BTN}  css=[id="image-upload-0"]
+${ADD_DOCS_REMOVE_BTN}  css=[data-digix="REMOVE-BUTTON"]
+${ADD_MORE_DOCS_BTN}  css=[data-digix="ADD-MORE-DOCS"]
+
 *** Keywords ***
 #========#
 #  WHEN  #
 #========#
+User Claims Failed Project
+  User Revisits Newly Created Proposal
+  Wait And Click Element  ${PROPOSAL_CLAIM_FAILED_BTN}
+  User Submits Keystore Password
+
+User Adds Additional Documents
+  User Revisits Newly Created Proposal
+  Get Remaining Time To Execute Next Step
+  Wait And Click Element  ${PROPOSAL_ADD_UPDATE_BTN}
+  Wait Until Element Should Be Visible  ${ADD_DOCS_BTN}
+  Upload TestData Image  add_docs
+  Wait And Click Element  ${ADD_DOCS_BTN}
+  User Submits Keystore Password  #transaction modal
+
 "${e_USER}" Approves Newly Drafted Proposal
   Proposal Status Should Be "DRAFT"
   Visit Newly Created Proposal And Click "Approve" Action
@@ -133,9 +157,15 @@ User Claims Multiple Results
   \  User Submits Keystore Password  #transaction modal
   \  Sleep  2 seconds
 
+Additional Document Section Should Be Visible
+  Wait Until Element Should Be Visible  ${PROPOSAL_UPDATE_SECTION}
+
 #========#
 #  THEN  #
 #========#
+Project Details Page Status Should Be "${e_STATUS}"
+  Wait Until Element Should Contain  ${PROPOSAL_STATUS_DIV}  ${e_STATUS.upper()}
+
 Proposal Details Should Be Correct On Proposal Details Page
   Go To Newly Created Proposal View Page
   Element Should Contain Text  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
