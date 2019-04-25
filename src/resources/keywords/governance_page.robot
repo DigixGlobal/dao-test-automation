@@ -9,6 +9,11 @@ Resource    ../variables/governance_constants.robot
 #=========#
 Pull Profile Stats Data
   Wait Until Element Should Be Visible  ${DASHBOARD_STATS_DIV}
+  ${t_mod}=  Run Keyword And Return Status  Should Contain  ${TEST NAME}  Moderator
+  ${t_mod_pt}=  Run Keyword If  ${t_mod}
+  ...  Get Text  ${STAT_MODERATOR_POINT}
+  Run Keyword If  ${t_mod}
+  ...  Set Suite Variable  ${s_MOD_QP}  ${t_mod_pt}
   ${t_qp}=  Get Text  ${STAT_QUARTER_POINT}
   ${t_rp}=  Get Text  ${STAT_REPUTATION_POINT}
   ${t_sp}=  Get Text  ${STAT_MYSTAKE_POINT}
@@ -112,6 +117,16 @@ User Closes Connected Wallet Overlay
 #========#
 #  THEN  #
 #========#
+Quarter Points Should Increase
+  ${t_pt}=  Evaluate  ${s_QUARTER_PTS} + 1
+  ${t_str}=  Convert To String  ${t_pt}
+  Wait Until Element Should Contain  ${STAT_QUARTER_POINT}  ${t_str}
+
+Moderator Quarter Points Should Increase
+  ${t_pt}=  Evaluate  ${s_MOD_QP} + 1
+  ${t_str}=  Convert To String  ${t_pt}
+  Wait Until Element Should Contain  ${STAT_MODERATOR_POINT}  ${t_str}
+
 "${e_STATE}" SideNav Menu Items Should Be Visible
   :FOR  ${locator}  IN  @{${e_STATE}_SIDENAV_LIST}
   \  Wait Until Element Should Be Visible  ${locator}
