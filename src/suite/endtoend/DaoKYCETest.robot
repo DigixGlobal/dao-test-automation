@@ -27,7 +27,7 @@ NonKycUser Has Successfully Submitted KYC Details On Profile Page
   And User Submits KYC Details For Approval  ${s_UNIQUE}
   Then Kyc Status Should Be "Pending"
 
-NonKycUser Has Successfully Viewed Error Overlay
+NonKycUser Has Successfully Viewed Error Overlay When KYC Status Is Pending
   [Setup]  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
   When "NonKycUser" Ticks Create Button On Dashboard Page
@@ -37,38 +37,38 @@ NonKycUser Has Successfully Viewed Error Overlay
   When User Goes To "Profile" View Page
   Then Kyc Status Should Be "Pending"
 
-# KYCOfficer Has Successfully Rejected KYC Account
-#   [Setup]  "kycOfficer" Account Has Successfully Logged In To DigixDao Using "json"
-#   Given User Is In "GOVERNANCE" Page
-#   And KycOfficer Is Logged In
-#   When User Goes To "KYC_DASHBOARD" View Page
-#   And User "Rejects" "${s_UNIQUE}" Account
-#   Then Account Status Should Be "REJECTED"
+KYCOfficer Has Successfully Rejected KYC Account
+  [Setup]  "kycOfficer" Account Has Successfully Logged In To DigixDao Using "json"
+  Given User Is In "GOVERNANCE" Page
+  And KycOfficer Is Logged In
+  When User Goes To "KYC_DASHBOARD" View Page
+  And User "Rejects" "${s_UNIQUE}" Account
+  Then Account Status Should Be "REJECTED"
 
-# NonKycUser Has Successfully Viewed Error Overlay
-#   [Setup]  Run Keywords  Switch Browser  nonKYCUser
-#   ...  AND  Go Back To Dashboard Page
-#   Given User Is In "GOVERNANCE" Page
-#   When "NonKycUser" Ticks Create Button On Dashboard Page
-#   Then Error Overlay Should "BE" Visible
-#   When User Closes Error Overlay
-#   Then Error Overlay Should "NOT BE" Visible
+NonKycUser Has Successfully Viewed Error Overlay When KYC Status Is Rejected
+  [Setup]  Run Keywords  Switch Browser  nonKYCUser
+  ...  AND  Go Back To Dashboard Page
+  Given User Is In "GOVERNANCE" Page
+  When "NonKycUser" Ticks Create Button On Dashboard Page
+  Then Error Overlay Should "BE" Visible
+  When User Closes Error Overlay
+  Then Error Overlay Should "NOT BE" Visible
 
-# NonKycUser Has Successfully Resubmitted KYC Details On Profile Page
-#   [Setup]  Generate Suite Unique Value
-#   Given User Is In "GOVERNANCE" Page
-#   When User Goes To "Profile" View Page
-#   Then Kyc Status Should Be "Rejected"
-#   When User Submits KYC Details For Approval  ${s_UNIQUE}
-#   Then Kyc Status Should Be "Pending"
+NonKycUser Has Successfully Resubmitted KYC Details On Profile Page
+  [Setup]  Generate Suite Unique Value
+  Given User Is In "GOVERNANCE" Page
+  When User Goes To "Profile" View Page
+  Then Kyc Status Should Be "Rejected"
+  When User Submits KYC Details For Approval  ${s_UNIQUE}
+  Then Kyc Status Should Be "Pending"
 
 KYCOfficer Has Successfully Approved KYC Account
-  [Setup]  "kycOfficer" Account Has Successfully Logged In To DigixDao Using "json"
-  # [Setup]  Run Keywords  Switch Browser  kycOfficer
-  # ...  AND  Go Back To Dashboard Page
+  [Setup]  Run Keywords  Switch Browser  kycOfficer
+  ...  AND  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
   When User Goes To "KYC_DASHBOARD" View Page
   And User "Approves" "${s_UNIQUE}" Account
+  And Sleep  30 seconds
   Then Account Status Should Be "APPROVED"
 
 NonKycUser Has Successfully Set KYC Status To Approved
