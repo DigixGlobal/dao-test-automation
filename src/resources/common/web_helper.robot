@@ -221,3 +221,7 @@ Pull Project Creator Name
   ${t_text}=  Fetch From Right  ${t_value}  ,
   ${t_remove}=  Remove String  ${t_text}  ${SPACE}  !
   Set Suite Variable  ${s_PROJECT_CREATOR}  ${t_remove}
+
+User Revisits Newly Created Proposal
+  User Goes To "Home" View Page
+  Go To Newly Created Proposal View Page
