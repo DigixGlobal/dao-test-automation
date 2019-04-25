@@ -39,8 +39,10 @@ Proposer Has Successfully Finalized Proposal
 Moderator Has Successfully Approved Created Proposal
   [Setup]  Switch Browser  moderator
   Given User Is In "Governance" Page
+  And Pull Profile Stats Data
   When "moderator" Approves Newly Drafted Proposal
   Then Proposal Status Should Be "DRAFT"
+  And Moderator Quarter Points Should Increase
 
 Proposer Has Successfully Claimed Approved Proposal
   [Setup]  Run Keywords  Sleep Until Timer Runs Out
@@ -71,8 +73,9 @@ Moderator Has Successfully Revealed Vote To Proposal
   [Setup]  Run Keywords  Sleep Until Timer Runs Out  REVEAL
   ...  AND  Switch Browser  moderator
   Given User Is In "Governance" Page
+  And Pull Profile Stats Data
   When "moderator" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
+  Then Quarter Points Should Increase
 
 Participant Has Not Successfully Voted Using Modified Salt File
   [Setup]  Switch Browser  participant
@@ -84,14 +87,16 @@ Participant Has Successfully Revealed Vote To Proposal
   [Setup]  Run Keywords  Go Back To Dashboard Page
   ...  AND  Switch Browser  participant
   Given User Is In "Governance" Page
+  And Pull Profile Stats Data
   When "participant" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
+  Then Quarter Points Should Increase
 
 Proposer Has Successfully Revealed Vote To Proposal
   [Setup]  Switch Browser  proposer
   Given User Is In "Governance" Page
+  And Pull Profile Stats Data
   When "proposer" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
+  Then Quarter Points Should Increase
 
 Proposer Has Successfully Claimed Vote Result
   [Setup]  Sleep Until Timer Runs Out
@@ -133,20 +138,23 @@ Proposer Has Successfully Revealed Vote For First Milestone
   [Setup]  Run Keywords  Sleep Until Timer Runs Out  REVEAL
   ...  AND  Switch Browser  proposer
   Given User Is In "Governance" Page
+  And Pull Profile Stats Data
   When "proposer" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
+  Then Quarter Points Should Increase
 
 Participant Has Successfully Revealed Vote For First Milestone
   [Setup]  Switch Browser  participant
   Given User Is In "Governance" Page
+  And Pull Profile Stats Data
   When "participant" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
+  Then Quarter Points Should Increase
 
 Moderator Has Successfully Revealed Vote For First Milestone
   [Setup]  Switch Browser  moderator
   Given User Is In "Governance" Page
+  And Pull Profile Stats Data
   When "moderator" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
+  Then Quarter Points Should Increase
 
 Proposer Has Successfully Claimed Vote Result On Reviewed First Milestone
   [Setup]  Run Keywords  Sleep Until Timer Runs Out

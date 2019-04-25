@@ -24,7 +24,9 @@ ${ADMIN_SIDE_MENU_ICON}  css=div[kind="user"]
 ${DASHBOARD_STATS_DIV}    css=[class*="UserStats"]
 ${STAT_QUARTER_POINT}     css=[data-digix="Dashboard-Stats-QuarterPoints"]
 ${STAT_REPUTATION_POINT}  css=[data-digix="Dashboard-Stats-ReputationPoints"]
-${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Stats-Stake"] span
+${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Locked-Stake"]
+${STAT_LOCKED_DGD_POINT}  css=[data-digix="Dashboard-Locked-DGD"]
+${STAT_MODERATOR_POINT}   css=[data-digix="Dashboard-Mod-QtrPts"]
 
 #generic
 ${SNACK_BAR_DIV}  jquery=div[class*="SnackbarContainer"]
