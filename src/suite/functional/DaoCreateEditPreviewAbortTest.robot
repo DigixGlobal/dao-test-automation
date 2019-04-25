@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation  This suite will test creating,and editing proposals
-...  also included preview function
+...  also included preview function and aborting of project.
 Force Tags    smoke    regression
-Default Tags    DaoCreateEditPreviewTest
+Default Tags    DaoCreateEditPreviewAbortTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
 Resource  ../../resources/keywords/governance_page.robot
@@ -62,3 +62,15 @@ Proposer Has Successfully Edited A Proposal While Preview Each Steps
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
   And Proposal Details Should Be Correct On Proposal Details Page
+  And Version Container Should Be Visible
+
+Proposer Has Successfully Aborted Newly Created Project
+  [Setup]  Go Back To Dashboard Page
+  Given User Is In "GOVERNANCE" Page
+  When User Aborts The Project
+  And User Revisits Newly Created Proposal
+  Then Project Details Page Status Should Be "ARCHIVED"
+  When Go Back To Dashboard Page
+  Then Newly Created Proposal Should Be Visible On "All" Tab
+  And Newly Created Proposal Should Be Visible On "Archived" Tab
+  Then Then Proposal Status Should Be "ARCHIVED"

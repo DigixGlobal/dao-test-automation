@@ -7,6 +7,8 @@ ${PROPOSAL_ADD_UPDATE_BTN}  css=[data-digix="ADD-UPDATES"]
 ${PROPOSAL_CLAIM_FAILED_BTN}  css=[data-digix="ProposalAction-Approval"]
 ${PROPOSAL_CLAIM_APPROVAL_BTN}  ${PROPOSAL_CLAIM_FAILED_BTN}
 ${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
+# proposal
+${PROPOSAL_VERSION_HISTORY}  css=[class*="VersionHistory"]
 ${PROPOSAL_ABORT_BTN}  css=[data-digix="ProposalAction-Abort"]
 ${PROPOSAL_CLAIM_RESULT_BTN}  css=[data-digix="ProposalAction-Results"]
 ${PROPOSAL_CLAIM_FUNDING_BTN}  css=[data-digix="ProposalAction-ClaimFunding"]
@@ -60,10 +62,15 @@ ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the votin
 #========#
 #  WHEN  #
 #========#
+User Aborts The Project
+  User Revisits Newly Created Proposal
+  Wait And Click Element  ${PROPOSAL_ABORT_BTN}
+  User Submits Keystore Password  #transaction modal
+
 User Claims Failed Project
   User Revisits Newly Created Proposal
   Wait And Click Element  ${PROPOSAL_CLAIM_FAILED_BTN}
-  User Submits Keystore Password
+  User Submits Keystore Password  #transaction modal
 
 User Adds Additional Documents
   User Revisits Newly Created Proposal
@@ -174,12 +181,15 @@ User Claims Multiple Results
   \  User Submits Keystore Password  #transaction modal
   \  Sleep  2 seconds
 
-Additional Document Section Should Be Visible
-  Wait Until Element Should Be Visible  ${PROPOSAL_UPDATE_SECTION}
-
 #========#
 #  THEN  #
 #========#
+Additional Document Section Should Be Visible
+  Wait Until Element Should Be Visible  ${PROPOSAL_UPDATE_SECTION}
+
+Version Container Should Be Visible
+  Wait Until Element Should Be Visible  ${PROPOSAL_VERSION_HISTORY}
+
 Project Details Page Status Should Be "${e_STATUS}"
   Wait Until Element Should Contain  ${PROPOSAL_STATUS_DIV}  ${e_STATUS.upper()}
 
