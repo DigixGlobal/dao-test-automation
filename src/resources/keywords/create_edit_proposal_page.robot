@@ -147,3 +147,4 @@ Set Proposal Value
   ...  ${t_strValue}  ${t_strValue} - edit
   Log To Console  ${\n}ProjectName:${t_strValue}
   Set Global Variable  ${g_GENERIC_VALUE}  ${t_value}
+  Set Suite Variable  ${s_${p_type}_GENERIC_VALUE}  ${t_value}

@@ -34,6 +34,7 @@ Proposer Has Successfully Created A Proposal While Preview Each Steps
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
+  When Go To Newly Created Proposal View Page
   And Proposal Details Should Be Correct On Proposal Details Page
 
 Proposer Has Successfully Edited A Proposal While Preview Each Steps
@@ -61,8 +62,17 @@ Proposer Has Successfully Edited A Proposal While Preview Each Steps
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
+  When Go To Newly Created Proposal View Page
   And Proposal Details Should Be Correct On Proposal Details Page
   And Version Container Should Be Visible
+
+Proposer Has Successfully Validated Version Data Are Correct
+  [Setup]  Go Back To Dashboard Page
+  Given User Is In "GOVERNANCE" Page
+  When Go To Newly Created Proposal View Page
+  Then Proposal Details Should Be Correct On Proposal Details Page
+  When User Go Back To Previous Version
+  Then Proposal Details Should Be Correct On Proposal Details Page  create
 
 Proposer Has Successfully Aborted Newly Created Project
   [Setup]  Go Back To Dashboard Page
