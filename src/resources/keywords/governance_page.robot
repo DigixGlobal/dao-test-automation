@@ -3,12 +3,13 @@ Resource    create_edit_proposal_page.robot
 Resource    proposal_view_page.robot
 Resource    metamask.robot
 Resource    ../variables/governance_constants.robot
+Resource    ../varaibles/refactored_locators.robot
 *** Keywords ***
 #=========#
 #  GIVEN  #
 #=========#
 Pull Profile Stats Data
-  Wait Until Element Should Be Visible  ${DASHBOARD_STATS_DIV}
+  Wait Until Element Should Be Visible  ${USER_STATISTIC_DIV}
   ${t_mod}=  Run Keyword And Return Status  Should Contain  ${TEST NAME}  Moderator
   ${t_mod_pt}=  Run Keyword If  ${t_mod}
   ...  Get Text  ${STAT_MODERATOR_POINT}
