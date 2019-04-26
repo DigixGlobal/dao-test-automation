@@ -7,7 +7,13 @@ ${PROPOSAL_ADD_UPDATE_BTN}  css=[data-digix="ADD-UPDATES"]
 ${PROPOSAL_CLAIM_FAILED_BTN}  css=[data-digix="ProposalAction-Approval"]
 ${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
 ${PROPOSAL_ABORT_BTN}  css=[data-digix="ProposalAction-Abort"]
-
+${PROPOSAL_CLAIM_RESULT_BTN}  css=[data-digix="ProposalAction-Results"]
+${PROPOSAL_CLAIM_FUNDING_BTN}  css=[data-digix="ProposalAction-ClaimFunding"]
+${PROPOSAL_EDIT_FUNDING_BTN}  css=[data-digix="ProposalAction-EditFunding"]
+${PROPOSAL_MS_COMPLETE_BTN}  css=[data-digix="ProposalAction-CompleteMilestone"]
+${PROPOSAL_VOTE_BTN}  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+${PROPOSAL_EDIT_BTN}  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+${PROPOSAL_CLAIMING_BTN}  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
 # proposal
 ${PROJECT_SUMMARY}  jquery=div[class*="ProjectSummary"]
 ${PROPOSAL_STATUS_DIV}  css=${PROPOSAL_STATUS_BTN}
@@ -28,7 +34,7 @@ ${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
 
 # Voting Accordion Component
 ${VOTE_USER_COUNT}  css=[data-digix="Vote-User-Count"]
-${TIMER_DIV}  [data-digix="Vote-Countdown-Timer"] #[class*="QuorumInfoCol"]:first span:last
+${TIMER_DIV}  [data-digix="Vote-Countdown-Timer"]:first #[class*="QuorumInfoCol"]:first span:last
 ${TIMER_ENDED_DIV}  [data-digix="Vote-Countdown-Ended"]
 ${VOTE_YES_COUNT}  css=[data-digix="Vote-Yes-Count"]
 ${VOTE_NO_COUNT}  css=[data-digix="Vote-No-Count"]
@@ -44,9 +50,6 @@ ${EDIT_FUNDING_REWARD_FIELD}  css=[data-digix="Edit-funding-reward-expected"]
 ${EDIT_FUNDING_MILESTONE1_FIELD}  css=[data-digix="Edit-milestone-funding-1"]
 ${EDIT_FUNDING_MILESTONE2_FIELD}  css=[data-digix="Edit-milestone-funding-2"]
 ${EDIT_FUNDING_BTN}  css=[data-digix="Edit-Funding"]
-
-
-
 
 # contents
 ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the voting.
@@ -140,7 +143,7 @@ User Edits Proposal Funding
   Set Suite Variable  ${s_CURRENT_TOTAL_MS}  ${t_current_MS}
   ${t_current_reward}=  Get Text  ${PROPOSAL_REWARD_DIV}
   Set Suite Variable  ${s_CURRENT_TOTAL_REWARD}  ${t_current_reward}
-  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:first
+  Wait And Click Element  ${PROPOSAL_EDIT_FUNDING_BTN}
   Wait Until Element Should Be Visible  ${EDIT_FUNDING_REWARD_FIELD}
   ${t_ms_one}=  Get Value   ${EDIT_FUNDING_MILESTONE1_FIELD}
   Set Suite Variable  ${s_MS_ONE}  ${t_ms_one}
@@ -163,7 +166,7 @@ User Claims Multiple Results
   :FOR  ${index}  IN RANGE  0  ${t_counter}
   \  ${t_label}=  Evaluate  ${index} + 1
   \  Wait Until Element Should Be Enabled  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
-  \  Element Should Contain Text  ${PROJECT_SUMMARY} ${ROUND_BTN}:last  ${t_label}/
+  \  Element Should Contain Text  ${PROPOSAL_CLAIMING_BTN}  ${t_label}/
   \  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
   \  Element Should Contain Text  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/
   \  Wait And Click Element  ${PROPOSAL_CONFIRMING_CLAIM_BTN}
@@ -208,17 +211,6 @@ Funding Should be Changed
 #=====================#
 #  INTERNAL KEYWORDS  #
 #=====================#
-# WIP #
-# Assert DateTime Is Correct On Notification Content
-#   # You need to do this action before 03/05/2019 10:51 PM, or your proposal will auto fail.
-#   ${t_url}=  Get Location
-#   ${t_hash}=  Fetch From Right  ${t_url}  /proposals/
-#   ${test}=  Set Variable  http://localhost:3001/proposals/details/${t_hash}
-#   ${t_value}=  Find Value On Json Url  ${t_url}  /results/draftVoting/votingDeadline
-#   ${t_daoConfig}=  Set Variable  http://localhost:3001/daoConfigs
-#   ${t_add_deadline}=   Find Value On Json Url  ${t_daoConfig}  /result/CONFIG_VOTE_CLAIMING_DEADLINE
-#   ${t_total}=  Evaluate  ${t_voteDeadline} + ${t_add_deadline}
-
 Return Number Of User On Config
   [Arguments]  ${p_type}=moderator
   ${t_lookup}=  Set Variable If  '${p_type.lower()}'=='moderator'
