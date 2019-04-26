@@ -1,6 +1,7 @@
 *** Settings ***
 Resource    create_edit_proposal_page.robot
 Resource    proposal_view_page.robot
+Resource    common_keywords.robot
 Resource    metamask.robot
 Resource    ../variables/governance_constants.robot
 Resource    ../varaibles/refactored_locators.robot
@@ -22,20 +23,9 @@ Pull Profile Stats Data
   Set Suite Variable  ${s_REPUTATION_PTS}  ${t_rp}
   Set Suite Variable  ${s_STAKE_PTS}  ${t_sp}
 
-Pull "${e_ACCOUNT}" From SideNav
-  ${t_isNotVisible}=  Run Keyword And Return Status
-  ...  Element Should Not Be Visible  ${SIDE_NAV_USER_LABEL}
-  Run Keyword If  ${t_isNotVisible}
-  ...  Click Element  ${HAMBURGER_MENU}
-  ${t_value}=  Get Text  ${SIDE_NAV_USER_LABEL}
-  Set Suite Variable  ${${e_ACCOUNT}_USERNAME}  ${t_value}
 #========#
 #  WHEN  #
 #========#
-User Goes To "${e_SIDEMENU}" View Page
-  Open SideNav Menu If Not Visible
-  Wait And Click Element  ${${e_SIDEMENU}_SIDE_MENU_ICON}
-
 User Submits Locked Stake
   [Arguments]  ${p_amount}=${LOCKED_DGD_AMOUNT}
   Wait Until Element Should Be Visible  ${LOCK_WITH_AMOUNT_BTN}
@@ -68,26 +58,10 @@ Submit Json Wallet
   Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
   User Submits Keystore Password  #sign message modal
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
-  # Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
-  # Click Element  ${CLOSE_ICON}
-  # Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
-
-Go Back To Dashboard Page
-  User Goes To "Home" View Page
-  Wait Until Element Should Be Visible  ${GOVERNANCE_FILTER_SECTION}
-
-Go To Newly Created Proposal View Page
-  Get Proposal Card Index
-  Hide SnackBar
-  Hide Governance Header Menu
-  Wait And Click Element  ${s_PROPOSAL_INDEX}
 
 Visit Newly Created Proposal And Click "${e_ACTION}" Action
   Go To Newly Created Proposal View Page
   Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
-  # Assign ID For Interaction Buttons
-  # ${t_button}=  Return Action Button Names On Proposal  ${e_ACTION}
-  # Wait And Click Element  ${t_button}
 
 Logged In Account Using Metamask
   Select Window  main
@@ -108,8 +82,6 @@ Submit Metamask Wallet
   Select Window  main
   Sleep  5 seconds
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
-  # Wait Until Element Should Be Visible  ${ADDRESS_INFO_SIDEBAR}
-  # Click Element  ${CLOSE_ICON}
 
 User Closes Connected Wallet Overlay
   Wait Until Element Should Be Visible  ${CONNECTED_WALLET_OVERLAY}
@@ -131,9 +103,6 @@ Moderator Quarter Points Should Increase
   ${t_str}=  Convert To String  ${t_pt}
   Wait Until Element Should Contain  ${STAT_MODERATOR_POINT}  ${t_str}
 
-"${e_STATE}" SideNav Menu Items Should Be Visible
-  :FOR  ${locator}  IN  @{${e_STATE}_SIDENAV_LIST}
-  \  Wait Until Element Should Be Visible  ${locator}
 
 Newly Created Proposal Should Be Visible On "${e_TAB}" Tab
   Switch "${e_TAB}" Tab To Update Content
@@ -173,11 +142,6 @@ Snackbox Should Contain "${e_MESSAGE}"
 #   ...  sets proposal to complete=MY MILESTONE IS COMPLETED
 #   ${t_value}=  Get From Dictionary  ${t_dict}  ${t_smallCase}
 #   [Return]  ${t_value}
-
-Upload Json Wallet Based On Environment
-  [Arguments]  ${p_filename}  ${p_environment}=${ENVIRONMENT}
-  ${t_path}=  Normalize Path  ${CURDIR}/${KEYSTORE_PATH}/${p_environment}/${p_filename}.json
-  Choose File  ${IMPORT_KEYSTORE_UPLOAD_BTN}  ${t_path}
 
 Repeat Until Newly Created Project Is On "${e_TAB}" Tab
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2

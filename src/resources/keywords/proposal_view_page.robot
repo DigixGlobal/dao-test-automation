@@ -2,42 +2,55 @@
 Resource    ../variables/governance_constants.robot
 
 *** Variables ***
-# proposal
+# Interaction Buttons
+${PROPOSAL_ADD_UPDATE_BTN}  css=[data-digix="ADD-UPDATES"]
+${PROPOSAL_CLAIM_FAILED_BTN}  css=[data-digix="ProposalAction-Approval"]
+${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
 ${PROPOSAL_ABORT_BTN}  css=[data-digix="ProposalAction-Abort"]
+
+# proposal
 ${PROJECT_SUMMARY}  jquery=div[class*="ProjectSummary"]
-${PROPOSAL_TITLE_DIV}  ${PROJECT_SUMMARY} [class*="Title"]  #css=[data-digix="Proposal-Title"]
+${PROPOSAL_STATUS_DIV}  css=${PROPOSAL_STATUS_BTN}
+${PROPOSAL_TITLE_DIV}  ${PROPOSAL_TITLE}
 ${PROPOSAL_FUNDING_DIV}  css=[data-digix="funding-amount-label"]
 ${PROPOSAL_EDIT_FUNDING_LABEL}  css=[data-digix="edit-funding-amount-label"]
 ${PROPOSAL_REWARD_DIV}  css=[data-digix="reward-amount-label"]
 ${PROPOSAL_EDIT_REWARD_LABEL}  css=[data-digix="edit-reward-amount-label"]
-${PROPOSAL_DETAILS_DIV}  jquery=[class*="DetailsContainer"]
+# ${PROPOSAL_DETAILS_DIV}  jquery=[class*="DetailsContainer"]
 ${PROPOSAL_SHORT_DESC_DIV}  css=[data-digix="Details-Short-Desc"]
 ${PROPOSAL_DESC_DIV}  css=[data-digix="Details-Desc"]
+${PROPOSAL_UPDATE_SECTION}  css=[data-digix="Add-Updates-Section"]
 ${PROPOSAL_MILESTONE_DIV}  jquery=[class*="AccordionItem"]
 ${PROPOSAL_MILESTONE_ARROW_ICON}  ${PROPOSAL_MILESTONE_DIV} svg:last
-${PROPOSAL_MS_DESC_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Content"]
-${PROPOSAL_MS_AMOUNT_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Amount"]
+${PROPOSAL_MS_DESC_DIV}  css=[data-digix="Milestone-Desc"]
+${PROPOSAL_MS_AMOUNT_DIV}  css=[data-digix="Milestone-Amount"]
 ${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
-${TIMER_DIV}  [class*="QuorumInfoCol"]:first span:last
-${PROPOSAL_ADD_UPDATE_BTN}  css=[data-digix="ADD-UPDATES"]
-${PROPOSAL_UPDATE_SECTION}  css=[data-digix="Add-Updates-Section"]
-${PROPOSAL_CLAIM_FAILED_BTN}  css=[data-digix="ProposalAction-Approval"]
-${PROPOSAL_STATUS_DIV}  css=button[class*="TagBtn"]
 
+# Voting Accordion Component
+${VOTE_USER_COUNT}  css=[data-digix="Vote-User-Count"]
+${TIMER_DIV}  [data-digix="Vote-Countdown-Timer"] #[class*="QuorumInfoCol"]:first span:last
+${TIMER_ENDED_DIV}  [data-digix="Vote-Countdown-Ended"]
+${VOTE_YES_COUNT}  css=[data-digix="Vote-Yes-Count"]
+${VOTE_NO_COUNT}  css=[data-digix="Vote-No-Count"]
+
+# Add Documents Component
+${ADD_DOCS_BTN}  css=[data-digix="CONFIRM-ADD-MORE-DOCS"]
+${ADD_DOCS_UPLOAD_BTN}  css=[id="image-upload-0"]
+${ADD_DOCS_REMOVE_BTN}  css=[data-digix="REMOVE-BUTTON"]
+${ADD_MORE_DOCS_BTN}  css=[data-digix="ADD-MORE-DOCS"]
+
+# Edit Funding Overlay
 ${EDIT_FUNDING_REWARD_FIELD}  css=[data-digix="Edit-funding-reward-expected"]
 ${EDIT_FUNDING_MILESTONE1_FIELD}  css=[data-digix="Edit-milestone-funding-1"]
 ${EDIT_FUNDING_MILESTONE2_FIELD}  css=[data-digix="Edit-milestone-funding-2"]
 ${EDIT_FUNDING_BTN}  css=[data-digix="Edit-Funding"]
 
-${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
+
+
+
 # contents
 ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the voting.
 
-#Add Documents Form
-${ADD_DOCS_BTN}  css=[data-digix="CONFIRM-ADD-MORE-DOCS"]
-${ADD_DOCS_UPLOAD_BTN}  css=[id="image-upload-0"]
-${ADD_DOCS_REMOVE_BTN}  css=[data-digix="REMOVE-BUTTON"]
-${ADD_MORE_DOCS_BTN}  css=[data-digix="ADD-MORE-DOCS"]
 
 *** Keywords ***
 #========#
