@@ -11,12 +11,15 @@ Resource  ../../resources/keywords/profile_view_page.robot
 Resource  ../../resources/keywords/kyc_submission_module.robot
 Resource  ../../resources/keywords/kyc_admin_page.robot
 
+*** Variables ***
+${address_name}  proposer
+
 *** Test Cases ***
 NonKycUser Has Sucessfully Viewed Error Overlay When Creating Proposal
-  [Setup]  Run keywords  "nonKYCUser" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  Run keywords  "${address_name}" Account Has Successfully Logged In To DigixDao Using "json"
   ...  Generate Suite Unique Value
   Given User Is In "GOVERNANCE" Page
-  When "NonKycUser" Ticks Create Button On Dashboard Page
+  When "${address_name}" Ticks Create Button On Dashboard Page
   Then Error Overlay Should "BE" Visible
   When User Closes Error Overlay
   Then Error Overlay Should "NOT BE" Visible
@@ -30,7 +33,7 @@ NonKycUser Has Successfully Submitted KYC Details On Profile Page
 NonKycUser Has Successfully Viewed Error Overlay When KYC Status Is Pending
   [Setup]  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
-  When "NonKycUser" Ticks Create Button On Dashboard Page
+  When "${address_name}" Ticks Create Button On Dashboard Page
   Then Error Overlay Should "BE" Visible
   When User Closes Error Overlay
   Then Error Overlay Should "NOT BE" Visible
@@ -46,10 +49,10 @@ KYCOfficer Has Successfully Rejected KYC Account
   Then Account Status Should Be "REJECTED"
 
 NonKycUser Has Successfully Viewed Error Overlay When KYC Status Is Rejected
-  [Setup]  Run Keywords  Switch Browser  nonKYCUser
+  [Setup]  Run Keywords  Switch Browser  ${address_name}
   ...  AND  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
-  When "NonKycUser" Ticks Create Button On Dashboard Page
+  When "${address_name}" Ticks Create Button On Dashboard Page
   Then Error Overlay Should "BE" Visible
   When User Closes Error Overlay
   Then Error Overlay Should "NOT BE" Visible
@@ -72,14 +75,14 @@ KYCOfficer Has Successfully Approved KYC Account
   Then Account Status Should Be "APPROVED"
 
 NonKycUser Has Successfully Set KYC Status To Approved
-  [Setup]  Switch Browser  nonKYCUser
+  [Setup]  Switch Browser  ${address_name}
   Given User Is In "PROFILE" Page
   Then Kyc Status Should Be "Approved"
 
 NonKycUser Has Successfully Created A Proposal
   [Setup]  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
-  When "NonKycUser" Creates A Governance Propsosal
+  When "${address_name}" Creates A Governance Propsosal
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"

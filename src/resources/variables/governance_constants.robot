@@ -1,3 +1,6 @@
+*** Settings ***
+Resource  refactored_locators.robot
+
 *** Variables ***
 #constants
 ${SALT_FILE_EXT}  _salt.json

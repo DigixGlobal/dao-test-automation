@@ -33,8 +33,9 @@ ${PROPOSAL_MS_AMOUNT_DIV}  css=[data-digix="Milestone-Amount"]
 ${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
 
 # Voting Accordion Component
+${ACTIVE_ACCORDION_ITEM}  jquery=[data-digix="Timer-Progress"]
 ${VOTE_USER_COUNT}  css=[data-digix="Vote-User-Count"]
-${TIMER_DIV}  [data-digix="Vote-Countdown-Timer"]:first #[class*="QuorumInfoCol"]:first span:last
+${TIMER_DIV}  [data-digix="Vote-Countdown-Timer"]:first  #[class*="QuorumInfoCol"]:first span:last
 ${TIMER_ENDED_DIV}  [data-digix="Vote-Countdown-Ended"]
 ${VOTE_YES_COUNT}  css=[data-digix="Vote-Yes-Count"]
 ${VOTE_NO_COUNT}  css=[data-digix="Vote-No-Count"]
@@ -232,8 +233,8 @@ Replace Salt File According To User Role
   ...  ELSE  Remove File  ${t_file}
 
 Get Remaining Time To Execute Next Step
-  Wait Until Element Should Be Visible  jquery=[class*="VotingResultWrapper"]:last ${TIMER_DIV}
-  ${t_text}=  Get Text  jquery=[class*="VotingResultWrapper"]:last ${TIMER_DIV}
+  Wait Until Element Should Be Visible  ${ACTIVE_ACCORDION_ITEM} ${TIMER_DIV}
+  ${t_text}=  Get Text  ${ACTIVE_ACCORDION_ITEM} ${TIMER_DIV}
   Set Global Variable  ${g_TIMER}  ${t_text}
 
 Sleep Until Timer Runs Out

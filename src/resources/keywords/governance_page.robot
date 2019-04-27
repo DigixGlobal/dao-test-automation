@@ -4,7 +4,7 @@ Resource    proposal_view_page.robot
 Resource    common_keywords.robot
 Resource    metamask.robot
 Resource    ../variables/governance_constants.robot
-Resource    ../varaibles/refactored_locators.robot
+
 *** Keywords ***
 #=========#
 #  GIVEN  #
