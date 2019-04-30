@@ -16,6 +16,9 @@ ${PROPOSAL_VOTE_BTN}  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
 ${PROPOSAL_EDIT_BTN}  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
 ${PROPOSAL_CLAIMING_BTN}  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
 # proposal
+${PROPOSAL_VERSION_HISTORY}  css=[data-digix="Proposal-Version-History"]
+${PROPOSAL_VERSION_PREVIOUS}  css=[data-digix="Previous-Version"]
+${PROPOSAL_VERSION_NEXT}  css=[data-digix="Next-Version"]
 ${PROJECT_SUMMARY}  jquery=div[class*="ProjectSummary"]
 ${PROPOSAL_STATUS_DIV}  css=${PROPOSAL_STATUS_BTN}
 ${PROPOSAL_TITLE_DIV}  ${PROPOSAL_TITLE}
@@ -24,7 +27,7 @@ ${PROPOSAL_EDIT_FUNDING_LABEL}  css=[data-digix="edit-funding-amount-label"]
 ${PROPOSAL_REWARD_DIV}  css=[data-digix="reward-amount-label"]
 ${PROPOSAL_EDIT_REWARD_LABEL}  css=[data-digix="edit-reward-amount-label"]
 # ${PROPOSAL_DETAILS_DIV}  jquery=[class*="DetailsContainer"]
-${PROPOSAL_SHORT_DESC_DIV}  css=[data-digix="Details-Short-Desc"]
+${PROPOSAL_SHORT_DESC_DIV}  ${PROPOSAL_SHORT_DESC}
 ${PROPOSAL_DESC_DIV}  css=[data-digix="Details-Desc"]
 ${PROPOSAL_UPDATE_SECTION}  css=[data-digix="Add-Updates-Section"]
 ${PROPOSAL_MILESTONE_DIV}  jquery=[class*="AccordionItem"]
@@ -60,10 +63,19 @@ ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the votin
 #========#
 #  WHEN  #
 #========#
+User Go Back To Previous Version
+  Hide Governance Header Menu
+  Wait And Click Element  ${PROPOSAL_VERSION_PREVIOUS}
+
+ User Aborts The Project
+  User Revisits Newly Created Proposal
+  Wait And Click Element  ${PROPOSAL_ABORT_BTN}
+  User Submits Keystore Password  #transaction modal
+
 User Claims Failed Project
   User Revisits Newly Created Proposal
   Wait And Click Element  ${PROPOSAL_CLAIM_FAILED_BTN}
-  User Submits Keystore Password
+  User Submits Keystore Password  #transaction modal
 
 User Adds Additional Documents
   User Revisits Newly Created Proposal
@@ -174,27 +186,35 @@ User Claims Multiple Results
   \  User Submits Keystore Password  #transaction modal
   \  Sleep  2 seconds
 
-Additional Document Section Should Be Visible
-  Wait Until Element Should Be Visible  ${PROPOSAL_UPDATE_SECTION}
-
 #========#
 #  THEN  #
 #========#
+Additional Document Section Should Be Visible
+  Wait Until Element Should Be Visible  ${PROPOSAL_UPDATE_SECTION}
+
+Version Container Should Be Visible
+  Wait Until Element Should Be Visible  ${PROPOSAL_VERSION_HISTORY}
+
 Project Details Page Status Should Be "${e_STATUS}"
   Wait Until Element Should Contain  ${PROPOSAL_STATUS_DIV}  ${e_STATUS.upper()}
 
 Proposal Details Should Be Correct On Proposal Details Page
-  Go To Newly Created Proposal View Page
-  Element Should Contain Text  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}
+  [Arguments]  ${p_type}=edit
+  ${t_value}=  Set Variable If  '${p_type.lower()}'=='edit'
+  ...  ${g_GENERIC_VALUE}  ${s_CREATE_GENERIC_VALUE}
+  ${t_str}=  Convert To String  ${t_value}
+  Wait Until Element Should Be Visible  ${PROPOSAL_TITLE_DIV}
+  Element Should Contain Text  ${PROPOSAL_TITLE_DIV}  ${t_value}
   Force Element Via jQuery  ${HELP_LAUNCHER}  hide
-  Wait And Click Element  ${PROPOSAL_MILESTONE_ARROW_ICON}
-  Wait Until Element Should Be Visible  ${PROPOSAL_MS_DESC_DIV}
-  Element Should Contain Text  ${PROPOSAL_SHORT_DESC_DIV}  ${g_GENERIC_VALUE}
-  Element Should Contain Text  ${PROPOSAL_DESC_DIV}  ${g_GENERIC_VALUE}
-  Element Should Contain Text  ${PROPOSAL_MS_DESC_DIV}  ${g_GENERIC_VALUE}
-  Element Should Contain Text  ${PROPOSAL_MS_AMOUNT_DIV}  ${s_MILESTONE_AMOUNT}
-  Element Should Contain Text  ${PROPOSAL_REWARD_DIV}  ${s_REWARD_AMOUNT}
-  Element Should Contain Text  ${PROPOSAL_FUNDING_DIV}  ${s_TOTAL_FUNDING}
+  ${t_notVisible}=  Run Keyword And Return Status  Element Should Not Be Visible  ${PROPOSAL_MS_DESC_DIV}
+  Run Keyword If  ${t_notVisible}  Wait And Click Element  ${PROPOSAL_MILESTONE_ARROW_ICON}
+  Wait Until Element Should Contain  ${PROPOSAL_SHORT_DESC_DIV}  ${t_str}
+  Wait Until Element Should Contain  ${PROPOSAL_DESC_DIV}  ${t_str}
+  # Wait Until Element Should Contain  ${PROPOSAL_MS_DESC_DIV}  ${t_str}  #temp disabled
+  Run Keyword If  '${p_type.lower()}'=='edit'  Run Keywords
+  ...  Element Should Contain Text  ${PROPOSAL_MS_AMOUNT_DIV}  ${s_MILESTONE_AMOUNT}
+  ...  AND  Element Should Contain Text  ${PROPOSAL_REWARD_DIV}  ${s_REWARD_AMOUNT}
+  ...  AND  Element Should Contain Text  ${PROPOSAL_FUNDING_DIV}  ${s_TOTAL_FUNDING}
 
 Vote Count Should Increase
   Newly Created Proposal Should Be Visible On "All" Tab

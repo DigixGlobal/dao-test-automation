@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation  This suite will test end to end process of posting comments on newly created proposal,
 ...  hide/unhide comment, and banning/unbanning users from commenting via forumAdmin Account
-Force Tags  smoke  regression
+Force Tags  smoke  regression  endtoend
 Default Tags   ForumAdminETest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
