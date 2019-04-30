@@ -9,7 +9,7 @@ Resource  ../../resources/keywords/wallet_view_page.robot
 
 *** Test Cases ***
 User Has Successfully Claimed Rewards On Wallet Page
-  [Setup]  "rewardee" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "rewardee" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
   When User Goes To "Wallet" View Page
   And "rewardee" Claims Reward
@@ -17,7 +17,7 @@ User Has Successfully Claimed Rewards On Wallet Page
   And Claim Reward Value Should Be Zero
 
 Claimed Reward User Has Successfully Visited Wallet Page
-  [Setup]  "rewardee" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "rewardee" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
   When User Goes To "Wallet" View Page
   Then User Should Already Claimed Reward

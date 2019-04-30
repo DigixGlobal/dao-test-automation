@@ -16,7 +16,7 @@ ${address_name}  proposer
 
 *** Test Cases ***
 NonKycUser Has Sucessfully Viewed Error Overlay When Creating Proposal
-  [Setup]  Run keywords  "${address_name}" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  Run keywords  "${address_name}" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   ...  Generate Suite Unique Value
   Given User Is In "GOVERNANCE" Page
   When "${address_name}" Ticks Create Button On Dashboard Page
@@ -41,7 +41,7 @@ NonKycUser Has Successfully Viewed Error Overlay When KYC Status Is Pending
   Then Kyc Status Should Be "Pending"
 
 KYCOfficer Has Successfully Rejected KYC Account
-  [Setup]  "kycOfficer" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "kycOfficer" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
   And KycOfficer Is Logged In
   When User Goes To "KYC_DASHBOARD" View Page

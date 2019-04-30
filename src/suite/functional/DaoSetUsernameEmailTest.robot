@@ -11,7 +11,7 @@ Resource  ../../resources/keywords/profile_view_page.robot
 
 *** Test Cases ***
 Participant Has Successfully Validated Stats On Profile View Page
-  [Setup]  "participant" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "${participant}" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
   And Pull Profile Stats Data
   When User Goes To "Profile" View Page
@@ -40,7 +40,7 @@ Participant Has Successfully Sets Email
     email             ${s_UNIQUE}@a.co    valid
 
 Moderator Has Successfully Validated Stats On Profile View Page
-  [Setup]  "moderator" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "${moderator}" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
   And Pull Profile Stats Data
   When User Goes To "Profile" View Page
