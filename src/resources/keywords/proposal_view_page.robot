@@ -2,42 +2,59 @@
 Resource    ../variables/governance_constants.robot
 
 *** Variables ***
-# proposal
+# Interaction Buttons
+${PROPOSAL_ADD_UPDATE_BTN}  css=[data-digix="ADD-UPDATES"]
+${PROPOSAL_CLAIM_FAILED_BTN}  css=[data-digix="ProposalAction-Approval"]
+${PROPOSAL_CLAIM_APPROVAL_BTN}  ${PROPOSAL_CLAIM_FAILED_BTN}
+${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
 ${PROPOSAL_ABORT_BTN}  css=[data-digix="ProposalAction-Abort"]
+${PROPOSAL_CLAIM_RESULT_BTN}  css=[data-digix="ProposalAction-Results"]
+${PROPOSAL_CLAIM_FUNDING_BTN}  css=[data-digix="ProposalAction-ClaimFunding"]
+${PROPOSAL_EDIT_FUNDING_BTN}  css=[data-digix="ProposalAction-EditFunding"]
+${PROPOSAL_MS_COMPLETE_BTN}  css=[data-digix="ProposalAction-CompleteMilestone"]
+${PROPOSAL_VOTE_BTN}  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+${PROPOSAL_EDIT_BTN}  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+${PROPOSAL_CLAIMING_BTN}  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+# proposal
 ${PROJECT_SUMMARY}  jquery=div[class*="ProjectSummary"]
-${PROPOSAL_TITLE_DIV}  ${PROJECT_SUMMARY} [class*="Title"]  #css=[data-digix="Proposal-Title"]
+${PROPOSAL_STATUS_DIV}  css=${PROPOSAL_STATUS_BTN}
+${PROPOSAL_TITLE_DIV}  ${PROPOSAL_TITLE}
 ${PROPOSAL_FUNDING_DIV}  css=[data-digix="funding-amount-label"]
 ${PROPOSAL_EDIT_FUNDING_LABEL}  css=[data-digix="edit-funding-amount-label"]
 ${PROPOSAL_REWARD_DIV}  css=[data-digix="reward-amount-label"]
 ${PROPOSAL_EDIT_REWARD_LABEL}  css=[data-digix="edit-reward-amount-label"]
-${PROPOSAL_DETAILS_DIV}  jquery=[class*="DetailsContainer"]
+# ${PROPOSAL_DETAILS_DIV}  jquery=[class*="DetailsContainer"]
 ${PROPOSAL_SHORT_DESC_DIV}  css=[data-digix="Details-Short-Desc"]
 ${PROPOSAL_DESC_DIV}  css=[data-digix="Details-Desc"]
+${PROPOSAL_UPDATE_SECTION}  css=[data-digix="Add-Updates-Section"]
 ${PROPOSAL_MILESTONE_DIV}  jquery=[class*="AccordionItem"]
 ${PROPOSAL_MILESTONE_ARROW_ICON}  ${PROPOSAL_MILESTONE_DIV} svg:last
-${PROPOSAL_MS_DESC_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Content"]
-${PROPOSAL_MS_AMOUNT_DIV}  ${PROPOSAL_MILESTONE_DIV} [class*="Amount"]
+${PROPOSAL_MS_DESC_DIV}  css=[data-digix="Milestone-Desc"]
+${PROPOSAL_MS_AMOUNT_DIV}  css=[data-digix="Milestone-Amount"]
 ${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
-${TIMER_DIV}  [class*="QuorumInfoCol"]:first span:last
-${PROPOSAL_ADD_UPDATE_BTN}  css=[data-digix="ADD-UPDATES"]
-${PROPOSAL_UPDATE_SECTION}  css=[data-digix="Add-Updates-Section"]
-${PROPOSAL_CLAIM_FAILED_BTN}  css=[data-digix="ProposalAction-Approval"]
-${PROPOSAL_STATUS_DIV}  css=button[class*="TagBtn"]
 
+# Voting Accordion Component
+${ACTIVE_ACCORDION_ITEM}  jquery=[data-digix="Timer-Progress"]
+${VOTE_USER_COUNT}  css=[data-digix="Vote-User-Count"]
+${TIMER_DIV}  [data-digix="Vote-Countdown-Timer"]:first  #[class*="QuorumInfoCol"]:first span:last
+${TIMER_ENDED_DIV}  [data-digix="Vote-Countdown-Ended"]
+${VOTE_YES_COUNT}  css=[data-digix="Vote-Yes-Count"]
+${VOTE_NO_COUNT}  css=[data-digix="Vote-No-Count"]
+
+# Add Documents Component
+${ADD_DOCS_BTN}  css=[data-digix="CONFIRM-ADD-MORE-DOCS"]
+${ADD_DOCS_UPLOAD_BTN}  css=[id="image-upload-0"]
+${ADD_DOCS_REMOVE_BTN}  css=[data-digix="REMOVE-BUTTON"]
+${ADD_MORE_DOCS_BTN}  css=[data-digix="ADD-MORE-DOCS"]
+
+# Edit Funding Overlay
 ${EDIT_FUNDING_REWARD_FIELD}  css=[data-digix="Edit-funding-reward-expected"]
 ${EDIT_FUNDING_MILESTONE1_FIELD}  css=[data-digix="Edit-milestone-funding-1"]
 ${EDIT_FUNDING_MILESTONE2_FIELD}  css=[data-digix="Edit-milestone-funding-2"]
 ${EDIT_FUNDING_BTN}  css=[data-digix="Edit-Funding"]
 
-${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
 # contents
 ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the voting.
-
-#Add Documents Form
-${ADD_DOCS_BTN}  css=[data-digix="CONFIRM-ADD-MORE-DOCS"]
-${ADD_DOCS_UPLOAD_BTN}  css=[id="image-upload-0"]
-${ADD_DOCS_REMOVE_BTN}  css=[data-digix="REMOVE-BUTTON"]
-${ADD_MORE_DOCS_BTN}  css=[data-digix="ADD-MORE-DOCS"]
 
 *** Keywords ***
 #========#
@@ -127,7 +144,7 @@ User Edits Proposal Funding
   Set Suite Variable  ${s_CURRENT_TOTAL_MS}  ${t_current_MS}
   ${t_current_reward}=  Get Text  ${PROPOSAL_REWARD_DIV}
   Set Suite Variable  ${s_CURRENT_TOTAL_REWARD}  ${t_current_reward}
-  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:first
+  Wait And Click Element  ${PROPOSAL_EDIT_FUNDING_BTN}
   Wait Until Element Should Be Visible  ${EDIT_FUNDING_REWARD_FIELD}
   ${t_ms_one}=  Get Value   ${EDIT_FUNDING_MILESTONE1_FIELD}
   Set Suite Variable  ${s_MS_ONE}  ${t_ms_one}
@@ -142,17 +159,17 @@ User Edits Proposal Funding
 
 User Claims Multiple Results
   [Arguments]  ${p_type}
-  ${t_count}=  Return Number Of User On Config  ${p_type}
-  ${t_counter}=  Set Variable If
-  ...  '${p_type.lower()}'=='moderator'  2
-  ...  '${p_type.lower()}'=='proposal'  6
-  ...  '${p_type.lower()}'=='milestone'  11
-  :FOR  ${index}  IN RANGE  0  ${t_counter}
+  ${t_locator}=  Set Variable If  '${p_type.lower()}'=='moderator'
+  ...  ${PROPOSAL_CLAIM_APPROVAL_BTN}  ${PROPOSAL_CLAIM_RESULT_BTN}
+  Wait Until Element Should Be Visible  ${t_locator}
+  ${t_value}=  Get Text  ${t_locator}
+  ${t_counter}=  Get Regexp Matches  ${t_value}  (?<=\/)(.*)
+  :for  ${index}  IN RANGE  ${t_counter[0]}
   \  ${t_label}=  Evaluate  ${index} + 1
-  \  Wait Until Element Should Be Enabled  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
-  \  Element Should Contain Text  ${PROJECT_SUMMARY} ${ROUND_BTN}:last  ${t_label}/
-  \  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
-  \  Element Should Contain Text  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/
+  \  Wait Until Element Should Be Enabled  ${t_locator}
+  \  Wait Until Element Should Contain  ${t_locator}  ${t_label}/${t_counter[0]}
+  \  Wait And Click Element  ${t_locator}
+  \  Wait Until Element Should Contain  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/${t_counter[0]}
   \  Wait And Click Element  ${PROPOSAL_CONFIRMING_CLAIM_BTN}
   \  User Submits Keystore Password  #transaction modal
   \  Sleep  2 seconds
@@ -195,17 +212,6 @@ Funding Should be Changed
 #=====================#
 #  INTERNAL KEYWORDS  #
 #=====================#
-# WIP #
-# Assert DateTime Is Correct On Notification Content
-#   # You need to do this action before 03/05/2019 10:51 PM, or your proposal will auto fail.
-#   ${t_url}=  Get Location
-#   ${t_hash}=  Fetch From Right  ${t_url}  /proposals/
-#   ${test}=  Set Variable  http://localhost:3001/proposals/details/${t_hash}
-#   ${t_value}=  Find Value On Json Url  ${t_url}  /results/draftVoting/votingDeadline
-#   ${t_daoConfig}=  Set Variable  http://localhost:3001/daoConfigs
-#   ${t_add_deadline}=   Find Value On Json Url  ${t_daoConfig}  /result/CONFIG_VOTE_CLAIMING_DEADLINE
-#   ${t_total}=  Evaluate  ${t_voteDeadline} + ${t_add_deadline}
-
 Return Number Of User On Config
   [Arguments]  ${p_type}=moderator
   ${t_lookup}=  Set Variable If  '${p_type.lower()}'=='moderator'
@@ -227,8 +233,8 @@ Replace Salt File According To User Role
   ...  ELSE  Remove File  ${t_file}
 
 Get Remaining Time To Execute Next Step
-  Wait Until Element Should Be Visible  jquery=[class*="VotingResultWrapper"]:last ${TIMER_DIV}
-  ${t_text}=  Get Text  jquery=[class*="VotingResultWrapper"]:last ${TIMER_DIV}
+  Wait Until Element Should Be Visible  ${ACTIVE_ACCORDION_ITEM} ${TIMER_DIV}
+  ${t_text}=  Get Text  ${ACTIVE_ACCORDION_ITEM} ${TIMER_DIV}
   Set Global Variable  ${g_TIMER}  ${t_text}
 
 Sleep Until Timer Runs Out

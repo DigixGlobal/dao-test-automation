@@ -1,57 +1,18 @@
+*** Settings ***
+Resource  refactored_locators.robot
+
 *** Variables ***
 #constants
 ${SALT_FILE_EXT}  _salt.json
-#side-menu
-${HAMBURGER_MENU}  css=.bm-burger-button
-${HAMBURGER_CLOSE_ICON}  css=.bm-cross-button
-${SIDE_MENU_DIV}  css=ul[class*="MenuList"]
-${SIDE_NAV_USER_LABEL}  css=[data-digix="Sidebar-DisplayName"]
-${SIDE_NAVE_USER_STATUS}  css=[data-digix="Sidebar-UserStatus"]
-${HOME_SIDE_MENU_ICON}  css=div[kind="home"]
-${WALLET_SIDE_MENU_ICON}  css=div[kind="wallet"]
-${PROFILE_SIDE_MENU_ICON}  css=div[kind="profile"]
-${HISTORY_SIDE_MENU_ICON}  css=div[kind="history"]
-${DAO_TOUR_SIDE_MENU_ICON}  css=div[kind="product"]
-${KYC_DASHBOARD_SIDE_MENU_ICON}  css=div[kind="dashboard"]
-${ADMIN_SIDE_MENU_ICON}  css=div[kind="user"]
-@{LOGGED_OUT_SIDENAV_LIST}
-...  ${HOME_SIDE_MENU_ICON}  ${DAO_TOUR_SIDE_MENU_ICON}
-@{LOGGED_IN_SIDENAV_LIST}
-...  ${WALLET_SIDE_MENU_ICON}  ${PROFILE_SIDE_MENU_ICON}
-...  ${HISTORY_SIDE_MENU_ICON}  @{LOGGED_OUT_SIDENAV_LIST}
-
-# user profile stats
-${DASHBOARD_STATS_DIV}    css=[class*="UserStats"]
-${STAT_QUARTER_POINT}     css=[data-digix="Dashboard-Stats-QuarterPoints"]
-${STAT_REPUTATION_POINT}  css=[data-digix="Dashboard-Stats-ReputationPoints"]
-${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Locked-Stake"]
-${STAT_LOCKED_DGD_POINT}  css=[data-digix="Dashboard-Locked-DGD"]
-${STAT_MODERATOR_POINT}   css=[data-digix="Dashboard-Mod-QtrPts"]
+${SALT_JSON_UPLOAD_BTN}  css=#json-upload
 
 #generic
-${SNACK_BAR_DIV}  jquery=div[class*="SnackbarContainer"]
+${SNACK_BAR_DIV}  jquery=[data-digix="Snackbar-Container"]
 ${ROUND_BTN}  button[class*="RoundBtn"]
 ${GOVERNANCE_SIDENAR_DIV}  jquery=div[class*="IntroContainer"]
 ${GOVERNANCE_SIDE_PANEL}  ${GOVERNANCE_SIDENAR_DIV}
-#header
-${GOVERNANCE_MENU}  css=[id="nav-wrap"]
-${HEADER_LOCK_DGD_BTN}  css=[data-digix="Header-LockDgd"]
-${ADDRESS_LABEL}  css=[data-digix="Header-Address"]
-${LOAD_WALLET_BTN}  css=[data-digix="Header-LoadWallet"]
+${NOTE_CONTAINER}  css=div[class*="Notifications"]
 
-#------------------------------------#
-#modal
-${GOVERNANCE_MODAL}  jquery=div[role="document"]
-${MODAL_ACTIONS}  ${GOVERNANCE_MODAL} > div:last
-# import wallet modal
-${IMPORT_KEYSTORE_ICON}  css=#alert-dialog-title
-${IMPORT_KEYSTORE_UPLOAD_BTN}  ${IMPORT_KEYSTORE_ICON} + div input[type="file"]
-${IMPORT_PASSWORD_FIELD}  css=input[id="name-simple"][type="password"]
-${UNLOCK_WALLET_BTN}  ${MODAL_ACTIONS} button:eq(1)
-# sign message modal
-${MESSAGE_SIGNER_FORM}  ${GOVERNANCE_MODAL} form
-${SIGN_MESSAGE_BTN}  ${UNLOCK_WALLET_BTN}
-${METAMASK_NICKNAME}  css=[placeholder="Address nickname"]
 #------------------------------------#
 # sidebar
 ${OVERLAY_CLOSE_ICON}  css=[class*="CloseButtonWithHeader"] [kind="close"]
@@ -60,36 +21,28 @@ ${CONNECTED_WALLET_OVERLAY}  css=[data-digix="ConnectedWalletComponent"]
 ${LOAD_WALLET_SIDEBAR_BUTTON}  ${GOVERNANCE_SIDENAR_DIV} ${ROUND_BTN}
 ${ADDRESS_INFO_SIDEBAR}  css=[class*="AddressInfo"]
 ${LOCK_DGD_BTN}  jquery=[class*="style__InnerContainer"] button:eq(1)
+
+#Locked DGD Overlay
 ${LOCK_DGD_AMOUNT_FIELD}  css=[data-digix="LockDgdOverlay-DgdAmount"]
 ${LOCK_DGD_STATUS}  css=[class*="FormNote"] > p
 ${LOCK_DGD_STAKE_LABEL}  ${LOCK_DGD_STATUS} > strong
 ${LOCK_WITH_AMOUNT_BTN}  css=[data-digix="LockDgdOverlay-LockDgd"]
+
+# congratulation overlay
 ${CONGRATULATION_BANNER}  css=div[class*="ConfirmationBox"]
 ${GET_STARTED_BTN}  ${CONGRATULATION_BANNER} + button
-${SALT_JSON_UPLOAD_BTN}  css=#json-upload
-${NOTE_CONTAINER}  css=div[class*="Notifications"]
-#------------------------------------#
-# wallet type
-${WALLET_METAMASK_BTN}  div[kind="metamask"]
-${WALLET_LEDGER_BTN}  div[kind="ledger"]
-${WALLET_TREZOR_BTN}  div[kind="trezor"]
-${WALLET_IMTOKEN_BTN}  div[kind="imtoken"]
-${WALLET_JSON_BTN}  div[kind="json"]
 
-#------------------------------------#
-# dashboard filter tabs
-${GOVERNANCE_FILTER_SECTION}  css=div[class*="FilterWrapper"]
-${ALL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(1)
-${IDEA_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(2)
-${DRAFT_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(3)
-${PROPOSAL_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(4)
-${ONGOING_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(5)
-${REVIEW_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(6)
-${ARCHIVED_TAB}  ${GOVERNANCE_FILTER_SECTION} a:nth-child(7)
-
-# proposal card container
+# proposal card Module
 ${PROPOSAL_CARD}  jquery=[data-digix="Proposal-Card"]
 ${VIEW_PROJECT_LINK}  a[class*="ProposalLink"]
-${PARTICIPATE_BTN}  button[class*="RoundBtn"]
-${PROPOSAL_STATUS_BTN}  button[kind="tag"]
-${PROPOSAL_AUTHOR}  [class*="AboutProposal"] [class*="Author"]
+${PROPOSAL_STATUS_BTN}  [data-digix="Proposal-Status"]
+${PROPOSAL_AUTHOR}  [data-digix="Proposal-Author"]
+${PROPOSAL_LIKE_BTN}  css=[data-digix="Proposal-Author"]
+${PROPOSAL_TITLE}  css=[data-digix="Proposal-Title"]
+${PROPOSAL_SHORT_DESC}  css=[data-digix="Proposal-Short-Desc"]
+${PROPOSAL_TOTAL_FUNDING}  css=[data-digix="Total-Funding"]
+${PROPOSAL_APPROVAL_RATING}  css=[data-digix="Approval-Rating"]
+${PROPOSAL_PARTICIPANT_COUNT}  css=[data-digix="Participant-Count"]
+${PROPOSAL_MILESTONE_COUNT}  css=[data-digix="Milestone-Count"]
+${PROPOSAL_DEADLINE}  css=[data-digix="Proposal-Deadline"]
+${PARTICIPATE_BTN}  [data-digix="Participate-Btn"]

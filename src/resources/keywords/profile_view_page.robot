@@ -24,7 +24,7 @@ Pull "${e_USER}" Data From Info Server
   ...  AND  Wait Until Element Should Be Visible  ${CONGRATULATION_BANNER}
   ...  AND  Click Element  ${CLOSE_ICON}
   ...  AND  Wait And Click Element  ${HOME_SIDE_MENU_ICON}
-  ...  AND  Wait Until Element Should Be Visible  ${DASHBOARD_STATS_DIV}
+  ...  AND  Wait Until Element Should Be Visible  ${USER_STATISTIC_DIV}
   ...  AND  User Goes To "Profile" View Page
   Wait Until Element Should Contain  ${PROFILE_ROLE_DIV}  Participant
 

@@ -10,7 +10,7 @@ class CustomRunner:
     exitOnfailure = "yes"
     runner = "robot"
     LIST_OF_TAGS = [
-        "DaoJsonWalletETest", "DaoTwoMilestonesETest", "DaoMetamaskWalletETest", "DaoKYCETest", "ForumAdminETest"
+        "DaoJsonWalletETest", "DaoTwoMilestonesETest", "DaoMetamaskWalletETest", "DaoKYCETest", "ForumAdminETest",
         "DaoCreateProposalMetamaskTest","DaoCreateEditPreviewTest","DaoChangeFundingTest",
         "DaoLikeModuleTest", "DaoCommentModuleTest", "DaoProfileOverviewTest", "DaoSideNavMenuTest",
         "DaoClaimRewardTest", "DaoRedeemBadgeTest", "DaoSetUsernameEmailTest", "DAOUnlockDGDTest",

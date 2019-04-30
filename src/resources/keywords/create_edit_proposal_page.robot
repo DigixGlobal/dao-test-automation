@@ -3,7 +3,7 @@ Resource   proposal_view_page.robot
 Resource    ../variables/governance_constants.robot
 
 *** Variables ***
-${GOVERNANCE_CREATE_BTN}  css=button [kind="plus"]
+${GOVERNANCE_CREATE_BTN}  css=[data-digix="Proposal-Create-Btn"]
 # create proposal fields
 ${PROPOSAL_TAB_PANEL}  jquery=div[class*="TabPanel"]
 ${PROPOSAL_MENU}  ${PROPOSAL_TAB_PANEL} +  [class*="Header"] > div:eq(1)
@@ -21,9 +21,9 @@ ${MILESTONE_FORM}  jquery=div[class*="CreateMilestone"]
 ${MILESTONE_FIELD}  ${MILESTONE_FORM} input
 ${MILESTONE_DESC_FIELD}  ${MILESTONE_FORM} .ql-editor  #textarea
 ${CREATE_NOW_BTN}   css=[data-digix*="-Proposal-Button"]
-${PROPOSAL_SUBMIT_BTN}  jquery=[class*="CTA"] button:eq(1)
+${PROPOSAL_SUBMIT_BTN}  css=[data-digix="Confirm-Submit-Btn"]
 #Preview
-${CONTINUE_EDITING_BTN}  css=[class*="ProposalsWrapper"] button
+${CONTINUE_EDITING_BTN}  css=[data-digix="Preview-Continue"]
 #error overlay
 ${ERROR_OVERLAY_CONTAINER}  css=[data-digix="ProjectError-Notification"]
 ${ERROR_CARD_TITLE}  css=[data-digix="ProjectError-Notification-Title"]
@@ -45,9 +45,9 @@ User Closes Error Overlay
   User Goes To Create Proposal Page
   User Submit Proposal Details
 
-"${e_USER}" Edits Newly Created Proposal Details
-  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
-  User Submit Proposal Details  3  4  edit
+# "${e_USER}" Edits Newly Created Proposal Details
+#   Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
+#   User Submit Proposal Details  3  4  edit
 
 User Submit Proposal Details
   [Arguments]  ${p_reward}=${MILESTONE_REWARD_AMOUNT}  ${p_milestone}=${MILESTONE_AMOUNT}  ${p_type}=Create
@@ -100,7 +100,7 @@ User Submits Secondary Proposal Details
 User Submits Multimedia Images
   [Arguments]  ${p_image}=image
   Wait Until Element Should Be Visible  ${UPLOAD_IMAGE_BTN}
-  Modify Element Attribute Via jQuery  ${IMAGE_UPLOAD_BTN}  display  block
+  # Modify Element Attribute Via jQuery  ${IMAGE_UPLOAD_BTN}  display  block
   Upload TestData Image  image
   Click Element  ${PROPOSAL_MENU_NEXT_BTN}
 
