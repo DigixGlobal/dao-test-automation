@@ -40,6 +40,7 @@ HTTP_ENDPOINT=http://localhost:9001/ipfs
 | DaoTwoMilestonesETest          | smoke, regression, endtoend      | This suite will test end to end process of creating proposals until setting the proposal to archive via Json Wallet as Entry Point (2MS)|
 | DaoMetamaskWalletETest         | smoke, regression, endtoend      | This suite will test end to end process of creating proposals until setting the proposal to archive via Metamask Wallet as Entry Point  |
 | DaoKYCETest                    | smoke, regression, endtoend      | This suite will test end to end process from submitting user's KYC Details up to rejecting and approving it using KYC Officer account   |
+| ForumAdminETest                | smoke, regression, endtoend      | This suite will test end to end process of posting comments on newly created proposal, hide/unhide comment, and banning/unbanning users from commenting via forumAdmin Account |
 | DaoCreateProposalMetamaskTest  | smoke, regression                | This suite will test creating of proposal using metamask as Entry Point                                                                 |
 | DaoCommentModuleTest           | smoke, regression                | This suite will test end to end process of posting comments on newly created proposal                                                   |
 | DaoLikeModuleTest              | smoke, regression                | This suite will test like/unlike module for proposal and comments                                                                       |
@@ -47,7 +48,8 @@ HTTP_ENDPOINT=http://localhost:9001/ipfs
 | DaoSideNavMenuTest             | smoke, regression                | This suite will test assert side nav menu list when a user is in logged in and logged out state. (DGDG-284)                             | 
 | DaoKYCSubmissionTest           | smoke, regression                | This suite will submitting of KYC Details for nonKYC user.                                                                              |
 | DaoKYCAdminTest                | smoke, regression                | This suite will test approving and rejecting KYC using KYC Admin Account                                                                |
-| DaoCreateEditPreviewTest       | smoke, regression                | This suite will test creating,and editing proposals also included preview function                                                      |
+| DaoCreateEditPreviewAbortTest  | smoke, regression                | This suite will test creating,and editing proposals also included preview function                                                      |
+| DaoAddDocsClaimFailedTest      | smoke, regression                | This suite will test adding of additional documents after project status is finalized and claiming it as failed project                 |
 | DaoChangeFundingTest           | sanity, regression               | This suite will test changing of funding then go to the next phase after edit.                                                          |
 | DaoClaimRewardTest             | sanity, regression, NotForKOVAN  | This suite will test claiming rewards on Wallet Page                                                                                    |
 | DaoRedeemBadgeTest             | sanity, regression, NotForKOVAN  | This suite will test redeeming badge on Profile View Page                                                                               |
