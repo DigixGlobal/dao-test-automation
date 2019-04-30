@@ -75,12 +75,9 @@ Logged In Account Using Metamask
 
 Submit Metamask Wallet
   Input Text  ${METAMASK_NICKNAME}  test
-  Click Element  ${UNLOCK_WALLET_BTN}
-  Sleep  5 seconds
-  Select Window  new
-  Wait And Click Element  css=.request-signature__footer button:nth-of-type(2)
-  Select Window  main
-  Sleep  5 seconds
+  Wait And Click Element  ${UNLOCK_WALLET_BTN}
+  Approve Metamask Interaction  #approve Interaction
+  Approve Metamask Interaction  #proof of control modal
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
 
 User Closes Connected Wallet Overlay
@@ -142,6 +139,17 @@ Snackbox Should Contain "${e_MESSAGE}"
 #   ...  sets proposal to complete=MY MILESTONE IS COMPLETED
 #   ${t_value}=  Get From Dictionary  ${t_dict}  ${t_smallCase}
 #   [Return]  ${t_value}
+Approve Metamask Interaction
+  Sleep  5 seconds
+  ${t_count}=  Get Window Handles
+  ${t_intCount}=  Get Length  ${t_count}
+  Should Be Equal As Integers  ${t_intCount}  2
+  Select Window  new
+  Wait And Click Element  css=[class*="footer"] button:nth-of-type(2)
+  Select Window  main
+  ${t_close}=  Get Window Handles
+  ${t_intClose}=  Get Length  ${t_close}
+  Should Be Equal As Integers  ${t_intClose}  1
 
 Repeat Until Newly Created Project Is On "${e_TAB}" Tab
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
