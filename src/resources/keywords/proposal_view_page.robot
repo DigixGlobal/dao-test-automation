@@ -5,6 +5,7 @@ Resource    ../variables/governance_constants.robot
 # Interaction Buttons
 ${PROPOSAL_ADD_UPDATE_BTN}  css=[data-digix="ADD-UPDATES"]
 ${PROPOSAL_CLAIM_FAILED_BTN}  css=[data-digix="ProposalAction-Approval"]
+${PROPOSAL_CLAIM_APPROVAL_BTN}  ${PROPOSAL_CLAIM_FAILED_BTN}
 ${PROPOSAL_CONFIRMING_CLAIM_BTN}  css=[data-digix="Confirm-Claim-Button"]
 ${PROPOSAL_ABORT_BTN}  css=[data-digix="ProposalAction-Abort"]
 ${PROPOSAL_CLAIM_RESULT_BTN}  css=[data-digix="ProposalAction-Results"]
@@ -54,7 +55,6 @@ ${EDIT_FUNDING_BTN}  css=[data-digix="Edit-Funding"]
 
 # contents
 ${CLAIM_SUCCESS_MSG}  The voting result shows that your project passes the voting.
-
 
 *** Keywords ***
 #========#
@@ -159,17 +159,17 @@ User Edits Proposal Funding
 
 User Claims Multiple Results
   [Arguments]  ${p_type}
-  ${t_count}=  Return Number Of User On Config  ${p_type}
-  ${t_counter}=  Set Variable If
-  ...  '${p_type.lower()}'=='moderator'  2
-  ...  '${p_type.lower()}'=='proposal'  6
-  ...  '${p_type.lower()}'=='milestone'  11
-  :FOR  ${index}  IN RANGE  0  ${t_counter}
+  ${t_locator}=  Set Variable If  '${p_type.lower()}'=='moderator'
+  ...  ${PROPOSAL_CLAIM_APPROVAL_BTN}  ${PROPOSAL_CLAIM_RESULT_BTN}
+  Wait Until Element Should Be Visible  ${t_locator}
+  ${t_value}=  Get Text  ${t_locator}
+  ${t_counter}=  Get Regexp Matches  ${t_value}  (?<=\/)(.*)
+  :for  ${index}  IN RANGE  ${t_counter[0]}
   \  ${t_label}=  Evaluate  ${index} + 1
-  \  Wait Until Element Should Be Enabled  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
-  \  Element Should Contain Text  ${PROPOSAL_CLAIMING_BTN}  ${t_label}/
-  \  Wait And Click Element  ${PROJECT_SUMMARY} ${ROUND_BTN}:last
-  \  Element Should Contain Text  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/
+  \  Wait Until Element Should Be Enabled  ${t_locator}
+  \  Wait Until Element Should Contain  ${t_locator}  ${t_label}/${t_counter[0]}
+  \  Wait And Click Element  ${t_locator}
+  \  Wait Until Element Should Contain  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/${t_counter[0]}
   \  Wait And Click Element  ${PROPOSAL_CONFIRMING_CLAIM_BTN}
   \  User Submits Keystore Password  #transaction modal
   \  Sleep  2 seconds
