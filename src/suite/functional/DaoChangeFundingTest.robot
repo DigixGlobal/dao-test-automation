@@ -12,68 +12,73 @@ ${NUMBER_OF_MILESTONE}  2
 
 *** Test Cases ***
 Proposer Has Successfully Created A Proposal
-  [Setup]  "proposer" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "${proposer}" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
-  When "proposer" Creates A Governance Propsosal
+  When "${proposer}" Creates A Governance Propsosal
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
+  And Project Creator Name Should Be Visible
 
 Moderator Has Successfully Endorsed Newly Created Proposal
-  [Setup]  "moderator" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "${moderator}" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
-  When "moderator" "Endorses Proposal" On Newly Created Proposal
+  When "${moderator}" "Endorses Proposal" On Newly Created Proposal
   Then User Should Be Able To Participate On Proposal
   And Proposal Status Should Be "DRAFT"
 
 Proposer Has Successfully Finalized Proposal
-  [Setup]  Switch Browser  proposer
+  [Setup]  Switch Browser  ${proposer}
   Given User Is In "Governance" Page
-  When "proposer" "finalizes Proposal" On Newly Created Proposal
+  When "${proposer}" "finalizes Proposal" On Newly Created Proposal
   Then Proposal Status Should Be "DRAFT"
 
 Moderator Has Successfully Approved Created Proposal
-  [Setup]  Switch Browser  moderator
+  [Setup]  Switch Browser  ${moderator}
   Given User Is In "Governance" Page
-  When "moderator" Approves Newly Drafted Proposal
+  And Pull Profile Stats Data
+  When "${moderator}" Approves Newly Drafted Proposal
   Then Proposal Status Should Be "DRAFT"
+  And Moderator Quarter Points Should Increase
 
 Proposer Has Successfully Claimed Approved Proposal
   [Setup]  Run Keywords  Sleep Until Timer Runs Out
-  ...  AND  Switch Browser  proposer
+  ...  AND  Switch Browser  ${proposer}
   Given User Is In "Governance" Page
-  When "porposer" "Claims Approved Proposal" On Newly Created Proposal
+  When "${proposer}" Claims "Moderator" Voting Result
   Then Proposal Status Should Be "PROPOSAL"
 
 Moderator Has Successfully Voted Yes On Proposal
-  [Setup]  Switch Browser  moderator
+  [Setup]  Switch Browser  ${moderator}
   Given User Is In "Governance" Page
-  When "moderator" Votes "Yes" On Proposal
+  When "${moderator}" Votes "Yes" On Proposal
   Then Vote Count Should Increase
 
 Proposer Has Successfully Voted Yes On Proposal
-  [Setup]  Switch Browser  proposer
+  [Setup]  Switch Browser  ${proposer}
   Given User Is In "Governance" Page
-  When "proposer" Votes "Yes" On Proposal
+  When "${proposer}" Votes "Yes" On Proposal
   Then Vote Count Should Increase
 
 Moderator Has Successfully Revealed Vote To Proposal
   [Setup]  Run Keywords  Sleep Until Timer Runs Out  REVEAL
-  ...  AND  Switch Browser  moderator
+  ...  AND  Switch Browser  ${moderator}
   Given User Is In "Governance" Page
-  When "moderator" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
+  And Pull Profile Stats Data
+  When "${moderator}" Reveals Vote Via Salt File
+  Then Quarter Points Should Increase
 
 Proposer Has Successfully Revealed Vote To Proposal
-  [Setup]  Switch Browser  proposer
+  [Setup]  Switch Browser  ${proposer}
   Given User Is In "Governance" Page
-  When "proposer" Reveals Vote Via Salt File
-  Then Vote Count Should Increase
+  And Pull Profile Stats Data
+  When "${proposer}" Reveals Vote Via Salt File
+  Then Quarter Points Should Increase
 
 Proposer Has Successfully Claimed Vote Result
   [Setup]  Sleep Until Timer Runs Out
   Given User Is In "Governance" Page
-  When "porposer" "Claims Voting Result" On Newly Created Proposal
+  When "${proposer}" Claims "Proposal" Voting Result
   Then Proposal Status Should Be "ONGOING"
 
 Proposer Has Successfully Edited funding

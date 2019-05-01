@@ -12,25 +12,25 @@ ${NUMBER_OF_MILESTONE}  1
 
 *** Test Cases ***
 Proposer Has Successfully Created A Proposal
-  [Setup]  "proposer" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "${proposer}" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
-  When "proposer" Creates A Governance Propsosal
+  When "${proposer}" Creates A Governance Propsosal
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
   And Project Creator Name Should Be Visible
 
 Moderator Has Successfully Endorsed Newly Created Proposal
-  [Setup]  "moderator" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "${moderator}" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
-  When "moderator" "Endorses Proposal" On Newly Created Proposal
+  When "${moderator}" "Endorses Proposal" On Newly Created Proposal
   Then User Should Be Able To Participate On Proposal
   And Proposal Status Should Be "DRAFT"
 
 Proposer Has Successfully Finalized Proposal
-  [Setup]  Switch Browser  proposer
+  [Setup]  Switch Browser  ${proposer}
   Given User Is In "Governance" Page
-  When "proposer" "finalizes Proposal" On Newly Created Proposal
+  When "${proposer}" "finalizes Proposal" On Newly Created Proposal
   Then Proposal Status Should Be "DRAFT"
 
 Proposer Has Successfully Added Additional Documents For Proposal

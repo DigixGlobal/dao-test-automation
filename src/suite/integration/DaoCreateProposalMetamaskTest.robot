@@ -10,9 +10,9 @@ Resource  ../../resources/keywords/governance_page.robot
 
 *** Test Cases ***
 Proposer Has Successfully Created A Proposal
-  [Setup]  "proposer" Account Has Successfully Logged In To DigixDao Using "metamask"
+  [Setup]  "${proposer}" Account Has Successfully Logged In To DigixDao Using "metamask"
   Given User Is In "GOVERNANCE" Page
-  When "proposer" Creates A Governance Propsosal
+  When "${proposer}" Creates A Governance Propsosal
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"

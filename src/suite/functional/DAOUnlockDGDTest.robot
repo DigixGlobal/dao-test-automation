@@ -10,7 +10,7 @@ Resource  ../../resources/keywords/wallet_view_page.robot
 
 *** Test Cases ***
 User Has Successfully Added Locked DGD On Wallet Page
-  [Setup]  "rewardee" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "rewardee" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
   When User Goes To "Wallet" View Page
   Then "WALLET_PAGE" Elements Should Be Visible
@@ -20,10 +20,10 @@ User Has Successfully Added Locked DGD On Wallet Page
   Then "LOCKED" DGD Computation Should Be Correct
 
 User Has Successfully Unlocked Portion Of User Staked
-  [Setup]  "rewardee" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "rewardee" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
   When User Goes To "Wallet" View Page
-  And "proposer" unlocks "5" Stake On "Locking Phase"
+  And "rewardee" unlocks "5" Stake On "Locking Phase"
   Then User Should Successfully "UNLOCKED" DGD
   Then "UNLOCKED" DGD Computation Should Be Correct
 
@@ -31,7 +31,7 @@ User Has Successfully Locked Whole User Stake
   [Setup]  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
   When User Goes To "Wallet" View Page
-  And "proposer" Unlocks "MAX" Stake On "Locking Phase"
+  And "rewardee" Unlocks "MAX" Stake On "Locking Phase"
   Then User Should Successfully "UNLOCKED" DGD
   Then User Should Not Be Able To Unlocked DGD
   Then "UNLOCKED" DGD Computation Should Be Correct

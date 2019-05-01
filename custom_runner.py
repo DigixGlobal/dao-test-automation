@@ -9,6 +9,7 @@ class CustomRunner:
     browser = "Chrome"
     exitOnfailure = "yes"
     runner = "robot"
+    wallet = "json"
     LIST_OF_TAGS = [
         "DaoJsonWalletETest", "DaoTwoMilestonesETest", "DaoMetamaskWalletETest", "DaoKYCETest", "ForumAdminETest",
         "DaoCreateProposalMetamaskTest","DaoCreateEditPreviewAbortTest","DaoChangeFundingTest", "DaoAddDocsClaimFailedTest",
@@ -72,10 +73,29 @@ class CustomRunner:
                 self.test_suite = self.LIST_OF_TAGS[choice_int-1]
                 break
         print "Test Suite / Tag selected: %s" % self.test_suite
+    
+    def wallet_type(self):
+        print "############################################################"
+        print "#   STEP 4: Select Wallet Type                             #"
+        print "############################################################"
+        print "1. json"
+        print "2. metamask"
+
+        while True:
+            choice = raw_input("Enter number (default %s): " % self.wallet)
+            if choice == '':
+                break
+            if choice == '1':
+                self.wallet = 'json'
+                break
+            if choice == '2':
+                self.wallet = 'metamask'
+                break
+        print "Tests will be run in browser: %s" % self.wallet
 
     def exit_on_failure(self):
         print "############################################################"
-        print "#   STEP 4: Exit When Any Test Failed?                     #"
+        print "#   STEP 5: Exit When Any Test Failed?                     #"
         print "############################################################"
         print "1. Yes"
         print "2. No"
@@ -95,7 +115,7 @@ class CustomRunner:
 
     def interpreter_runnner(self):
         print "############################################################"
-        print "#   STEP 5: Runner?                                        #"
+        print "#   STEP 6: Runner?                                        #"
         print "############################################################"
         print "1. robot"
         print "2. pybot"
@@ -125,6 +145,7 @@ class CustomRunner:
         cmd += '--variable ENVIRONMENT:%s ' % self.environment
         cmd += '--variable BROWSER:%s ' % self.browser
         cmd += '--include %s ' % self.test_suite
+        cmd += '--variable WALLET:%s ' % self.wallet
         cmd += '%s ' % self.exitOnfailure
         cmd += '--outputdir Results/%s ' % self.test_suite
         cmd += '.'
@@ -148,6 +169,7 @@ if __name__ == "__main__":
     app.enter_base_url()
     app.choose_browser()
     app.choose_test_suite()
+    app.wallet_type()
     app.exit_on_failure()
     app.interpreter_runnner()
     app.run_rf()

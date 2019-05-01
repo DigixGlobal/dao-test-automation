@@ -10,28 +10,28 @@ Resource  ../../resources/keywords/comment_module.robot
 
 *** Test Cases ***
 Proposer Has Successfully Created A Proposal
-  [Setup]  "proposer" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "${proposer}" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
-  When "proposer" Creates A Governance Propsosal
+  When "${proposer}" Creates A Governance Propsosal
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
 
 Proposer Has Successfully Posted Multiple ThreadsA And Sorted To Oldest
   Given User Is In "GOVERNANCE" Page
-  When "proposer" Posts "2" Thread On Created Proposal
-  And "proposer" Sorts Main Thread From "Oldest"
+  When "${proposer}" Posts "2" Thread On Created Proposal
+  And "${proposer}" Sorts Main Thread From "Oldest"
   Then All Thread Comments Should Be Visible
 
 ForumAdmin Has Successfully Remove A Comment
-  [Setup]  "forumAdmin" Account Has Successfully Logged In To DigixDao Using "json"
+  [Setup]  "forumAdmin" Account Has Successfully Logged In To DigixDao Using "${WALLET}"
   Given User Is In "GOVERNANCE" Page
   When Go To Newly Created Proposal View Page
   And ForumAdmin "Removes" Thread "0"
   Then Thread "0" Button Should Be "Restore"
 
 Proposer Has Successfully Viewed Removed Commment
-  [Setup]  Run Keywords  Switch Browser  proposer
+  [Setup]  Run Keywords  Switch Browser  ${proposer}
   ...  AND  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
   When Go To Newly Created Proposal View Page
@@ -46,9 +46,9 @@ ForumAdmin Has Successfully Restore A Comment
   Then Thread "0" Button Should Be "Remove"
 
 Proposer Has Successfully Viewed Restored Comment
-  [Setup]  Run Keywords  Switch Browser  proposer
+  [Setup]  Run Keywords  Switch Browser  ${proposer}
   ...  AND  Go Back To Dashboard Page
-  ...  AND  Pull "proposer" From SideNav
+  ...  AND  Pull "${proposer}" From SideNav
   Given User Is In "GOVERNANCE" Page
   When Go To Newly Created Proposal View Page
   Then Thread "0" Should Be "Restore"
@@ -62,7 +62,7 @@ ForumAdmin Has Successfully Banned A User For Commenting
   Then Ban Button Label Should Be "UNBAN"
 
 Proposer Has Not Successfully Posted A Comment Due to Banned
-  [Setup]  Run Keywords  Switch Browser  proposer
+  [Setup]  Run Keywords  Switch Browser  ${proposer}
   ...  AND  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
   When Go To Newly Created Proposal View Page
@@ -77,10 +77,10 @@ ForumAdming Has Successfully UnBanned A User For Commenting
   Then Ban Button Label Should Be "BAN"
 
 Proposer Has Successfully Posted A New Comment
-  [Setup]  Run Keywords  Switch Browser  proposer
+  [Setup]  Run Keywords  Switch Browser  ${proposer}
   ...  AND  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
   When Go To Newly Created Proposal View Page
   Then User Should "BE" Able To Post A Comment
   When Go Back To Dashboard Page
-  And "proposer" Posts "1" Thread On Created Proposal
+  And "${proposer}" Posts "1" Thread On Created Proposal
