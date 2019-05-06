@@ -126,7 +126,7 @@ User Adds Additional Documents
 "${e_USER}" Uploads Modified Salt File
   ${t_path}=  Normalize Path  ~/Downloads/
   ${t_content}=  Load Json From File  ${t_path}/${e_USER}${SALT_FILE_EXT}
-  ${t_vote}=  Get Value From Json  ${t_content}  vote
+  ${t_vote}=  Get Value From Json  ${t_content}  /vote
   ${t_invert}=  Set Variable If  "${t_vote}"=="${true}"  false  true
   ${t_new}=  Update Value To Json  ${t_content}  vote  ${t_invert}
   ${t_write}=  Convert JSON To String  ${t_new}
