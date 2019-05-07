@@ -17,10 +17,18 @@ ${NOTE_CONTAINER}  css=div[class*="Notifications"]
 # sidebar
 ${OVERLAY_CLOSE_ICON}  css=[class*="CloseButtonWithHeader"] [kind="close"]
 ${CLOSE_ICON}  jquery=[class*="CloseButton"] svg
-${CONNECTED_WALLET_OVERLAY}  css=[data-digix="ConnectedWalletComponent"]
 ${LOAD_WALLET_SIDEBAR_BUTTON}  ${GOVERNANCE_SIDENAR_DIV} ${ROUND_BTN}
 ${ADDRESS_INFO_SIDEBAR}  css=[class*="AddressInfo"]
 ${LOCK_DGD_BTN}  jquery=[class*="style__InnerContainer"] button:eq(1)
+
+#connect wallet Overlay
+${CONNECTED_WALLET_OVERLAY}  css=[data-digix="ConnectedWalletComponent"]
+${CONNECTED_WALLET_ADDRESS}  css=[data-digix="User-Address"]
+${CONNECT_WALLET_LOCKED_DGD_BTN}  css=[data-digx="Connect-Wallet-Locked-DGD"]
+${CONNECTED_WALLET_ETH_BALANCE}  css=[data-digix="Wallet-ETH-Balance"]
+${CONNECTED_WALLET_ETHUSD}  css=[data-digix="Wallet-EthUsd-Balance"]
+${CONNECTED_WALLET_DGD_BALANCE}  css=[data-digix="Wallet-DGD-Balance"]
+${CONNECTED_WALLET_DGDUSD}  css=[data-digix="Wallet-DgdUsd-Balance"]
 
 #Locked DGD Overlay
 ${LOCK_DGD_AMOUNT_FIELD}  css=[data-digix="LockDgdOverlay-DgdAmount"]
@@ -46,3 +54,6 @@ ${PROPOSAL_PARTICIPANT_COUNT}  css=[data-digix="Participant-Count"]
 ${PROPOSAL_MILESTONE_COUNT}  css=[data-digix="Milestone-Count"]
 ${PROPOSAL_DEADLINE}  css=[data-digix="Proposal-Deadline"]
 ${PARTICIPATE_BTN}  [data-digix="Participate-Btn"]
+
+# sign proof of control modal
+${PROOF_OF_CONTROL_PASSWORD_FIELD}  css=[class*="MessageSigningOverlay"] input[id="name-simple"]

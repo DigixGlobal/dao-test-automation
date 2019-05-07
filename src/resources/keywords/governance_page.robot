@@ -26,6 +26,21 @@ Pull Profile Stats Data
 #========#
 #  WHEN  #
 #========#
+User Approves DigixDao Interaction To Wallet
+  Wait And Click Element  ${APPROVE_INTERACTION_BTN}
+  User Submits Keystore Password  #transaction modal
+
+User Locks DGD Via Connect Wallet
+  Wait And Click Element  ${CONNECT_WALLET_LOCKED_DGD_BTN}
+  User Submits Locked Stake
+
+User Signs Proof Of Control
+  Wait Until Element Is Visible  ${PROOF_OF_CONTROL_PASSWORD_FIELD}  timeout=60 seconds
+  User Submits Keystore Password
+
+User Should Successfully Be A Participant
+  Wait Until Element Should Be Visible  ${USER_STATISTIC_DIV}
+
 User Submits Locked Stake
   [Arguments]  ${p_amount}=${LOCKED_DGD_AMOUNT}
   Wait Until Element Should Be Visible  ${LOCK_WITH_AMOUNT_BTN}
@@ -87,6 +102,9 @@ User Closes Connected Wallet Overlay
 #========#
 #  THEN  #
 #========#
+Connect Wallet Overlay Should Be Visible
+  Wait Until Element Should Be Visible  ${CONNECTED_WALLET_OVERLAY}
+
 Project Creator Name Should Be Visible
   Wait Until Element Should Contain  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_AUTHOR}  ${s_PROJECT_CREATOR.upper()}
 
@@ -205,3 +223,14 @@ Return Stake Value Based On Inputted DGD Amount
   ${t_stake}=  Get Text  ${LOCK_DGD_STAKE_LABEL}
   ${t_value}=  Remove String  ${t_stake}  STAKE
   [Return]  ${t_value}
+
+"${e_USER}" Uploads "${e_WALLET_TYPE}" Wallet Account
+  Set Suite Variable  ${s_WALLET_TYPE}  ${e_WALLET_TYPE}
+  Load JQuery Tool
+  Accept DigixDao Terms and Condition
+  Wait And Click Element  ${LOAD_WALLET_BTN}
+  Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON}
+  Wait And Click Element  ${LOAD_WALLET_SIDEBAR_BUTTON} ${WALLET_${e_WALLET_TYPE}_BTN}
+  Wait Until Element Should Be Visible  ${IMPORT_KEYSTORE_ICON} svg
+  Upload Json Wallet Based On Environment  ${e_USER}
+  User Submits Keystore Password  #validate wallet password
