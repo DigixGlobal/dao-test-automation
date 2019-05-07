@@ -63,3 +63,6 @@ ${WALLET_LEDGER_BTN}  div[kind="ledger"]
 ${WALLET_TREZOR_BTN}  div[kind="trezor"]
 ${WALLET_IMTOKEN_BTN}  div[kind="imtoken"]
 ${WALLET_JSON_BTN}  div[kind="json"]
+
+# approve interaction overlay
+${APPROVE_INTERACTION_BTN}  css=[data-digix="Approve-Interaction"]
