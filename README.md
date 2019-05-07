@@ -6,7 +6,7 @@
 
 #### Update `development.config.js` file on `info-server` directory
 - set `BLOCK_CONFIRMATIONS` to `0`
-
+- set `CRON_PROCESS_KYC_FREQUENCY` to `1`
 
 #### Update `.env` file on `dao-contracts` directory
 
@@ -36,24 +36,27 @@ HTTP_ENDPOINT=http://localhost:9001/ipfs
 
 |       Test Suite               |   Tags                           |                                                          Description                                                                    |
 | ------------------------------ | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------  |
-| DaoJsonWalletETest             | smoke, regression, endtoend      | This suite will test end to end process of creating proposals until setting the proposal to archive via Json Wallet as Entry Point (1MS)|
+| DaoOneMilestoneETest           | smoke, regression, endtoend      | This suite will test end to end process of creating proposals until setting the proposal to archive via Json Wallet as Entry Point (1MS)|
 | DaoTwoMilestonesETest          | smoke, regression, endtoend      | This suite will test end to end process of creating proposals until setting the proposal to archive via Json Wallet as Entry Point (2MS)|
 | DaoMetamaskWalletETest         | smoke, regression, endtoend      | This suite will test end to end process of creating proposals until setting the proposal to archive via Metamask Wallet as Entry Point  |
 | DaoKYCETest                    | smoke, regression, endtoend      | This suite will test end to end process from submitting user's KYC Details up to rejecting and approving it using KYC Officer account   |
-| ForumAdminETest                | smoke, regression, endtoend      | This suite will test end to end process of posting comments on newly created proposal, hide/unhide comment, and banning/unbanning users from commenting via forumAdmin Account |
+| ForumAdminETest                | smoke, regression, endtoend      | This suite will test end to end process of posting comments, hide/unhide comment, and banning/unbanning users from commenting           |
+| DaoSpecialProposalTest         | smoke, regression,               | This suite will test commiting and revealing votes for special proposals                                                                |
 | DaoCreateProposalMetamaskTest  | smoke, regression                | This suite will test creating of proposal using metamask as Entry Point                                                                 |
-| DaoCommentModuleTest           | smoke, regression                | This suite will test end to end process of posting comments on newly created proposal                                                   |
+| DaoCreateWalletRedeemBageTest  | smoke, regression                | This suite will test enabling new user to interact to DigixDao with funds until redeeming of badge on profile page                      |
+| DaoAddDocsClaimFailedTest      | smoke, regression                | This suite will test adding of additional documents after project status is finalized and claiming it as failed project                 |
+| DaoCreateEditPreviewAbortTest  | smoke, regression                | This suite will test creating,and editing proposals also included preview function                                                      |
 | DaoLikeModuleTest              | smoke, regression                | This suite will test like/unlike module for proposal and comments                                                                       |
+| DaoCommentModuleTest           | smoke, regression                | This suite will test end to end process of posting comments on newly created proposal                                                   |
 | DaoProfileOverviewTest         | smoke, regression                | This suite will test asserting values on Profile Overview are correct and validate components are showing correcly based on user role   | 
 | DaoSideNavMenuTest             | smoke, regression                | This suite will test assert side nav menu list when a user is in logged in and logged out state. (DGDG-284)                             | 
 | DaoKYCSubmissionTest           | smoke, regression                | This suite will submitting of KYC Details for nonKYC user.                                                                              |
 | DaoKYCAdminTest                | smoke, regression                | This suite will test approving and rejecting KYC using KYC Admin Account                                                                |
-| DaoCreateEditPreviewAbortTest  | smoke, regression                | This suite will test creating,and editing proposals also included preview function                                                      |
-| DaoAddDocsClaimFailedTest      | smoke, regression                | This suite will test adding of additional documents after project status is finalized and claiming it as failed project                 |
+| DaoCreateNewWalletTest         | smoke, regression                | This suite will test enabling new user to interact to DigixDao with funds via web3 wallet creation                                      |
 | DaoChangeFundingTest           | sanity, regression               | This suite will test changing of funding then go to the next phase after edit.                                                          |
+| DaoSetUsernameEmailTest        | sanity, regression, NotForKOVAN  | This suite will test setting up username and email on Profile view page                                                                 |
 | DaoClaimRewardTest             | sanity, regression, NotForKOVAN  | This suite will test claiming rewards on Wallet Page                                                                                    |
 | DaoRedeemBadgeTest             | sanity, regression, NotForKOVAN  | This suite will test redeeming badge on Profile View Page                                                                               |
-| DaoSetUsernameEmailTest        | sanity, regression, NotForKOVAN  | This suite will test setting up username and email on Profile view page                                                                 |
 | DAOUnlockDGDTest               | sanity, regression, NotForKOVAN  | This suite will test locking and unlocking DGD at Wallet Page on locking phase.                                                         |
 
 
