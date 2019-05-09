@@ -144,6 +144,7 @@ User Adds Additional Documents
   Go To Newly Created Proposal View Page
   Wait Until Element Should Contain  ${PROPOSAL_CLAIM_NOTIF_BANNER}  ${CLAIM_SUCCESS_MSG}
   User Claims Multiple Results  ${e_TYPE}
+  Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
   Go Back To Dashboard Page
 
 User Edits Proposal Funding
