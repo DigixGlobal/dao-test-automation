@@ -11,11 +11,12 @@ class CustomRunner:
     runner = "robot"
     wallet = "json"
     LIST_OF_TAGS = [
-        "DaoJsonWalletETest", "DaoTwoMilestonesETest", "DaoMetamaskWalletETest", "DaoKYCETest", "ForumAdminETest",
-        "DaoCreateProposalMetamaskTest","DaoCreateEditPreviewAbortTest","DaoChangeFundingTest", "DaoAddDocsClaimFailedTest",
-        "DaoLikeModuleTest", "DaoCommentModuleTest", "DaoProfileOverviewTest", "DaoSideNavMenuTest",
-        "DaoClaimRewardTest", "DaoRedeemBadgeTest", "DaoSetUsernameEmailTest", "DAOUnlockDGDTest",
-        "DaoKYCAdminTest", "DaoKYCSubmissionTest",
+        "DaoKYCETest", "ForumAdminETest", "DaoOneMilestoneETest", "DaoTwoMilestonesETest", "DaoMetamaskWalletETest", 
+        "DaoSpecialProposalTest", "DaoCreateEditPreviewAbortTest", "DaoAddDocsClaimFailedTest", "DaoCreateWalletRedeemBageTest",
+        "DaoCreateProposalMetamaskTest","DaoChangeFundingTest", 
+        "DaoProfileOverviewTest", "DaoSideNavMenuTest","DaoLikeModuleTest", "DaoCommentModuleTest", 
+        "DaoSetUsernameEmailTest","DaoClaimRewardTest", "DaoRedeemBadgeTest", "DAOUnlockDGDTest", 
+        "DaoKYCAdminTest", "DaoKYCSubmissionTest", "DaoCreateNewWalletTest",
         "regression", "smoke", "sanity","endtoend",
     ]
 

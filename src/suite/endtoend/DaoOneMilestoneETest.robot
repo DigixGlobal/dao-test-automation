@@ -2,7 +2,7 @@
 Documentation  This suite will test end to end process of creating proposals
 ...  with 1 milestones until setting the proposal to archive project status
 Force Tags    smoke    regression    endtoend
-Default Tags    DaoJsonWalletETest
+Default Tags    DaoOneMilestoneETest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
 Resource  ../../resources/keywords/governance_page.robot

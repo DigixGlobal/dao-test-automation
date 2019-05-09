@@ -225,3 +225,8 @@ Pull Project Creator Name
 User Revisits Newly Created Proposal
   User Goes To "Home" View Page
   Go To Newly Created Proposal View Page
+
+Create Special Proposal
+  ${t_path}=  Normalize path  ${CURDIR}/../../../../dao-contracts
+  ${t_output}=  Run And Return Rc And Output  cd ${t_path} && ./node_modules/.bin/truffle exec scripts/digixdao-interactions/create-special-proposal.js
+  Set Global Variable  ${g_GENERIC_VALUE}  Configuration Change
