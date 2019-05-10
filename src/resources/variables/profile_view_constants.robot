@@ -8,6 +8,7 @@ ${PROFILE_MODERATOR_CARD}     css=[data-digix="Profile-ModerationRequirements"]
 ${PROFILE_REMAINING_REPUTATION}  css=[data-digix="Profile-ModerationRequirements-Reputation"]
 ${PROFILE_REMAINING_STAKE}    css=[data-digix="Profile-ModerationRequirements-Stake"]
 ${PROFILE_REDEEM_BADGE_BTN}  css=[data-digix="redeemBadgeButton"]
+${PROFILE_LOCKED_DGD_BTN}  css=[data-digix="Profile-LockMoreDgd-Cta"]
 ${PROFILE_SET_EMAIL_KYC_BTN}  css=[data-digix="Profile-KycStatus-SetEmail"]
 ${PROFILE_SUBMIT_KYC_BTN}  css=[data-digix="Profile-KycStatus-Submit"]
 
