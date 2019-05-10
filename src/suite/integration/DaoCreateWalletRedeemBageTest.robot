@@ -7,6 +7,7 @@ Suite Teardown    Run Keywords  Removed Created Json Wallet  AND  Close All Brow
 Resource  ../../resources/common/web_helper.robot
 Resource  ../../resources/common/eth_helper.robot
 Resource  ../../resources/keywords/governance_page.robot
+Resource  ../../resources/keywords/wallet_view_page.robot
 Resource  ../../resources/keywords/profile_view_page.robot
 
 *** Variable ***
@@ -44,3 +45,26 @@ User Has Successfully Redeemed Badge
   When Go Back To Dashboard Page
   And User Goes To "Profile" View Page
   Then Redeem Badge Should Be Disabled
+
+User Has Successfully Locked DGD on Wallet Page
+  [Setup]  Go Back To Dashboard Page
+  Given User Is In "GOVERNANCE" Page
+  When User Goes To "Wallet" View Page
+  And Pull "${WALLET_NAME}" Data From Info Server
+  And User Locks DGD on "Wallet"
+  And Go Back To Dashboard Page
+  Then Locked DGD Value Should Increase
+
+User Has Successfully Locked DGD on Header
+  [Setup]  Go Back To Dashboard Page
+  Given User Is In "GOVERNANCE" Page
+  When User Locks DGD on "Header"
+  Then Locked DGD Value Should Increase
+
+User Has Successfully Locked DGD on Moderator Card On Profile Page
+  [Setup]  Go Back To Dashboard Page
+  Given User Is In "GOVERNANCE" Page
+  When User Goes To "Profile" View Page
+  And User Locks DGD on "Profile"
+  And Go Back To Dashboard Page
+  Then Locked DGD Value Should Increase

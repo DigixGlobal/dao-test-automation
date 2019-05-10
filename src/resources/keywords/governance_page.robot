@@ -48,6 +48,7 @@ User Submits Locked Stake
   Wait Until Element Should Be Visible  ${LOCK_DGD_STATUS}
   ${t_stake}=  Return Stake Value Based On Inputted DGD Amount
   Set Suite Variable  ${s_LOCK_STAKE}  ${t_stake}
+  Set Suite Variable  ${s_LOCkED_AMOUNT_DGD}  ${p_amount}
   Wait And Click Element  ${LOCK_WITH_AMOUNT_BTN}
   User Submits Keystore Password
 
