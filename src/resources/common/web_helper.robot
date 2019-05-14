@@ -2,7 +2,7 @@
 Library     ../custom/internal_json.py
 Library     ../custom/headless_download.py
 Library     OperatingSystem
-Library     SeleniumLibrary
+Library     SeleniumLibrary  timeout=40  implicit_wait=30
 Library     Collections
 Library     String
 Library     XvfbRobot

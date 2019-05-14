@@ -2,7 +2,7 @@
 ${NUMBER_OF_THREADS}  11
 ${NUMBER_OF_REPLIES}  7
 ${NUMBER_OF_NESTED_REPLIES}  4
-${REMOVE_MESSAGE}  This message has been removed.
+${REMOVE_MESSAGE}  This comment has been removed.
 ${ROUND_BTN}  button[class*="RoundBtn"]
 ${SORTING_DD}  css=#comment-filter
 ${POST_COMMENT_BTN}  button[class*="PostCommentButton"]

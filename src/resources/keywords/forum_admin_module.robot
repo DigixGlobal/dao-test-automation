@@ -1,5 +1,5 @@
 *** Variables ***
-${REMOVED_MSG}  This message has been removed.
+${REMOVED_MSG}  This comment has been removed.
 ${REMOVE_ICON}  [kind="delete"]
 ${RESTORE_ICON}  [kind="restore"]
 
