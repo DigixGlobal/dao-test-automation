@@ -114,14 +114,17 @@ User Submits Milestone Details
   Input Text  ${REWARD_FIELD}  ${p_reward}
   Select From List By Label  ${NUM_OF_MILESTONE_FIELD}  ${NUMBER_OF_MILESTONE}
   :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_MILESTONE}
-  \  Input Text  ${MILESTONE_FIELD}:eq(${index})  ${p_milestone}
-  \  Input Text  ${MILESTONE_DESC_FIELD}:eq(${index})  ${t_value}
+  \  ${t_ms}=  Set Variable  ${MILESTONE_FORM}:eq(${index})
+  \  Input Text  ${t_ms} input  ${p_milestone}
+  \  Input Text  ${t_ms} .ql-editor  ${t_value}
+  # \  Input Text  ${MILESTONE_FIELD}:eq(${index})  ${p_milestone}
+  # \  Input Text  ${MILESTONE_DESC_FIELD}:eq(${index})  ${t_value}
   Set Suite Variable  ${s_REWARD_AMOUNT}  ${p_reward}
   Set Suite Variable  ${s_MILESTONE_AMOUNT}  ${p_milestone}
   Hide Governance Header Menu
   Compute Suite Total Funding
   Compute Overall Project Funding
-  Click Element  ${CREATE_NOW_BTN}
+  Wait And Click Element  ${CREATE_NOW_BTN}
 
 User Previews Details
   Wait And Click Element  ${PROPOSAL_MENU_PREVIEW_BTN}
