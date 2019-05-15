@@ -113,18 +113,18 @@ User Submits Milestone Details
   Wait Until Element Should Be Visible  ${MILESTONE_FORM}
   Input Text  ${REWARD_FIELD}  ${p_reward}
   Select From List By Label  ${NUM_OF_MILESTONE_FIELD}  ${NUMBER_OF_MILESTONE}
+  ${t_ms_list}=  Create List
   :FOR  ${index}  IN RANGE  0  ${NUMBER_OF_MILESTONE}
   \  ${t_ms}=  Set Variable  ${MILESTONE_FORM}:eq(${index})
   \  Input Text  ${t_ms} input  ${p_milestone}
   \  Input Text  ${t_ms} .ql-editor  ${t_value}
-  # \  Input Text  ${MILESTONE_FIELD}:eq(${index})  ${p_milestone}
-  # \  Input Text  ${MILESTONE_DESC_FIELD}:eq(${index})  ${t_value}
+  \  Append To List  ${t_ms_list}  ${p_milestone}
+  Set Suite Variable  ${s_MS_LIST}  ${t_ms_list}
   Set Suite Variable  ${s_REWARD_AMOUNT}  ${p_reward}
   Set Suite Variable  ${s_MILESTONE_AMOUNT}  ${p_milestone}
   Hide Governance Header Menu
   Compute Suite Total Funding
   Compute Overall Project Funding
-
 
 User Previews Details
   Wait And Click Element  ${PROPOSAL_MENU_PREVIEW_BTN}
@@ -159,6 +159,10 @@ Set Proposal Value
   Set Suite Variable  ${s_${p_type}_GENERIC_VALUE}  ${t_value}
 
 Compute Overall Project Funding
-  ${t_funding}=  Evaluate  ${s_REWARD_AMOUNT} + ${s_MILESTONE_AMOUNT}
+  ${t_total}=  Set Variable  0
+  : FOR  ${value}  IN  @{s_MS_LIST}
+  \  ${t_total}=  Evaluate  ${t_total} + ${value}
+  ${t_funding}=  Evaluate  ${s_REWARD_AMOUNT} + ${t_total}
   ${t_value}=  Convert To String  ${t_funding}
+  Set Suite Variable  ${s_TOTAL_MS}  ${t_total}
   Set Suite Variable  ${s_OVERALL_FUNDING}  ${t_value}

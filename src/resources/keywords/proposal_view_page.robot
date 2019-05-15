@@ -212,10 +212,11 @@ Proposal Details Should Be Correct On Proposal Details Page
   Wait Until Element Should Contain  ${PROPOSAL_SHORT_DESC_DIV}  ${t_str}
   Wait Until Element Should Contain  ${PROPOSAL_DESC_DIV}  ${t_str}
   # Wait Until Element Should Contain  ${PROPOSAL_MS_DESC_DIV}  ${t_str}  #temp disabled
+  ${t_strTotalMS}=  Convert To String  ${s_TOTAL_MS}
   Run Keyword If  '${p_type.lower()}'=='edit'  Run Keywords
   ...  Element Should Contain Text  ${PROPOSAL_MS_AMOUNT_DIV}  ${s_MILESTONE_AMOUNT}
   ...  AND  Element Should Contain Text  ${PROPOSAL_REWARD_DIV}  ${s_REWARD_AMOUNT}
-  ...  AND  Element Should Contain Text  ${PROPOSAL_FUNDING_DIV}  ${s_TOTAL_FUNDING}
+  ...  AND  Element Should Contain Text  ${PROPOSAL_FUNDING_DIV}  ${t_strTotalMS}
 
 Vote Count Should Increase
   Newly Created Proposal Should Be Visible On "All" Tab
