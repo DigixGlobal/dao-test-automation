@@ -124,7 +124,7 @@ User Submits Milestone Details
   Hide Governance Header Menu
   Compute Suite Total Funding
   Compute Overall Project Funding
-  Wait And Click Element  ${CREATE_NOW_BTN}
+
 
 User Previews Details
   Wait And Click Element  ${PROPOSAL_MENU_PREVIEW_BTN}
@@ -138,6 +138,7 @@ Proposal Preview Should Be Visible
   Element Should Contain  ${PROPOSAL_TITLE_DIV}  ${g_GENERIC_VALUE}  ignore_case=${TRUE}
 
 User Submits Proposal Details
+  Wait And Click Element  ${CREATE_NOW_BTN}
   Wait And Click Element  ${PROPOSAL_SUBMIT_BTN}
   User Submits Keystore Password  #transaction modal
   Run Keyword If  '${ENVIRONMENT}'=='KOVAN'  Run Keywords
