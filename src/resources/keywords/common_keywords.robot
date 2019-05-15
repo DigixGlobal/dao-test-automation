@@ -41,3 +41,8 @@ Locked DGD Value Should Increase
   ${t_current_value}=  Evaluate  ${t_previous_value} + ${s_LOCkED_AMOUNT_DGD}
   ${t_str}=  Convert To String  ${t_current_value}
   Wait Until Element Should Contain  ${STAT_LOCKED_DGD_POINT}  ${t_str}
+
+Get Max Limit Funding
+  ${t_url}=  Set Variable  ${${ENVIRONMENT}_INFO_SERVER_URL}/daoConfigs
+  ${t_value}=  Find Value On Json URL  ${t_url}  /result/CONFIG_MAX_FUNDING_FOR_NON_DIGIX
+  Set Suite Variable  ${s_MAX_FUNDING}  ${t_value}

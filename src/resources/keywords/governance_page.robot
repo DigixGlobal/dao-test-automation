@@ -103,6 +103,9 @@ User Closes Connected Wallet Overlay
 #========#
 #  THEN  #
 #========#
+Total Funding Should Be Correct
+  Wait Until Element Should Contain  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_TOTAL_FUNDING}  ${s_OVERALL_FUNDING}
+
 Connect Wallet Overlay Should Be Visible
   Wait Until Element Should Be Visible  ${CONNECTED_WALLET_OVERLAY}
 

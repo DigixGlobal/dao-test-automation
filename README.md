@@ -42,6 +42,7 @@ HTTP_ENDPOINT=http://localhost:9001/ipfs
 | DaoKYCETest                    | smoke, regression, endtoend      | This suite will test end to end process from submitting user's KYC Details up to rejecting and approving it using KYC Officer account   |
 | ForumAdminETest                | smoke, regression, endtoend      | This suite will test end to end process of posting comments, hide/unhide comment, and banning/unbanning users from commenting           |
 | DaoSpecialProposalTest         | smoke, regression,               | This suite will test commiting and revealing votes for special proposals                                                                |
+| DaoNoLimitFundingTest          | smoke, regression,               | This suite will test posting a project using founder/account3 wallet without funding limit                                              |
 | DaoCreateProposalMetamaskTest  | smoke, regression                | This suite will test creating of proposal using metamask as Entry Point                                                                 |
 | DaoCreateWalletRedeemBageTest  | smoke, regression                | This suite will test enabling new user to interact to DigixDao with funds until redeeming of badge on profile page                      |
 | DaoAddDocsClaimFailedTest      | smoke, regression                | This suite will test adding of additional documents after project status is finalized and claiming it as failed project                 |

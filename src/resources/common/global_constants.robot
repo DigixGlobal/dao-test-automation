@@ -13,6 +13,7 @@ ${WALLET}  json
 ${proposer}  proposer
 ${moderator}  moderator
 ${participant}  participant
+${founder}  founder
 
 #test values
 ${KEYSTORE_PATH}  ../testdata/keystores

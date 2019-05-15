@@ -29,6 +29,7 @@ ${ERROR_OVERLAY_CONTAINER}  css=[data-digix="ProjectError-Notification"]
 ${ERROR_CARD_TITLE}  css=[data-digix="ProjectError-Notification-Title"]
 ${ERROR_OVERLAY_RETURN_BTN}  css=[data-digix="ProjectError-Return"]
 ${ERROR_KYC_NOT_APPROVED_MSG}  KYC IS NOT VALID
+${MILESTONE_FUNDING_ERROR}  css=[data-digix="Milestones-Error"]
 
 *** Keywords ***
 #========#
@@ -66,6 +67,9 @@ User Submit Proposal Details
 #========#
 #  THEN  #
 #========#
+User Should Be Able To See Funding Limit Banner
+  Wait Until Element Should Be Visible  ${MILESTONE_FUNDING_ERROR}
+
 Error Overlay Should "${e_ACTION}" Visible
   Run Keyword  Wait Until Element Should ${e_ACTION} Visible  ${ERROR_OVERLAY_RETURN_BTN}
   Run Keyword If  '${e_ACTION.lower()}'!='not be'
@@ -116,6 +120,7 @@ User Submits Milestone Details
   Set Suite Variable  ${s_MILESTONE_AMOUNT}  ${p_milestone}
   Hide Governance Header Menu
   Compute Suite Total Funding
+  Compute Overall Project Funding
   Click Element  ${CREATE_NOW_BTN}
 
 User Previews Details
@@ -148,3 +153,8 @@ Set Proposal Value
   Log To Console  ${\n}ProjectName:${t_strValue}
   Set Global Variable  ${g_GENERIC_VALUE}  ${t_value}
   Set Suite Variable  ${s_${p_type}_GENERIC_VALUE}  ${t_value}
+
+Compute Overall Project Funding
+  ${t_funding}=  Evaluate  ${s_REWARD_AMOUNT} + ${s_MILESTONE_AMOUNT}
+  ${t_value}=  Convert To String  ${t_funding}
+  Set Suite Variable  ${s_OVERALL_FUNDING}  ${t_value}
