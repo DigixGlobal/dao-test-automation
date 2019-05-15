@@ -13,7 +13,7 @@ class CustomRunner:
     LIST_OF_TAGS = [
         "DaoKYCETest", "ForumAdminETest", "DaoOneMilestoneETest", "DaoTwoMilestonesETest", "DaoMetamaskWalletETest", 
         "DaoSpecialProposalTest", "DaoCreateEditPreviewAbortTest", "DaoAddDocsClaimFailedTest", "DaoCreateWalletRedeemBageTest",
-        "DaoCreateProposalMetamaskTest", "DaoLikeModuleTest", "DaoCommentModuleTest", "DaoChangeFundingTest", 
+        "DaoNoLimitFundingTest", "DaoCreateProposalMetamaskTest", "DaoLikeModuleTest", "DaoCommentModuleTest", "DaoChangeFundingTest", 
         "DaoSetUsernameEmailTest", "DaoClaimRewardTest", "DAOUnlockDGDTest", 
         # extras
         "DaoProfileOverviewTest", "DaoSideNavMenuTest", "DaoRedeemBadgeTest",

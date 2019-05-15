@@ -2,6 +2,7 @@
 Documentation  This suite will test creating,and editing proposals
 ...  also included preview function and aborting of project.
 Force Tags    smoke    regression
+Suite Setup  Get Max Limit Funding
 Default Tags    DaoCreateEditPreviewAbortTest
 Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
@@ -29,11 +30,14 @@ Proposer Has Successfully Created A Proposal While Preview Each Steps
   Then Proposal Preview Should Be Visible
   #milestone
   When User Goes Back To Previous Page
-  And User Submits Milestone Details  3  4  ${g_GENERIC_VALUE}
+  And User Submits Milestone Details  ${s_MAX_FUNDING}  ${s_MAX_FUNDING}  ${g_GENERIC_VALUE}
+  Then User Should Be Able To See Funding Limit Banner
+  When User Submits Milestone Details  3  4  ${g_GENERIC_VALUE}
   And User Submits Proposal Details
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
   And Proposal Status Should Be "IDEA"
+  And Total Funding Should Be Correct
   When Go To Newly Created Proposal View Page
   And Proposal Details Should Be Correct On Proposal Details Page
 
@@ -57,7 +61,9 @@ Proposer Has Successfully Edited A Proposal While Preview Each Steps
   Then Proposal Preview Should Be Visible
   #milestone
   When User Goes Back To Previous Page
-  And User Submits Milestone Details  5  6  ${g_GENERIC_VALUE}
+  And User Submits Milestone Details  ${s_MAX_FUNDING}  ${s_MAX_FUNDING}  ${g_GENERIC_VALUE}
+  Then User Should Be Able To See Funding Limit Banner
+  When User Submits Milestone Details  5  6  ${g_GENERIC_VALUE}
   And User Submits Proposal Details
   Then User Should Be Redirected To "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "Idea" Tab
