@@ -78,11 +78,6 @@ Error Overlay Should "${e_ACTION}" Visible
 #=====================#
 #  INTERNAL KEYWORDS  #
 #=====================#
-Compute Suite Total Funding
-  ${t_total}=  Set Variable  ${s_MILESTONE_AMOUNT}
-  ${t_strFunding}=  Convert To String  ${t_total}
-  Set Suite Variable  ${s_TOTAL_FUNDING}  ${t_strFunding}
-
 User Goes To Create Proposal Page
   Wait Until Element Should Be Visible  ${ADDRESS_LABEL}
   Wait And Click Element  ${GOVERNANCE_CREATE_BTN}
@@ -123,7 +118,6 @@ User Submits Milestone Details
   Set Suite Variable  ${s_REWARD_AMOUNT}  ${p_reward}
   Set Suite Variable  ${s_MILESTONE_AMOUNT}  ${p_milestone}
   Hide Governance Header Menu
-  Compute Suite Total Funding
   Compute Overall Project Funding
 
 User Previews Details
