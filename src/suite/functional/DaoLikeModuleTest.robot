@@ -19,6 +19,8 @@ Proposer Has Successfully Created A Proposal
   And Proposal Status Should Be "IDEA"
 
 Proposer Has Successfully Liked A Proposal On Dashboard Page
+  [Setup]  Run Keywords  Go To Newly Created Proposal View Page
+  ...  AND  Go Back To Dashboard Page
   Given User Is In "GOVERNANCE" Page
   And Newly Created Proposal Should Be Visible On "All" Tab
   When User "LIKES" Newly Created Proposal In "DASHBOARD" Page
