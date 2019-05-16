@@ -46,3 +46,24 @@ Get Max Limit Funding
   ${t_url}=  Set Variable  ${${ENVIRONMENT}_INFO_SERVER_URL}/daoConfigs
   ${t_value}=  Find Value On Json URL  ${t_url}  /result/CONFIG_MAX_FUNDING_FOR_NON_DIGIX
   Set Suite Variable  ${s_MAX_FUNDING}  ${t_value}
+
+
+Repeat Until Newly Created Project Is On "${e_TAB}" Tab
+  Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
+  :FOR  ${index}  IN RANGE  0  5
+  \  ${t_titles}=  Get WebElements  ${PROPOSAL_TITLE}
+  \  Assert Title Is Visible In List  ${t_titles}
+  # \  ${t_status}=  Run Keyword And Return Status
+  # ...  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}  timeout=5 seconds
+  \  Run Keyword If  '${s_CARD_INDEX}'!='None'
+  ...  Exit For Loop
+  ...  ELSE  Switch "${e_TAB}" Tab To Update Content
+
+Assert Title Is Visible In List
+  [Arguments]  ${p_list}
+  : For  ${index}  ${locator}  IN ENUMERATE  @{p_list}
+  \  ${t_title}=  Get Text  ${locator}
+  \  ${t_index}=  Run Keyword If  '${t_title}'=='${g_GENERIC_VALUE}'
+  ...  Set Variable  ${index}  ELSE  Set Variable  None
+  \  Exit For Loop If  '${t_title}'=='${g_GENERIC_VALUE}'
+  Set Suite Variable  ${s_CARD_INDEX}  ${t_index}

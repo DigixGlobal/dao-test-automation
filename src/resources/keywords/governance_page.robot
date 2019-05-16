@@ -38,9 +38,6 @@ User Signs Proof Of Control
   Wait Until Element Is Visible  ${PROOF_OF_CONTROL_PASSWORD_FIELD}  timeout=60 seconds
   User Submits Keystore Password
 
-User Should Successfully Be A Participant
-  Wait Until Element Should Be Visible  ${USER_STATISTIC_DIV}
-
 User Submits Locked Stake
   [Arguments]  ${p_amount}=${LOCKED_DGD_AMOUNT}
   Wait Until Element Should Be Visible  ${LOCK_WITH_AMOUNT_BTN}
@@ -103,6 +100,9 @@ User Closes Connected Wallet Overlay
 #========#
 #  THEN  #
 #========#
+User Should Successfully Be A Participant
+  Wait Until Element Should Be Visible  ${USER_STATISTIC_DIV}
+
 Total Funding Should Be Correct
   Wait Until Element Should Contain  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_TOTAL_FUNDING}  ${s_OVERALL_FUNDING}
 
@@ -143,24 +143,6 @@ Snackbox Should Contain "${e_MESSAGE}"
 #====================#
 #  INTERNAL KEYWORD  #
 #====================#
-#temporary
-# Return Action Button Names On Proposal
-#   [Arguments]  ${p_action}
-#   ${t_smallCase}=  Convert To Lowercase  ${p_action}
-#   ${t_dict}=  Create Dictionary
-#   ...  endorses proposal=ENDORSE
-#   ...  abort=ABORT
-#   ...  edit=EDIT
-#   ...  finalizes proposal=FINALIZE
-#   ...  approve=APPROVE
-#   ...  claims approved proposal=CLAIM APPROVAL
-#   ...  vote=VOTE
-#   ...  reveal=REVEAL VOTE
-#   ...  claims voting result=CLAIM RESULTS
-#   ...  claims proposal funding= CLAIM FUNDING
-#   ...  sets proposal to complete=MY MILESTONE IS COMPLETED
-#   ${t_value}=  Get From Dictionary  ${t_dict}  ${t_smallCase}
-#   [Return]  ${t_value}
 Approve Metamask Interaction
   Sleep  5 seconds
   ${t_count}=  Get Window Handles
@@ -173,14 +155,14 @@ Approve Metamask Interaction
   ${t_intClose}=  Get Length  ${t_close}
   Should Be Equal As Integers  ${t_intClose}  1
 
-Repeat Until Newly Created Project Is On "${e_TAB}" Tab
-  Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
-  :FOR  ${index}  IN RANGE  0  5
-  \  ${t_status}=  Run Keyword And Return Status
-  ...  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}  timeout=5 seconds
-  \  Run Keyword If  ${t_status}
-  ...  Exit For Loop
-  ...  ELSE  Switch "${e_TAB}" Tab To Update Content
+# Repeat Until Newly Created Project Is On "${e_TAB}" Tab
+#   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
+#   :FOR  ${index}  IN RANGE  0  5
+#   \  ${t_status}=  Run Keyword And Return Status
+#   ...  Wait Until Element Contains  ${PROPOSAL_CARD}:eq(0) h2  ${g_GENERIC_VALUE}  timeout=5 seconds
+#   \  Run Keyword If  ${t_status}
+#   ...  Exit For Loop
+#   ...  ELSE  Switch "${e_TAB}" Tab To Update Content
 
 Switch "${e_TAB}" Tab To Update Content
   Wait Until Element Should Be Visible  ${GOVERNANCE_FILTER_SECTION}
