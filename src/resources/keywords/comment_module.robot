@@ -58,8 +58,9 @@ Resource    ../variables/comment_constants.robot
   Wait Until Element Should Be Visible  ${COMMMENT_DIV}:eq(0)
 
 User Shows All Main Thread Comments
+  Sleep  3 seconds
   Wait Until Element Should Be Visible  ${THREAD_SECTION}
-  Wait And Click Element  ${THREAD_SECTION} ${LOAD_MORE_COMMENT_LINK}
+  Wait And Click Element  css=${LOAD_MORE_COMMENT_LINK}
 
 User Shows All "${e_COMMENT_TYPE}" Comments
   ${t_BUTTON}=  Set Variable  ${COMMMENT_DIV}:eq(${s_${e_COMMENT_TYPE}_NUMBER}) ${LOAD_MORE_REPLIES_LINK}

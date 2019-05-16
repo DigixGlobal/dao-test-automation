@@ -8,6 +8,9 @@ Suite Teardown    Close All Browsers
 Resource  ../../resources/common/web_helper.robot
 Resource  ../../resources/keywords/governance_page.robot
 
+*** Variables ***
+${NUMBER_OF_MILESTONE}  2
+
 *** Test Cases ***
 Proposer Has Successfully Created A Proposal While Preview Each Steps
   [Setup]  Run Keywords  Set Proposal Value  create
