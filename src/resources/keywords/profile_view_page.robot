@@ -49,7 +49,7 @@ User Acknowledges Can Change Once
 #  THEN  #
 #========#
 Assert User Profile Values Are Correct
-  Wait Until Element Should be Visible  ${PROFILE_REWARD_DIV}
+  Wait Until Element Should be Visible  ${USER_STATISTIC_DIV}
   Wait Until ELement Should Contain  ${PROFILE_QUARTER_AMOUNT}  ${s_QUARTER_PTS}
   Wait Until ELement Should Contain  ${PROFILE_REPUTATION_AMOUNT}  ${s_REPUTATION_PTS}
   Wait Until ELement Should Contain  ${PROFILE_STAKE_AMOUNT}  ${s_STAKE_PTS}

@@ -10,7 +10,8 @@ Resource    ../variables/governance_constants.robot
 #  GIVEN  #
 #=========#
 Pull Profile Stats Data
-  Wait Until Element Should Be Visible  ${USER_STATISTIC_DIV}
+  Wait Until Element Should Be Visible  ${STAT_QUARTER_OVERVIEW_DIV}
+  Wait And Click Element  ${USER_STATISTIC_TOGGLE}
   ${t_mod}=  Run Keyword And Return Status  Should Contain  ${TEST NAME}  Moderator
   ${t_mod_pt}=  Run Keyword If  ${t_mod}
   ...  Get Text  ${STAT_MODERATOR_POINT}
@@ -113,15 +114,18 @@ Project Creator Name Should Be Visible
   Wait Until Element Should Contain  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_AUTHOR}  ${s_PROJECT_CREATOR.upper()}
 
 Quarter Points Should Increase
+  Wait Until Element Should Be Visible  ${STAT_QUARTER_OVERVIEW_DIV}
+  Wait And Click Element  ${USER_STATISTIC_TOGGLE}
   ${t_pt}=  Evaluate  ${s_QUARTER_PTS} + 1
   ${t_str}=  Convert To String  ${t_pt}
   Wait Until Element Should Contain  ${STAT_QUARTER_POINT}  ${t_str}
 
 Moderator Quarter Points Should Increase
+  Wait Until Element Should Be Visible  ${STAT_QUARTER_OVERVIEW_DIV}
+  Wait And Click Element  ${USER_STATISTIC_TOGGLE}
   ${t_pt}=  Evaluate  ${s_MOD_QP} + 1
   ${t_str}=  Convert To String  ${t_pt}
   Wait Until Element Should Contain  ${STAT_MODERATOR_POINT}  ${t_str}
-
 
 Newly Created Proposal Should Be Visible On "${e_TAB}" Tab
   Switch "${e_TAB}" Tab To Update Content
