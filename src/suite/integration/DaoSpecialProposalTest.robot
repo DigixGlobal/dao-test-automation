@@ -1,6 +1,6 @@
 *** Settings ***
-Documentation  This suite will test commiting and revealing votes for
-...  special proposals
+Documentation  This suite will test commiting/revealing votes for
+...  special proposals and quorum/quota values are correct
 Force Tags  regression  smoke
 Default Tags  DaoSpecialProposalTest
 Suite Teardown  Close All Browsers
@@ -21,3 +21,5 @@ User Has Successfully Revealed Vote To Proposal
   And Pull Profile Stats Data
   When "${proposer}" Reveals Vote Via Salt File
   Then Quarter Points Should Increase
+  When Go To Newly Created Proposal View Page
+  Then Quorum Percentage Progress Bar Value Shoule Be Correct

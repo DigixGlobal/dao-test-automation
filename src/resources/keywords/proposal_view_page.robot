@@ -37,6 +37,8 @@ ${PROPOSAL_MS_AMOUNT_DIV}  css=[data-digix="Milestone-Amount"]
 ${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
 
 # Voting Accordion Component
+${ACCORDION_ITEM}  jquery=[class*="AccordionItem"]
+${QUORUM_PROGRESS_BAR}  [role="progressbar"]:first > div
 ${ACTIVE_ACCORDION_ITEM}  jquery=[data-digix="Timer-Progress"]
 ${VOTE_USER_COUNT}  css=[data-digix="Vote-User-Count"]
 ${TIMER_DIV}  [data-digix="Vote-Countdown-Timer"]:first  #[class*="QuorumInfoCol"]:first span:last
