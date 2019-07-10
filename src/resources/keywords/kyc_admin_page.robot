@@ -62,6 +62,7 @@ Open "${e_NAME}" KYC Modal
   ...  Wait And Click Element  ${KYC_ADMIN_ROW_DIV}:eq(0)
   ...  ELSE
   ...  Look "${e_NAME}" Account On Table
+  Wait Until Element Should Be Visible  ${KYC_ADMIN_MODAL_FIRST_NAME}
   ${t_first_name}=  Get Text  ${KYC_ADMIN_MODAL_FIRST_NAME}
   Set Suite Variable  ${s_FIRST_NAME}  ${t_first_name}
   # Set Suite LookUp For KYC "${e_NAME}" Account

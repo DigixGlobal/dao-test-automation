@@ -67,3 +67,28 @@ Assert Title Is Visible In List
   ...  Set Variable  ${index}  ELSE  Set Variable  None
   \  Exit For Loop If  '${t_title}'=='${g_GENERIC_VALUE}'
   Set Suite Variable  ${s_CARD_INDEX}  ${t_index}
+
+Quorum Percentage Progress Bar Value Shoule Be Correct
+  [Arguments]  ${p_type}=Special
+  Load JQuery Tool
+  Wait Until Element Should Be Visible  ${ACCORDION_ITEM}:first ${QUORUM_PROGRESS_BAR}
+  ${t_totalLockedDGD}=  Find Value On Json URL  ${LOCAL_DAO_INFO_URL}  /result/totalLockedDgds
+  ${t_url}=  Get Location
+  ${t_proposalID}=  Fetch From Right  ${t_url}  /proposals
+  ${t_stakePath}=  Set Variable  /result/votingRounds/0/totalVoterStake
+  ${t_totalStake}=  Find Value On Json URL  ${${ENVIRONMENT}_INFO_DETAILS_URL}${t_proposalID}  ${t_stakePath}
+  ${t_result}=  Evaluate  (${t_totalStake} / ${t_totalLockedDGD})
+  ${t_int}=   Evaluate  "%.2f" % ${t_result}
+  ${t_attr}=  Get Element Attribute  ${ACCORDION_ITEM}:first ${QUORUM_PROGRESS_BAR}  style
+  ${t_value}=  Get Regexp Matches  ${t_attr}  scaleX\\((.*)\\)  1
+  ${t_precise}=   Evaluate  "%.2f" % ${t_value[0]}
+  Should Be Equal  ${t_int}  ${t_precise}
+
+Compute Minimum Quorum Required
+  [Arguments]  ${p_type}=Special
+  Load JQuery Tool
+  ${t_url}=  Set Variable  ${${ENVIRONMENT}_INFO_SERVER_URL}/daoConfigs
+  ${t_numerator}=  Find Value On Json URL  ${t_url}  /result/CONFIG_SPECIAL_PROPOSAL_QUORUM_NUMERATOR
+  ${t_denominator}=  Find Value On Json URL  ${t_url}  /result/CONFIG_SPECIAL_PROPOSAL_QUORUM_DENOMINATOR
+  ${t_result}=  Evaluate  (${t_numerator} / ${t_denominator}) * 100
+  ${t_int}=  =  Evaluate  "%.2f" % ${t_number}
