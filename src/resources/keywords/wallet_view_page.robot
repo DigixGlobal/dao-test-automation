@@ -16,7 +16,7 @@ Resource  ../variables/wallet_view_contants.robot
   ...  AND  Fail  msg=Please run command on dao-contracts and restart info-server
   ...  ELSE  Run Keywords
   ...  Wait And Click Element  ${WALLET_CLAIM_REWARD_BTN}
-  ...  AND  User Submits Keystore Password  #transaction modal
+  ...  AND  User Submits Keystore Password   transaction  #transaction modal
 
 "${e_USER}" Locks "${e_AMOUNT}" DGD on Wallet Page
   Wait Until Element Should Be Visible  ${WALLET_ADDRESS_DIV}

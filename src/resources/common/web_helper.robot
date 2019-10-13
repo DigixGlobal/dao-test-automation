@@ -163,6 +163,12 @@ Upload TestData Image
   Choose File  ${${p_filename}_UPLOAD_BTN}  ${t_path}
 
 User Submits Keystore Password
+  [Arguments]  ${p_isTransaction}=${EMPTY}
+  Run Keyword If  '${p_isTransaction.lower()}' =='transaction'
+  ...  Submit Transaction
+  ...  ELSE  Submit Keystore Password
+
+Submit Keystore Password
   ${t_lower}=  Convert To Lowercase  ${s_WALLET_TYPE}
   Run Keyword If  '${t_lower}'=='metamask'  Run Keywords
   ...  Wait Until Element Should Be Visible  ${GOVERNANCE_MODAL}
@@ -173,6 +179,21 @@ User Submits Keystore Password
   ...  AND  Select Window  main
   ...  ELSE  Run Keywords
   ...  Wait Until Element Should Be Visible  ${IMPORT_PASSWORD_FIELD}
+  ...  AND  Input Text  ${IMPORT_PASSWORD_FIELD}  ${${ENVIRONMENT}_DAO__WALLET_PW}
+  ...  AND  Wait And Click Element  ${UNLOCK_WALLET_BTN}
+
+Submit Transaction
+  Run Keyword If  '${s_WALLET_TYPE.lower()}'=='metamask'  Run Keywords
+  ...  Wait Until Element Should Be Visible  ${GOVERNANCE_MODAL}
+  ...  AND  Wait Until New Window Pops Up  2
+  ...  AND  Select Window  new
+  ...  AND  Wait And Click Element  css=.btn-confirm
+  ...  AND  Wait Until New Window Pops Up  1
+  ...  AND  Select Window  main
+  ...  ELSE  Run Keywords
+  ...  Wait Until Element Should Be Visible  ${IMPORT_PASSWORD_FIELD}
+  ...  AND  Wait Until Element Should Be Visible  css=[class*="GasPriceSelect"]
+  ...  AND  Click Element  css=[class*="GasPriceOption"]:nth-of-type(2)
   ...  AND  Input Text  ${IMPORT_PASSWORD_FIELD}  ${${ENVIRONMENT}_DAO__WALLET_PW}
   ...  AND  Wait And Click Element  ${UNLOCK_WALLET_BTN}
 

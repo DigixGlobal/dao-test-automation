@@ -25,12 +25,12 @@ ${ADDRESS_LABEL}  css=[data-digix="Header-Address"]
 ${LOAD_WALLET_BTN}  css=[data-digix="Header-LoadWallet"]
 
 #User Statistics Component (dashboard & profile)
-${USER_STATISTIC_DIV}    css=[class*="UserStats"]
+${USER_STATISTIC_DIV}     css=[data-digix="User-Address-Stats"]
 ${STAT_QUARTER_POINT}     css=[data-digix="Dashboard-Stats-QuarterPoints"]
+${STAT_MODERATOR_POINT}   css=[data-digix="Dashboard-Stats-ModQtrPts"]
 ${STAT_REPUTATION_POINT}  css=[data-digix="Dashboard-Stats-ReputationPoints"]
-${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Locked-Stake"]
-${STAT_LOCKED_DGD_POINT}  css=[data-digix="Dashboard-Locked-DGD"]
-${STAT_MODERATOR_POINT}   css=[data-digix="Dashboard-Mod-QtrPts"]
+${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Stats-Stake"]
+${STAT_LOCKED_DGD_POINT}  css=[data-digix="Dashboard-Stats-LockedDGD"]
 
 #Dashboard Filter Component
 ${GOVERNANCE_FILTER_SECTION}  css=div[class*="FilterWrapper"]

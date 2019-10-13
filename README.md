@@ -11,7 +11,7 @@
 | ------------------ | --------------------------------------------------------------------------- |
 | robotframework     | pip install robotframework                                                  |
 | selenium2library   | pip install robotframework-selenium2library                                 |
-| seleniumlibrary    | pip install robotframework-seleniumlibrary                                  |
+| seleniumlibrary    | pip install robotframework-seleniumlibrary==3.3.1                           |
 | jsonpointer        | pip install jsonpointer                                                     |
 | jsonpatch          | pip install jsonpatch                                                       |
 | web3               | pip install web3                                                            |

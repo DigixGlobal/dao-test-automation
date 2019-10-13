@@ -134,7 +134,7 @@ Proposal Preview Should Be Visible
 User Submits Proposal Details
   Wait And Click Element  ${CREATE_NOW_BTN}
   Wait And Click Element  ${PROPOSAL_SUBMIT_BTN}
-  User Submits Keystore Password  #transaction modal
+  User Submits Keystore Password  transaction  #transaction modal
   Run Keyword If  '${ENVIRONMENT}'=='KOVAN'  Run Keywords
   ...  Log To Console  sleep the test due to it runs on ${ENVIRONMENT} for 60 seconds
   ...  AND  Sleep  60 seconds

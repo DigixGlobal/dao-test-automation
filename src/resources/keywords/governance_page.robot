@@ -5,11 +5,15 @@ Resource    common_keywords.robot
 Resource    metamask.robot
 Resource    ../variables/governance_constants.robot
 
+*** Variables ***
+${USER_STATS_TOGGLE}  css=[data-digix="Stat-Toggle"]
+
 *** Keywords ***
 #=========#
 #  GIVEN  #
 #=========#
 Pull Profile Stats Data
+  Wait And Click Element  ${USER_STATS_TOGGLE}
   Wait Until Element Should Be Visible  ${USER_STATISTIC_DIV}
   ${t_mod}=  Run Keyword And Return Status  Should Contain  ${TEST NAME}  Moderator
   ${t_mod_pt}=  Run Keyword If  ${t_mod}
@@ -28,7 +32,7 @@ Pull Profile Stats Data
 #========#
 User Approves DigixDao Interaction To Wallet
   Wait And Click Element  ${APPROVE_INTERACTION_BTN}
-  User Submits Keystore Password  #transaction modal
+  User Submits Keystore Password  transaction  #transaction modal
 
 User Locks DGD Via Connect Wallet
   Wait And Click Element  ${CONNECT_WALLET_LOCKED_DGD_BTN}
@@ -47,7 +51,7 @@ User Submits Locked Stake
   Set Suite Variable  ${s_LOCK_STAKE}  ${t_stake}
   Set Suite Variable  ${s_LOCkED_AMOUNT_DGD}  ${p_amount}
   Wait And Click Element  ${LOCK_WITH_AMOUNT_BTN}
-  User Submits Keystore Password
+  User Submits Keystore Password  transaction
 
 "${e_USER}" Submits "${e_WALLET_TYPE}" Wallet
   # uploading
@@ -71,6 +75,7 @@ Submit Json Wallet
   Wait Until Element Should Be Visible  ${MESSAGE_SIGNER_FORM}
   User Submits Keystore Password  #sign message modal
   Wait Until Element Should Not Be Visible  ${GOVERNANCE_MODAL}
+  Sleep  5 seconds
 
 Visit Newly Created Proposal And Click "${e_ACTION}" Action
   Go To Newly Created Proposal View Page
@@ -113,17 +118,21 @@ Project Creator Name Should Be Visible
   Wait Until Element Should Contain  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_AUTHOR}  ${s_PROJECT_CREATOR.upper()}
 
 Quarter Points Should Increase
+  Wait And Click Element  ${USER_STATS_TOGGLE}
+  Wait Until Element Should Be Visible  ${USER_STATISTIC_DIV}
   ${t_pt}=  Evaluate  ${s_QUARTER_PTS} + 1
   ${t_str}=  Convert To String  ${t_pt}
   Wait Until Element Should Contain  ${STAT_QUARTER_POINT}  ${t_str}
 
 Moderator Quarter Points Should Increase
+  Wait And Click Element  ${USER_STATS_TOGGLE}
+  Wait Until Element Should Be Visible  ${USER_STATISTIC_DIV}
   ${t_pt}=  Evaluate  ${s_MOD_QP} + 1
   ${t_str}=  Convert To String  ${t_pt}
   Wait Until Element Should Contain  ${STAT_MODERATOR_POINT}  ${t_str}
 
-
 Newly Created Proposal Should Be Visible On "${e_TAB}" Tab
+  Hide SnackBar
   Switch "${e_TAB}" Tab To Update Content
   ${t_speed}=  Get Selenium Speed
   Run Keyword If  "${ENVIRONMENT}"=="KOVAN"
@@ -166,7 +175,8 @@ Approve Metamask Interaction
 
 Switch "${e_TAB}" Tab To Update Content
   Wait Until Element Should Be Visible  ${GOVERNANCE_FILTER_SECTION}
-  Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
+  Hide Governance Header Menu
+  Hide SnackBar
   Wait And Click Element  ${ARCHIVED_TAB}
   Wait And Click Element  ${${e_TAB}_TAB}
 

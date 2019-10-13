@@ -95,7 +95,6 @@ Participant Has Successfully Revealed Vote To Proposal
 Proposer Has Successfully Revealed Vote To Proposal
   [Setup]  Switch Browser  ${proposer}
   Given User Is In "Governance" Page
-  And Pull Profile Stats Data
   When "${proposer}" Reveals Vote Via Salt File
   Then Quarter Points Should Increase
 

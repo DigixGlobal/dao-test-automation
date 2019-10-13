@@ -35,12 +35,12 @@ Pull "${e_USER}" Data From Info Server
   ...  AND  FAIL  msg=Please run `bash script/restart.sh` on `dao-server` repo
   ...  ELSE  Run Keywords
   ...  Click Element  ${PROFILE_REDEEM_BADGE_BTN}
-  ...  AND  User Submits Keystore Password
+  ...  AND  User Submits Keystore Password  transaction
 
 "${e_USER}" Approves Interaction To Contract
   Wait And Click Element  ${PROFILE_REDEEM_BADGE_BTN}
   Wait And Click ELement  ${BADGE_APPROVE_INTERACTION_BTN}
-  User Submits Keystore Password
+  User Submits Keystore Password  transaction
 
 User Acknowledges Can Change Once
   Wait And Click Element  ${PROFILE_USERNAME_PROCEED_BTN}

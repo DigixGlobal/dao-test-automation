@@ -67,15 +67,15 @@ User Go Back To Previous Version
   Hide Governance Header Menu
   Wait And Click Element  ${PROPOSAL_VERSION_PREVIOUS}
 
- User Aborts The Project
+User Aborts The Project
   User Revisits Newly Created Proposal
   Wait And Click Element  ${PROPOSAL_ABORT_BTN}
-  User Submits Keystore Password  #transaction modal
+  User Submits Keystore Password  transaction  #transaction modal
 
 User Claims Failed Project
   User Revisits Newly Created Proposal
   Wait And Click Element  ${PROPOSAL_CLAIM_FAILED_BTN}
-  User Submits Keystore Password  #transaction modal
+  User Submits Keystore Password  transaction  #transaction modal
 
 User Adds Additional Documents
   User Revisits Newly Created Proposal
@@ -84,7 +84,7 @@ User Adds Additional Documents
   Wait Until Element Should Be Visible  ${ADD_DOCS_BTN}
   Upload TestData Image  add_docs
   Wait And Click Element  ${ADD_DOCS_BTN}
-  User Submits Keystore Password  #transaction modal
+  User Submits Keystore Password  transaction  #transaction modal
 
 "${e_USER}" Approves Newly Drafted Proposal
   Proposal Status Should Be "DRAFT"
@@ -111,7 +111,7 @@ User Adds Additional Documents
   ${t_salt}=  Replace String  ${t_name}  :  _
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(2)  #confirm commit button
   Replace Salt File According To User Role  ${t_salt}  ${e_USER}
-  User Submits Keystore Password
+  User Submits Keystore Password  transaction  #transaction modal
 
 "${e_USER}" Reveals Vote Via Salt File
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -121,7 +121,7 @@ User Adds Additional Documents
   Wait Until Element Should Be Visible  ${NOTE_CONTAINER}
   Wait And Click Element  ${GOVERNANCE_SIDENAR_DIV} ${ROUND_BTN}
   "Remove" "${e_USER}" Salt File
-  User Submits Keystore Password  #transaction modal
+  User Submits Keystore Password  transaction  #transaction modal
 
 "${e_USER}" Uploads Modified Salt File
   ${t_path}=  Normalize Path  ~/Downloads/
@@ -137,7 +137,7 @@ User Adds Additional Documents
 "${e_USER}" "${e_ACTION}" On Newly Created Proposal
   Newly Created Proposal Should Be Visible On "All" Tab
   Visit Newly Created Proposal And Click "${e_ACTION}" Action
-  User Submits Keystore Password  #transaction modal
+  User Submits Keystore Password  transaction  #transaction modal
 
 "${e_USER}" Claims "${e_TYPE}" Voting Result
   Newly Created Proposal Should Be Visible On "All" Tab
@@ -168,7 +168,7 @@ User Edits Proposal Funding
   Input Text  ${EDIT_FUNDING_MILESTONE2_FIELD}  ${p_milestone}
   Set Suite Variable  ${s_MS_TWO}  ${p_milestone}
   Wait And Click Element  ${EDIT_FUNDING_BTN}
-  User Submits Keystore Password  #transaction modal
+  User Submits Keystore Password  transaction  #transaction modal
 
 User Claims Multiple Results
   [Arguments]  ${p_type}
@@ -184,7 +184,7 @@ User Claims Multiple Results
   \  Wait And Click Element  ${t_locator}
   \  Wait Until Element Should Contain  ${PROPOSAL_CONFIRMING_CLAIM_BTN}  ${t_label}/${t_counter[0]}
   \  Wait And Click Element  ${PROPOSAL_CONFIRMING_CLAIM_BTN}
-  \  User Submits Keystore Password  #transaction modal
+  \  User Submits Keystore Password    transaction  #transaction modal
   \  Sleep  2 seconds
 
 #========#

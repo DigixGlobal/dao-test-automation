@@ -2,7 +2,7 @@
 Library     ../custom/internal_json.py
 Library     ../custom/internal_eth.py
 
- *** Variables ***
+*** Variables ***
 ${CONTRACT_PATH}  ${CURDIR}../../../../../dao-contracts/build/contracts/
 ${TESTDATA_PATH}  /../testdata/keystores/
 *** Keywords ***
