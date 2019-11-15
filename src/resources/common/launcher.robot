@@ -10,7 +10,7 @@ ${LOCAL_DAO_INFO_URL}  http://localhost:3001/daoInfo
 ${PRICE_FEED_URL}  https://min-api.cryptocompare.com/data/pricemulti?fsyms=DGD,DGX,ETH&tsyms=USD
 ${LOCAL_LABEL}  LOCAL
 ${ENVIRONMENT}  LOCAL
-${LOCAL_SPEED}  0.1 s
+${LOCAL_SPEED}  0.2 s
 ${REMOTE_SPEED}  0.2 s
 ${HEADLESS}  yes
 ${HEIGHT}  1080
@@ -87,9 +87,11 @@ Set Browser Size
   ...  Maximize Browser Window
   ...  ELSE  Set Window Size  ${WIDTH}  ${HEIGHT}
 
-Enable Download On Headless Browser
-  ${t_library}=  Get Library Instance    SeleniumLibrary
-  ${t_driver}=  Call Method  ${t_library}  _current_browser
+# Enable Download On Headless Browser
+  ${t_library}=  Get Library Instance  name=SeleniumLibrary  all=True
+  Log To Console  ${t_library}
+  ${t_driver}=  Call Method  ${t_library}  driver
+  Log To Console  ${t_driver}
   ${t_path}=  Normalize Path  ~/Downloads/
   Enable Download In Headless Chrome    ${t_driver}  ${t_path}
 

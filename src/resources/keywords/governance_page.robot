@@ -12,6 +12,7 @@ Resource    ../variables/governance_constants.robot
 Pull Profile Stats Data
   Wait Until Element Should Be Visible  ${STAT_QUARTER_OVERVIEW_DIV}
   Wait And Click Element  ${USER_STATISTIC_TOGGLE}
+  Sleep  1.5 seconds
   ${t_mod}=  Run Keyword And Return Status  Should Contain  ${TEST NAME}  Moderator
   ${t_mod_pt}=  Run Keyword If  ${t_mod}
   ...  Get Text  ${STAT_MODERATOR_POINT}
@@ -114,15 +115,17 @@ Project Creator Name Should Be Visible
   Wait Until Element Should Contain  ${PROPOSAL_CARD}:eq(0) ${PROPOSAL_AUTHOR}  ${s_PROJECT_CREATOR.upper()}
 
 Quarter Points Should Increase
+  Sleep  1.5 seconds
   Wait Until Element Should Be Visible  ${STAT_QUARTER_OVERVIEW_DIV}
-  Wait And Click Element  ${USER_STATISTIC_TOGGLE}
+  Click Element  ${USER_STATISTIC_TOGGLE}
   ${t_pt}=  Evaluate  ${s_QUARTER_PTS} + 1
   ${t_str}=  Convert To String  ${t_pt}
   Wait Until Element Should Contain  ${STAT_QUARTER_POINT}  ${t_str}
 
 Moderator Quarter Points Should Increase
+  Sleep  1.5 seconds
   Wait Until Element Should Be Visible  ${STAT_QUARTER_OVERVIEW_DIV}
-  Wait And Click Element  ${USER_STATISTIC_TOGGLE}
+  Click Element  ${USER_STATISTIC_TOGGLE}
   ${t_pt}=  Evaluate  ${s_MOD_QP} + 1
   ${t_str}=  Convert To String  ${t_pt}
   Wait Until Element Should Contain  ${STAT_MODERATOR_POINT}  ${t_str}
@@ -171,6 +174,7 @@ Approve Metamask Interaction
 Switch "${e_TAB}" Tab To Update Content
   Wait Until Element Should Be Visible  ${GOVERNANCE_FILTER_SECTION}
   Modify Element Attribute Via jQuery  ${GOVERNANCE_MENU}  display  none
+  Hide SnackBar
   Wait And Click Element  ${ARCHIVED_TAB}
   Wait And Click Element  ${${e_TAB}_TAB}
 
@@ -189,6 +193,7 @@ User Should Be Able To Participate On Proposal
   ...  Launch Digix Website  ${s_ENTRY_POINT}  ${ENVIRONMENT}  ${e_USER}
   "${e_USER}" Submits "${e_WALLET_TYPE}" Wallet
   Set Suite Variable  ${s_WALLET_TYPE}  ${e_WALLET_TYPE}
+  Sleep  5 seconds
 
 Launch Governance Website
   [Arguments]  ${p_user_alias}=${ALIAS}
