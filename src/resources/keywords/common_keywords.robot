@@ -51,6 +51,7 @@ Get Max Limit Funding
 Repeat Until Newly Created Project Is On "${e_TAB}" Tab
   Wait Until Element Should Be Visible  ${PROPOSAL_CARD}:eq(0) h2
   :FOR  ${index}  IN RANGE  0  5
+  \  Sleep  1.5 seconds
   \  ${t_titles}=  Get WebElements  ${PROPOSAL_TITLE}
   \  Assert Title Is Visible In List  ${t_titles}
   # \  ${t_status}=  Run Keyword And Return Status

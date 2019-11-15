@@ -25,12 +25,18 @@ ${ADDRESS_LABEL}  css=[data-digix="Header-Address"]
 ${LOAD_WALLET_BTN}  css=[data-digix="Header-LoadWallet"]
 
 #User Statistics Component (dashboard & profile)
-${USER_STATISTIC_DIV}    css=[class*="UserStats"]
+${USER_STATISTIC_DIV}    css=[data-digix="User-Address-Stats"]
+${USER_STATISTIC_TOGGLE}  css=[data-digix="Stat-Toggle"]
+${STAT_QUARTER_OVERVIEW_DIV}  css=[data-digix="Quarter-Overview"]
+${STAT_ELLAPSED_DAY_COUNT}  css=[data-digix="Dashboard-Timeline-DaysEllpased"]
+${STAT_TOTAL_LOCK_STAKE_POINT}  css=[data-digix="Dashboard-Timeline-LockedStakes"]
+${STAT_REMAINING_FUNDS_POINT}  css=[data-digix="Dashboard-Timeline-RemainingFunds"]
+${STAT_FUNDS_CONVERSION_POINT}  css=[data-digix="Dashboard-Timeline-RemainingPrice"]
 ${STAT_QUARTER_POINT}     css=[data-digix="Dashboard-Stats-QuarterPoints"]
 ${STAT_REPUTATION_POINT}  css=[data-digix="Dashboard-Stats-ReputationPoints"]
-${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Locked-Stake"]
-${STAT_LOCKED_DGD_POINT}  css=[data-digix="Dashboard-Locked-DGD"]
-${STAT_MODERATOR_POINT}   css=[data-digix="Dashboard-Mod-QtrPts"]
+${STAT_MYSTAKE_POINT}     css=[data-digix="Dashboard-Stats-Stake"]
+${STAT_LOCKED_DGD_POINT}  css=[data-digix="Dashboard-Stats-LockedDGD"]
+${STAT_MODERATOR_POINT}   css=[data-digix="Dashboard-Stats-ModQtrPts"]
 
 #Dashboard Filter Component
 ${GOVERNANCE_FILTER_SECTION}  css=div[class*="FilterWrapper"]

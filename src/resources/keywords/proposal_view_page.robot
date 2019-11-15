@@ -39,7 +39,7 @@ ${PROPOSAL_CLAIM_NOTIF_BANNER}  css=[class*="Notifications"]
 # Voting Accordion Component
 ${ACTIVE_ACCORDION_ITEM}  jquery=[data-digix="Timer-Progress"]
 ${VOTE_USER_COUNT}  css=[data-digix="Vote-User-Count"]
-${TIMER_DIV}  [data-digix="Vote-Countdown-Timer"]:first  #[class*="QuorumInfoCol"]:first span:last
+${TIMER_DIV}  [data-digix="Vote-Countdown-Timer"]  #[class*="QuorumInfoCol"]:first span:last
 ${TIMER_ENDED_DIV}  [data-digix="Vote-Countdown-Ended"]
 ${VOTE_YES_COUNT}  css=[data-digix="Vote-Yes-Count"]
 ${VOTE_NO_COUNT}  css=[data-digix="Vote-No-Count"]
@@ -67,7 +67,7 @@ User Go Back To Previous Version
   Hide Governance Header Menu
   Wait And Click Element  ${PROPOSAL_VERSION_PREVIOUS}
 
- User Aborts The Project
+User Aborts The Project
   User Revisits Newly Created Proposal
   Wait And Click Element  ${PROPOSAL_ABORT_BTN}
   User Submits Keystore Password  #transaction modal
@@ -105,7 +105,7 @@ User Adds Additional Documents
   ...  Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(0)  #Yes vote button
   ...  ELSE IF  "${e_RESPONSE}"=="No"
   ...  Click Element  ${GOVERNANCE_SIDE_PANEL} button:eq(1)  #No vote button
-  Enable Download On Headless Browser
+  # Enable Download On Headless Browser
   Wait And Click Element  ${GOVERNANCE_SIDE_PANEL} a:eq(0)  #Download Json File button
   ${t_name}=  Get Element Attribute  ${GOVERNANCE_SIDE_PANEL} a:eq(0)  download
   ${t_salt}=  Replace String  ${t_name}  :  _
@@ -250,13 +250,13 @@ Replace Salt File According To User Role
 "${e_ACTION}" "${e_USER}" Salt File
   ${t_file}=  Normalize Path  ~/Downloads/${e_USER}${SALT_FILE_EXT}
   Run Keyword If  "${e_ACTION}"=="Upload"  Run Keywords
-  ...  Wait Until Element Should Be Visible  ${GOVERNANCE_SIDE_PANEL}
+  ...  Wait Until Element Should Be Visible  css=[for="json-upload"]
   ...  AND  Choose File  ${SALT_JSON_UPLOAD_BTN}  ${t_file}
   ...  ELSE  Remove File  ${t_file}
 
 Get Remaining Time To Execute Next Step
-  Wait Until Element Should Be Visible  ${ACTIVE_ACCORDION_ITEM} ${TIMER_DIV}
-  ${t_text}=  Get Text  ${ACTIVE_ACCORDION_ITEM} ${TIMER_DIV}
+  Wait Until Element Should Be Visible  ${ACTIVE_ACCORDION_ITEM} ${TIMER_DIV}:eq(0)
+  ${t_text}=  Get Text  ${ACTIVE_ACCORDION_ITEM} ${TIMER_DIV}:eq(0)
   Set Global Variable  ${g_TIMER}  ${t_text}
 
 Sleep Until Timer Runs Out
